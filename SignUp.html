@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="mobile-container">
+        <h1>Sign Up</h1>
+        <form class="signup-form">
+            <div class="number">
+                <label for="number">Mobile Number</label>
+                <input type="tel" id="number" placeholder="08123456789" required>
+            </div>
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="abc123@gmail.com" required>
+            </div>
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required minlength="6">
+            </div>
+            <div class="confirmpassword">
+                <label for="confirmpassword">Confirm Password</label>
+                <input type="password" id="confirmpassword" placeholder="••••••••" required minlength="6">
+            </div>
+            <button type="submit">Sign Up</button>
+            <div class="login-link">
+                Already have an account? <b><a href="LogIn.html">Log in</a></b>
+            </div>
+            
+            <!-- incase we are to use the social login below -->
+            <!-- <div class="divider">or</div> -->
+            
+             <!-- The Google and apple social login incase we are to use -->
+            <!-- <div class="social-buttons">
+                <button type="button" class="social-btn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <button type="button" class="social-btn">
+                    <i class="fab fa-apple"></i> Continue with Apple
+                </button>
+            </div> -->
+            
+        </form>
+    </div>
+</body>
+
+
+<!-- <body>
+    <div class="mobile-container">
+        <h1>Sign Up</h1>
+        <div class="signup-form">
+            <div class="number">
+                <label for="number">Enter your mobile number</label> <br>
+                <input type="number" placeholder="08123456789" />
+            </div>
+            <div class="email">
+                <label>Enter your email</label><br>
+                <input type="email" placeholder="abc123@gmail.com"/>
+            </div>
+            <div class="password">
+                <label for="password">Enter your password</label> <br>
+                <input type="password">
+            </div>
+            <div class="confirmpassword">
+                <label>Confirm your password</label> <br>
+                <input type="password">
+            </div>
+            <button>Sign Up</button>
+
+            <div>
+                <p>Don't have an account? <b>Log in</b></p> 
+                <p>or</p>
+                <button>Continue with Google</button><br>
+                <button>Continue with Apple</button>
+            </div>
+        </div>
+    </div>
+</body> -->
+
+</html>
