@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@font-face {
+  font-family: "Chubbo";
+  src: url("../assets/fonts/Chubbo_Complete/Fonts/TTF/Chubbo-Variable.ttf");
+}
+@font-face {
+  font-family: "Supreme";
+  src: url("../assets/fonts/Supreme_Complete/Fonts/TTF/Supreme-Variable.ttf");
+}
+@import "tailwindcss";
+
+
+
+@theme {
+    --font-jakarta: "Plus Jakarta Sans", sans-serif; 
+    --font-chubbo: "Chubbo", sans-serif;
+    --font-supreme: "Supreme", sans-serif;
+}
