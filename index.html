@@ -10,7 +10,7 @@
     </head>
 
     <body class="font-jakarta bg-[#F0EFFB]">
-        <div class="w-[425px] mx-auto bg-white md:my-[10px] md:rounded-xl min-h-screen">
+        <div class="max-w-[425px] mx-auto bg-white md:my-[10px] md:rounded-xl min-h-screen">
             <header class="flex justify-between  border-b-2 border-[#F0EFFB] py-[12px] px-[30px]">
                 <div class="flex items-center font-chubbo">
                     <img src="assets/images/logo.png" class="h-[32px]">
@@ -34,15 +34,12 @@
             <section>
                 <div
                     class="w-[90%] place-self-center bg-white my-[30px] shadow-[0_64px_24px_38px_rgba(0,9,41,4%)] rounded-[12px]">
-                    <div class="text-center border-b-2 border-[#F0EFFB] text-[18px] font-[400]  grid grid-cols-3">
+                    <div class="text-center border-b-2 border-[#F0EFFB] text-[18px] font-[400]  grid grid-cols-2">
                         <div id="rentTab" class="selectedTab1">
                             Rent
                         </div>
                         <div id="buyTab">
                             Buy
-                        </div>
-                        <div id="sellTab">
-                            Sell
                         </div>
                     </div>
                     <div class="flex justify-between items-center py-[10px] px-[20px] ">
@@ -108,7 +105,7 @@
                     </a>
                 </div>
 
-                <div class="bg-[#EC704A0D] px-[25px]">
+                <div id="about" class="bg-[#EC704A0D] px-[25px]">
                     <h1 class="text-[32px] text-[#100A55] font-[700]">
                         More About Us
                     </h1>
@@ -176,10 +173,10 @@
                 <h1>
                     Contacts
                 </h1>
-                <h1>
+                <h1 id="aboutUs">
                     About Us
                 </h1>
-                <img src="assets/images/Social-Media-Icon.png" class="w-[40%] place-self-center">
+                <!-- <img src="assets/images/Social-Media-Icon.png" class="w-[40%] place-self-center"> -->
                 <p class="pt-[15px]">@FutminnaStartupCampus</p>
             </footer>
         </div>
@@ -189,17 +186,10 @@
         document.getElementById("rentTab").addEventListener("click", function () {
             document.getElementById("rentTab").classList.add("selectedTab1");
             document.getElementById("buyTab").classList.remove("selectedTab1");
-            document.getElementById("sellTab").classList.remove("selectedTab1");
         });
         document.getElementById("buyTab").addEventListener("click", function () {
             document.getElementById("buyTab").classList.add("selectedTab1");
             document.getElementById("rentTab").classList.remove("selectedTab1");
-            document.getElementById("sellTab").classList.remove("selectedTab1");
-        });
-        document.getElementById("sellTab").addEventListener("click", function () {
-            document.getElementById("sellTab").classList.add("selectedTab1");
-            document.getElementById("rentTab").classList.remove("selectedTab1");
-            document.getElementById("buyTab").classList.remove("selectedTab1");
         });
         document.getElementById("tenantTab").addEventListener("click", function () {
             document.getElementById("tenantTab").classList.add("selectedTab2");
@@ -215,6 +205,14 @@
                 behavior: "smooth"
             });
         });
+
+        document.getElementById("aboutUs").addEventListener("click", function () {
+            window.scrollTo({
+                top: document.getElementById("about").offsetTop,
+                behavior: "smooth"
+            });
+        });
+
     </script>
 
 </html>

@@ -287,11 +287,29 @@
   .table {
     display: table;
   }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
+  }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
+  }
+  .h-55 {
+    height: calc(var(--spacing) * 55);
+  }
+  .h-60 {
+    height: calc(var(--spacing) * 60);
+  }
   .h-\[10px\] {
     height: 10px;
   }
   .h-\[13px\] {
     height: 13px;
+  }
+  .h-\[26px\] {
+    height: 26px;
   }
   .h-\[32px\] {
     height: 32px;
@@ -320,11 +338,20 @@
   .min-h-screen {
     min-height: 100vh;
   }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-32 {
+    width: calc(var(--spacing) * 32);
+  }
   .w-\[40\%\] {
     width: 40%;
   }
   .w-\[48px\] {
     width: 48px;
+  }
+  .w-\[80\%\] {
+    width: 80%;
   }
   .w-\[88px\] {
     width: 88px;
@@ -350,11 +377,17 @@
   .max-w-\[360px\] {
     max-width: 360px;
   }
+  .max-w-\[425px\] {
+    max-width: 425px;
+  }
   .border-collapse {
     border-collapse: collapse;
   }
   .resize {
     resize: both;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -406,6 +439,9 @@
   }
   .place-self-center {
     place-self: center;
+  }
+  .justify-self-center {
+    justify-self: center;
   }
   .rounded-\[10px\] {
     border-radius: 10px;
@@ -487,8 +523,17 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
   .p-6 {
     padding: calc(var(--spacing) * 6);
+  }
+  .p-\[5\%\] {
+    padding: 5%;
   }
   .p-\[5px\] {
     padding: 5px;
@@ -745,9 +790,19 @@
       outline-style: none;
     }
   }
+  .sm\:grid-cols-2 {
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   .md\:my-\[10px\] {
     @media (width >= 48rem) {
       margin-block: 10px;
+    }
+  }
+  .md\:grid-cols-3 {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .md\:rounded-xl {
