@@ -212,6 +212,9 @@
   .right-\[30px\] {
     right: 30px;
   }
+  .bottom-0 {
+    bottom: calc(var(--spacing) * 0);
+  }
   .bottom-\[-35px\] {
     bottom: -35px;
   }
@@ -334,6 +337,12 @@
   }
   .w-\[360px\] {
     width: 360px;
+  }
+  .w-\[400px\] {
+    width: 400px;
+  }
+  .w-\[425px\] {
+    width: 425px;
   }
   .w-full {
     width: 100%;
