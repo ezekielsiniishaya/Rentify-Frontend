@@ -1,0 +1,18 @@
+.selectedTab1{
+    color:#EC704A;
+    font-weight: 700;
+    padding-bottom: 12px;
+    border-color: #EC704A;
+    border-bottom-width: 3px;
+    border-style: solid;
+}
+
+.selectedTab2{
+    color: #EC704A;
+    font-weight: 700;
+    background-color:white;
+    border-color: #0E08540A;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+}
