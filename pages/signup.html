@@ -3,17 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../js/login.js"></script>
-    <!-- uncomment if the google and apple login option is used -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="../js/signup.js"></script>
   </head>
   <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
-      <h1 class="text-2xl text-center text-gray-800 mb-6 font-bold">Log In</h1>
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h1>
 
-      <form id="loginForm" class="flex flex-col gap-4">
+      <form id="signupForm" class="flex flex-col gap-4">
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Mobile Number</label>
+          <input
+            id="phone_number"
+            type="tel"
+            placeholder="08123456789"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+            required
+          />
+        </div>
+
         <div>
           <label class="block text-sm text-gray-600 mb-1">Email</label>
           <input
@@ -30,27 +43,36 @@
           <input
             id="password"
             type="password"
+            minlength="6"
             placeholder="••••••••"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
             required
           />
-          <a
-            href="#"
-            class="text-right block text-sm text-[#EC704A] mt-1 hover:underline"
-            >Forgot Password?</a
+        </div>
+
+        <div>
+          <label class="block text-sm text-gray-600 mb-1"
+            >Confirm Password</label
           >
+          <input
+            id="confirm_password"
+            type="password"
+            minlength="6"
+            placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+            required
+          />
         </div>
 
         <button
           type="submit"
           class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors"
         >
-          Log In
+          Sign Up
         </button>
 
         <!-- Uncomment if we are going to use the google and apple login option -->
-        <!--       
-      <div class="text-center text-gray-500 my-2">or</div>
+        <!-- <div class="text-center text-gray-500 my-2">or</div>
       
       <div class="flex flex-col gap-3">
         <button 
@@ -70,12 +92,12 @@
         </button>
       </div> -->
 
-        <p class="text-center text-sm mt-4">
-          Don't have an account?
+        <p class="text-center text-sm text-gray-600 mt-4">
+          Already have an account?
           <a
-            href="signup.html"
+            href="login.html"
             class="text-[#EC704A] font-semibold hover:underline"
-            >Sign up</a
+            >Log in</a
           >
         </p>
       </form>
