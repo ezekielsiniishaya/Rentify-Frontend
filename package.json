@@ -3,14 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve . -l 3000"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Rentify frontend codes",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.7",
     "tailwindcss": "^4.1.7"
-  }
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezekielsiniishaya/Rentify-Frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ezekielsiniishaya/Rentify-Frontend/issues"
+  },
+  "homepage": "https://github.com/ezekielsiniishaya/Rentify-Frontend#readme"
 }
