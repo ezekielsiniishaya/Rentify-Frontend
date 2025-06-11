@@ -9,7 +9,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <script src="../js/signup.js"></script>
   </head>
   <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
@@ -26,11 +25,21 @@
             required
           />
         </div>
-
-        <div>
-          <label class="block text-sm text-gray-600 mb-1">Email</label>
+        <!-- Name (for tenants only) -->
+        <div class="hidden text-sm text-gray-600 mb-1" id="name">
+          <label class="block text-sm text-gray-600 mb-1">Name</label>
           <input
-            id="email"
+            type="text"
+            id="nameField"
+            placeholder="Full Name"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A]"
+          />
+        </div>
+        <!-- Email (for landlords only) -->
+        <div class="hidden text-sm text-gray-600 mb-1" id="email">
+          <label class="text-sm text-gray-600 mb-1">Email</label>
+          <input
+            id="emailField"
             type="email"
             placeholder="abc123@gmail.com"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
@@ -73,24 +82,24 @@
 
         <!-- Uncomment if we are going to use the google and apple login option -->
         <!-- <div class="text-center text-gray-500 my-2">or</div>
-      
-      <div class="flex flex-col gap-3">
-        <button 
-          type="button" 
-          class="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-        >
-          <i class="fab fa-google text-red-500"></i>
-          Continue with Google
-        </button>
         
-        <button 
-          type="button" 
-          class="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-        >
-          <i class="fab fa-apple text-gray-800"></i>
-          Continue with Apple
-        </button>
-      </div> -->
+        <div class="flex flex-col gap-3">
+          <button 
+            type="button" 
+            class="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+          >
+            <i class="fab fa-google text-red-500"></i>
+            Continue with Google
+          </button>
+          
+          <button 
+            type="button" 
+            class="flex items-center justify-center gap-2 w-full py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+          >
+            <i class="fab fa-apple text-gray-800"></i>
+            Continue with Apple
+          </button>
+        </div> -->
 
         <p class="text-center text-sm text-gray-600 mt-4">
           Already have an account?
@@ -102,5 +111,6 @@
         </p>
       </form>
     </div>
+    <script src="../js/signup.js"></script>
   </body>
 </html>

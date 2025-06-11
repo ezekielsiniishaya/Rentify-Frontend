@@ -21,24 +21,29 @@
       </div>
       <div class="p-[30px]">
         <h2 class="text-[18px]">Continue as</h2>
-        <a href="signup.html">
-          <div
-            class="h-[114px] place-content-center shadow-[0_4px_2px_1px_rgba(240,239,251,1)] rounded-b-xl place-items-center flex justify-between px-[10%]"
-          >
-            <span class="text-[20px]">Landlord</span>
-            <img class="h-[44px]" src="../assets/images/roundArrow.png" />
-          </div>
-        </a>
-        <a href="signup.html">
-          <div
-            class="h-[114px] place-content-center rounded-b-xl shadow-[0_4px_2px_1px_rgba(240,239,251,1)] mt-[20px] place-items-center flex justify-between px-[10%]"
-          >
-            <span class="text-[20px]">Tenant</span>
-            <img class="h-[44px]" src="../assets/images/roundArrow.png" />
-          </div>
-        </a>
-      </div>
 
+        <div
+          onclick="selectUserType('landlord')"
+          class="h-[114px] place-content-center shadow-[0_4px_2px_1px_rgba(240,239,251,1)] rounded-b-xl place-items-center flex justify-between px-[10%]"
+        >
+          <span class="text-[20px]">Landlord</span>
+          <img class="h-[44px]" src="../assets/images/roundArrow.png" />
+        </div>
+
+        <div
+          onclick="selectUserType('tenant')"
+          class="h-[114px] place-content-center rounded-b-xl shadow-[0_4px_2px_1px_rgba(240,239,251,1)] mt-[20px] place-items-center flex justify-between px-[10%]"
+        >
+          <span class="text-[20px]">Tenant</span>
+          <img class="h-[44px]" src="../assets/images/roundArrow.png" />
+        </div>
+      </div>
+      <script>
+        function selectUserType(type) {
+          localStorage.setItem("userType", type); // Save the choice
+          window.location.href = "signup.html";
+        }
+      </script>
       <footer class="text-center h-[40px] content-end w-full absolute bottom-0">
         <span class="text-[13px]">@FutminnaStartupCampus</span>
       </footer>
