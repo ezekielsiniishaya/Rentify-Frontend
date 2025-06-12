@@ -1,24 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve the user type from localStorage (set during onboarding)
   const userType = localStorage.getItem("userType");
-  const form = document.getElementById("loginForm");
-  const phoneField = document.getElementById("phone_number");
+
+  const nameField = document.getElementById("name");
+  const nameInput = document.getElementById("name_input");
+
   const emailField = document.getElementById("email");
+  const emailInput = document.getElementById("email_input");
+const form = document.getElementById("loginForm");
 
-  console.log(userType); // Debugging: Log the user type
-
-  // Show relevant fields based on the user type
   if (userType === "tenant") {
-    // Show the phone field for tenants
-    phoneField.classList.remove("hidden");
+    // Show name and phone number fields
+    nameField.classList.remove("hidden");
+    nameInput.disabled = false;
+    nameInput.required = true;
   } else if (userType === "landlord") {
-    // Show the email field for landlords
+    // Show email and phone number fields
     emailField.classList.remove("hidden");
+    emailInput.disabled = false;
+    emailInput.required = true;
   } else {
-    // Redirect to onboarding if user type is not set
     alert("User type not selected. Please go back to onboarding.");
     window.location.href = "onboarding.html";
-    return;
   }
 
   // Handle form submission
