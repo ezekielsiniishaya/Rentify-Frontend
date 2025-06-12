@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const userType = localStorage.getItem("userType");
 
-  const nameField = document.getElementById("name");
-  const nameInput = document.getElementById("name_input");
+  const phoneField = document.getElementById("phone_number");
+  const phoneInput = document.getElementById("phone_number_input");
 
   const emailField = document.getElementById("email");
   const emailInput = document.getElementById("email_input");
-const form = document.getElementById("loginForm");
+  const form = document.getElementById("loginForm");
 
   if (userType === "tenant") {
     // Show name and phone number fields
-    nameField.classList.remove("hidden");
-    nameInput.disabled = false;
-    nameInput.required = true;
+    phoneField.classList.remove("hidden");
+    phoneInput.disabled = false;
+    phoneInput.required = true;
   } else if (userType === "landlord") {
     // Show email and phone number fields
     emailField.classList.remove("hidden");
@@ -68,7 +68,7 @@ const form = document.getElementById("loginForm");
       } else {
         // Handle server-side errors
         console.error("Server Error:", data);
-        alert(data.message || "An error occurred on the server.");
+        alert(data.error || "An error occurred on the server."); // Display server error message
       }
     } catch (error) {
       // Handle client-side or network errors
