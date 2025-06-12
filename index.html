@@ -6,6 +6,17 @@
     <link href="css/output.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" type="image/png" href="assets/images/Frame.svg" />
+    <title>Rentify</title>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
 
   <body class="font-jakarta bg-[#F0EFFB]">
@@ -190,13 +201,13 @@
           id="toTop"
           src="assets/images/toTopIcon.png"
           class="place-self-center"
-        />
-        <h1>Contacts</h1>
+        /><a href="javascript:void(0);"> <h1 id="feedback">Contact Us</h1></a>
         <h1 id="aboutUs">About Us</h1>
         <!-- <img src="assets/images/Social-Media-Icon.png" class="w-[40%] place-self-center"> -->
         <p class="pt-[15px]">@FutminnaStartupCampus</p>
       </footer>
     </div>
+    <script src="js/feedback.js"></script>
   </body>
   <script>
     document.getElementById("rentTab").addEventListener("click", function () {
