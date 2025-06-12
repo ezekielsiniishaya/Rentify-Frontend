@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Function to display beautiful errors
+  function showError(message) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorMessage = document.getElementById("errorMessage");
+
+    errorMessage.textContent = message;
+    errorContainer.classList.remove("hidden");
+
+    // Auto-hide after 5 seconds
+    setTimeout(hideError, 5000);
+  }
+  // Function to show success messages
+  function showSuccess(message) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorMessage = document.getElementById("errorMessage");
+
+    // Change styling for success message
+    errorContainer.className =
+      "mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700";
+    errorMessage.textContent = message;
+    errorContainer.classList.remove("hidden");
+
+    // Auto-hide after 3 seconds
+    setTimeout(hideError, 3000);
+  }
+
+  // Function to hide errors
+  function hideError() {
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.classList.add("hidden");
+  }
   const userType = localStorage.getItem("userType");
 
   const phoneField = document.getElementById("phone_number");
@@ -19,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emailInput.disabled = false;
     emailInput.required = true;
   } else {
-    alert("User type not selected. Please go back to onboarding.");
+    showError("User type not selected. Please go back to onboarding.");
     window.location.href = "onboarding.html";
   }
 
@@ -61,19 +92,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (res.ok) {
         // Login successful
-        alert("Login successful!");
+        showSuccess("Login successful!");
         localStorage.setItem("token", data.token); // Save the token
         localStorage.setItem("userType", userType); // Re-save user type if needed
         window.location.href = "home.html"; // Redirect to the home page
       } else {
         // Handle server-side errors
         console.error("Server Error:", data);
-        alert(data.error || "An error occurred on the server."); // Display server error message
+        showError(data.error || "An error occurred on the server."); // Display server error message
       }
     } catch (error) {
       // Handle client-side or network errors
       console.error("Error:", error);
-      alert("Server connection error.");
+      showError("Server connection error.");
     }
   });
 });

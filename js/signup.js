@@ -6,7 +6,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailField = document.getElementById("email");
 
   console.log(userType); // Debugging: Log the user type
+  // Function to display beautiful errors
+  function showError(message) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorMessage = document.getElementById("errorMessage");
 
+    errorMessage.textContent = message;
+    errorContainer.classList.remove("hidden");
+
+    // Auto-hide after 5 seconds
+    setTimeout(hideError, 5000);
+  }
+  // Function to show success messages
+  function showSuccess(message) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorMessage = document.getElementById("errorMessage");
+
+    // Change styling for success message
+    errorContainer.className =
+      "mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700";
+    errorMessage.textContent = message;
+    errorContainer.classList.remove("hidden");
+
+    // Auto-hide after 3 seconds
+    setTimeout(hideError, 3000);
+  }
+
+  // Function to hide errors
+  function hideError() {
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.classList.add("hidden");
+  }
   // Show relevant fields based on the user type
   if (userType === "tenant") {
     nameField.classList.remove("hidden"); // Show name field for tenants
@@ -30,9 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("emailField")?.value?.trim();
     const name = document.getElementById("nameField")?.value?.trim();
 
-    // Validate password confirmation
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+    // Client-side validation
+
+    if (!/^(070|080|081|090|091)\d{8}$/.test(phone_number)) {
+      showError("Valid phone number required.");
       return;
     }
 
@@ -41,11 +72,32 @@ document.addEventListener("DOMContentLoaded", () => {
     let url = "";
 
     if (userType === "tenant") {
+      if (!name) {
+        showError("Name is required for tenants.");
+        return;
+      }
       body.name = name; // Add name for tenants
       url = "/api/tenants/register";
     } else if (userType === "landlord") {
+      if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+        showError("A valid email address is required.");
+        return;
+      }
+
       body.email = email; // Add email for landlords
       url = "/api/landlords/register";
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      showError("Password too short.");
+      return;
+    }
+
+    // Validate password confirmation
+    if (password !== confirmPassword) {
+      showError("Passwords do not match.");
+      return;
     }
 
     try {
@@ -60,17 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (res.ok) {
         // Registration successful
-        alert("Registration successful!");
+        showSuccess("Registration successful!");
 
         window.location.href = "login.html"; // Redirect to login page
       } else {
         // Handle server-side validation errors
-        alert(data.message || data.error || "Signup failed.");
+        showError(data.message || data.error || "Signup failed.");
       }
     } catch (error) {
       // Handle network or server errors
       console.error("Error:", error);
-      alert("Server error. Please try again.");
+      showError("Server error. Please try again.");
     }
   });
 });
