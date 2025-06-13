@@ -70,13 +70,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let url = "";
 
     if (userType === "tenant") {
+      if (!/^(070|080|081|090|091)\d{8}$/.test(phone_number)) {
+        showError("Valid phone number required.");
+        return;
+      }
       // Add phone number for tenants
       body.phone_number = phone_number;
       url = "/api/tenants/login";
     } else if (userType === "landlord") {
+      if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+        showError("A valid email address is required.");
+        return;
+      }
       // Add email for landlords
       body.email = email;
       url = "/api/landlords/login";
+    }
+    if (!password) {
+      showError("Password is required.");
+      return;
+    }
+    // Validate password length
+    if (password.length < 6) {
+      showError("Password too short.");
+      return;
     }
 
     try {

@@ -19,7 +19,7 @@
       >
         <p id="errorMessage"></p>
       </div>
-      <form id="loginForm" class="flex flex-col gap-4">
+      <form id="loginForm" class="flex flex-col gap-4" novalidate>
         <div id="phone_number" class="hidden">
           <label class="block text-sm text-gray-600 mb-1">Mobile Number</label>
           <input
@@ -45,7 +45,6 @@
             type="password"
             placeholder="••••••••"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
-            required
           />
           <a
             href="#"
