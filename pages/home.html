@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Character encoding and viewport meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary meta tags -->
     <title>Rentify - Home</title>
     <meta
       name="description"
@@ -13,11 +11,8 @@
     />
     <meta name="keywords" content="rent, rental, housing, apartments, homes" />
     <meta name="author" content="Futminna Startup Campus" />
-
-    <!-- Theme color -->
     <meta name="theme-color" content="#F0EFFB" />
 
-    <!-- Open Graph meta tags for social sharing -->
     <meta property="og:title" content="Rentify - Home" />
     <meta
       property="og:description"
@@ -30,7 +25,6 @@
     />
     <meta property="og:type" content="website" />
 
-    <!-- Stylesheets -->
     <link href="../css/output.css" rel="stylesheet" />
     <link
       rel="stylesheet"
@@ -38,7 +32,7 @@
     />
     <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
 
-    <!-- Authentication check script -->
+    <!-- Redirect if not authenticated -->
     <script>
       if (!localStorage.getItem("token")) {
         window.location.href = "/login.html";
@@ -57,29 +51,21 @@
         flex: 1;
       }
       footer {
-        margin-top: auto; /* Pushes footer to bottom */
+        margin-top: auto;
         position: sticky;
         bottom: 0;
-        background: #faf9f6; /* Match your container bg */
-        z-index: 10; /* Ensures footer stays above content */
+        background: #faf9f6;
+        z-index: 10;
       }
     </style>
-
-    <!-- Rest of your stylesheets -->
-    <link href="../css/output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
   </head>
 
   <body class="font-chubbo bg-[#F0EFFB]">
-    <!-- Wrapper div to contain everything except footer -->
     <div
-      class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6]"
+      class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6] min-h-screen"
     >
       <header class="px-[30px] pt-[10px]">
-        <h1 class="font-400 text-[24px]">Rent with ease</h1>
+        <h1 class="font-400 text-[24px] text-center">Rent with ease</h1>
         <div
           class="flex justify-between items-center gap-[5%] mt-[10px] mb-[10px]"
         >
@@ -94,7 +80,6 @@
         </div>
       </header>
 
-      <!-- Error message container -->
       <div
         id="errorContainer"
         class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
@@ -102,13 +87,11 @@
         <p id="errorMessage"></p>
       </div>
 
-      <!-- Main content (will expand to fill space) -->
       <main class="px-[30px] lodge-container pb-4">
         <!-- Lodge items will be inserted here dynamically -->
       </main>
     </div>
 
-    <!-- Footer (now forced to bottom) -->
     <footer class="text-center py-4 w-full max-w-[425px] mx-auto">
       <span class="text-[13px]">@FutminnaStartupCampus</span>
     </footer>
