@@ -1,80 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <meta name="description"
+      content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
+    <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
+    <meta name="author" content="Rentify Team">
+    <title>Rentify - Sign Up</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
+
   <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
       <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Sign Up</h1>
       <!--Error message container-->
-      <div
-        id="errorContainer"
-        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
-      >
+      <div id="errorContainer" class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
         <p id="errorMessage"></p>
       </div>
       <form id="signupForm" class="flex flex-col gap-4">
         <div>
           <label class="block text-sm text-gray-600 mb-1">Mobile Number</label>
-          <input
-            id="phone_number"
-            placeholder="08123456789"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
-          />
+          <input id="phone_number" placeholder="08123456789"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
         </div>
         <!-- Name (for tenants only) -->
         <div class="hidden text-sm text-gray-600 mb-1" id="name">
           <label class="block text-sm text-gray-600 mb-1">Name</label>
-          <input
-            type="text"
-            id="nameField"
-            placeholder="Full Name"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A]"
-          />
+          <input type="text" id="nameField" placeholder="Full Name"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A]" />
         </div>
         <!-- Email (for landlords only) -->
         <div class="hidden text-sm text-gray-600 mb-1" id="email">
           <label class="text-sm text-gray-600 mb-1">Email</label>
-          <input
-            id="emailField"
-            placeholder="abc123@gmail.com"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
-          />
+          <input id="emailField" placeholder="abc123@gmail.com"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
         </div>
 
         <div>
           <label class="block text-sm text-gray-600 mb-1">Password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
-          />
+          <input id="password" type="password" placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
         </div>
 
         <div>
-          <label class="block text-sm text-gray-600 mb-1"
-            >Confirm Password</label
-          >
-          <input
-            id="confirm_password"
-            type="password"
-            placeholder="••••••••"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
-          />
+          <label class="block text-sm text-gray-600 mb-1">Confirm Password</label>
+          <input id="confirm_password" type="password" placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
         </div>
 
-        <button
-          type="submit"
-          class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors"
-        >
+        <button type="submit"
+          class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors">
           Sign Up
         </button>
 
@@ -101,14 +79,11 @@
 
         <p class="text-center text-sm text-gray-600 mt-4">
           Already have an account?
-          <a
-            href="login.html"
-            class="text-[#EC704A] font-semibold hover:underline"
-            >Log in</a
-          >
+          <a href="login.html" class="text-[#EC704A] font-semibold hover:underline">Log in</a>
         </p>
       </form>
     </div>
     <script src="../js/signup.js"></script>
   </body>
+
 </html>
