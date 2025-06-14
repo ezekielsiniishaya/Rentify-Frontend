@@ -379,6 +379,9 @@
   .w-\[360px\] {
     width: 360px;
   }
+  .w-fit {
+    width: fit-content;
+  }
   .w-full {
     width: 100%;
   }
