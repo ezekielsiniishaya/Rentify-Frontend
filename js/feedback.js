@@ -171,11 +171,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const feedbackData = { name, phone_number, message, type, role };
 
         // Send feedback to backend API
-        const response = await fetch("http://localhost:5000/api/feedback", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(feedbackData),
-        });
+        const response = await fetch(
+          "https://rentify-backend-production-f85a.up.railway.app/api/feedback",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(feedbackData),
+          }
+        );
 
         const result = await response.json();
 
