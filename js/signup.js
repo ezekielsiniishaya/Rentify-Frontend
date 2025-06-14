@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (userType === "tenant") {
       if (!name) {
-        showError("Name is required for tenants.");
+        showError("Name is required.");
         return;
       }
       body.name = name;

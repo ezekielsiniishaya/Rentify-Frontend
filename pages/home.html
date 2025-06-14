@@ -1,22 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset=" UTF-8" />
+    <!-- Character encoding and viewport meta tags -->
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta tags -->
+    <title>Rentify - Home</title>
+    <meta
+      name="description"
+      content="Rentify - Your go-to platform for easy renting."
+    />
+    <meta name="keywords" content="rent, rental, housing, apartments, homes" />
+    <meta name="author" content="Futminna Startup Campus" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#F0EFFB" />
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="Rentify - Home" />
+    <meta
+      property="og:description"
+      content="Rentify - Your go-to platform for easy renting."
+    />
+    <meta property="og:image" content="../assets/images/Frame.svg" />
+    <meta
+      property="og:url"
+      content="https://rentify-ng.netlify.app/pages/home"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Stylesheets -->
     <link href="../css/output.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
+
+    <!-- Authentication check script -->
+    <script>
+      if (!localStorage.getItem("token")) {
+        window.location.href = "/login.html";
+      }
+      console.log(localStorage.getItem("token"));
+    </script>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .content-wrapper {
+        flex: 1;
+      }
+      footer {
+        margin-top: auto; /* Pushes footer to bottom */
+        position: sticky;
+        bottom: 0;
+        background: #faf9f6; /* Match your container bg */
+        z-index: 10; /* Ensures footer stays above content */
+      }
+    </style>
+
+    <!-- Rest of your stylesheets -->
+    <link href="../css/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
 
   <body class="font-chubbo bg-[#F0EFFB]">
+    <!-- Wrapper div to contain everything except footer -->
     <div
-      class="max-w-[425px] mx-auto md:my-[10px] md:rounded-xl min-h-screen bg-[#FAF9F6] relative"
+      class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6]"
     >
       <header class="px-[30px] pt-[10px]">
-        <h1 class="font-400 text-[24px] justify-self-center">Rent with ease</h1>
+        <h1 class="font-400 text-[24px]">Rent with ease</h1>
         <div
           class="flex justify-between items-center gap-[5%] mt-[10px] mb-[10px]"
         >
@@ -30,73 +93,26 @@
           </a>
         </div>
       </header>
-      <div class="lodge-container px-[30px]">
-        <!-- Lodge items will be dynamically inserted here -->
+
+      <!-- Error message container -->
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
+        <p id="errorMessage"></p>
       </div>
 
-      <footer
-        class="text-center h-[60px] content-end w-full static bottom-0 justify-anchor-center"
-      >
-        <span class="text-[13px]">@FutminnaStartupCampus</span>
-      </footer>
+      <!-- Main content (will expand to fill space) -->
+      <main class="px-[30px] lodge-container pb-4">
+        <!-- Lodge items will be inserted here dynamically -->
+      </main>
     </div>
+
+    <!-- Footer (now forced to bottom) -->
+    <footer class="text-center py-4 w-full max-w-[425px] mx-auto">
+      <span class="text-[13px]">@FutminnaStartupCampus</span>
+    </footer>
+
+    <script src="../js/home.js"></script>
   </body>
-  <script>
-    const lodges = [
-      {
-        id: 1,
-        image: "house1.jpg",
-        title: "Cozy Retreat",
-        lodgeName: "Sunrise Lodge",
-        roomsAvailable: 3,
-      },
-      {
-        id: 2,
-        image: "house2.jpg",
-        title: "Urban Escape",
-        lodgeName: "Cityview Lodge",
-        roomsAvailable: 5,
-      },
-      {
-        id: 3,
-        image: "house1.jpg",
-        title: "Beachside Bliss",
-        lodgeName: "Seaside Lodge",
-        roomsAvailable: 2,
-      },
-    ];
-    function addFav(lodgeId) {
-      const lodgeElement = document.getElementById(`lodge${lodgeId}`);
-      if (lodgeElement.classList.contains("fa-solid")) {
-        lodgeElement.classList.remove("fa-solid");
-        lodgeElement.classList.add("fa-regular");
-        lodgeElement.classList.remove("text-[#ec1818]");
-      } else {
-        lodgeElement.classList.remove("fa-regular");
-        lodgeElement.classList.add("fa-solid");
-        lodgeElement.classList.add("text-[#ec1818]");
-      }
-      // Function to handle adding to favorites
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-      const lodgeContainer = document.querySelector(".lodge-container");
-      lodges.forEach((lodge) => {
-        const lodgeElement = document.createElement("div");
-        lodgeElement.classList.add("lodge-item");
-        lodgeElement.classList.add("mt-[10px]");
-        lodgeElement.classList.add("max-width-[320px]");
-        lodgeElement.innerHTML = `
-                    <img src="../assets/images/${lodge.image}" alt="${lodge.title}"" class="w-full h-60 rounded-xl">
-                    <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
-                        <div>
-                            <h3>${lodge.lodgeName}</h3>
-                            <p class="text-[#444343]">${lodge.roomsAvailable} rooms available</p>
-                        </div>
-                    <i id="lodge${lodge.id}" class="fa-regular fa-heart text-[24px]" onclick= addFav(${lodge.id})></i>
-                    </div>
-                `;
-        lodgeContainer.appendChild(lodgeElement);
-      });
-    });
-  </script>
 </html>

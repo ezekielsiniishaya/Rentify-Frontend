@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function showError(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");
-        errorMessage.textContent = message;
+    errorMessage.textContent = message;
     errorContainer.classList.remove("hidden");
 
     // Auto-hide after 5 seconds
@@ -124,4 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
       showError("Server connection error.");
     }
   });
+  // Logout
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userType");
+    showSuccess("Logged out successfully.");
+    window.location.href = "login.html";
+  }
+
 });
