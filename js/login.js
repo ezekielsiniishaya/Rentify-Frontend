@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
   // Function to display beautiful errors
   function showError(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");
-    const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
-    errorMessage.textContent = message;
+        errorMessage.textContent = message;
     errorContainer.classList.remove("hidden");
 
     // Auto-hide after 5 seconds
