@@ -1,5 +1,5 @@
-// 📁 favorite.js
-
+// favorite.js
+const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
 // Reusable error and success message handlers
 function showError(message) {
   const container = document.getElementById("errorContainer");
@@ -45,14 +45,11 @@ async function fetchFavorites() {
   const lodgeContainer = document.querySelector(".lodge-container");
 
   try {
-    const response = await fetch(
-      "http://localhost:5000/api/lodges/tenant/favorite",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/lodges/tenant/favorite`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to load favorites.");
 
@@ -96,15 +93,12 @@ async function removeFavorite(lodgeId, iconElement) {
   if (!token) return showError("Login required.");
 
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/lodges/${lodgeId}/favorite`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/lodges/${lodgeId}/favorite`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to remove favorite.");
 

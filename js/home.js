@@ -50,14 +50,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       hideError(); // Ensure this is a defined function
 
-      const response = await fetch(
-        `http://localhost:5000/api/lodges/verified`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/lodges/verified`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) throw new Error("Failed to fetch lodges");
 
@@ -113,6 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
   async function addFav(lodgeId) {
+    hideError();
     const token = localStorage.getItem("token");
     if (!token) {
       showError("Please login to add to favorites.");
@@ -121,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/lodges/${lodgeId}/favorite`,
+        `${BASE_URL}/api/lodges/${lodgeId}/favorite`,
         {
           method: "POST",
           headers: {
