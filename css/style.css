@@ -16,3 +16,154 @@
     border-width: 3px;
     border-radius: 15px;
 }
+/* Landlord Profile Styles */
+.font-supreme {
+    font-family: "Supreme Variable", sans-serif;
+}
+
+.profile-image-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.camera-button {
+    width: 18px;
+    height: 18px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #4b5563;
+    position: relative;
+    right: 0;
+    bottom: 0;
+    transform: translate(375%, -100%);
+    border: 2px solid white;
+}
+
+.camera-button i {
+    font-size: 12px;
+}
+
+.nav-dots {
+    border: #4b5563 1px solid;
+    width: 45px;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
+    position: absolute;
+    transform: translate(350%, 10%);
+}
+
+.dot {
+    width: 25px;
+    height: 1px;
+    background-color: black;
+}
+
+.tp-email {
+    margin-top: 7px;
+    font-size: 11px;
+}
+
+.personal-details-section {
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 1rem;
+    margin-top: 30px;
+    color: #000000;
+}
+
+.personal-details {
+    background-color: #f6f6f6;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 18px;
+    margin-top: 10px;
+}
+
+.detail-item {
+    display: grid;
+    grid-template-columns: 160px auto;
+    margin-bottom: 5px;
+}
+
+.listing-section {
+    margin-top: 30px;
+    font-family: sans-serif;
+}
+
+.listing-image-container {
+    width: 340px;
+    height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin: 30px auto 16px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.listing-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 12px;
+}
+
+.section-title-listing {
+    margin-left: 25px;
+}
+
+.listing-heading {
+    display: grid;
+    grid-template-columns: 280px auto;
+    margin-bottom: 5px;
+    margin-left: 25px;
+}
+.verify {
+    background-color: #22c55e;
+    color: white;
+    border-radius: 8px;
+    font-size: 10px;
+    padding: 1px 6px;
+    display: inline-block;
+    font-weight: 500;
+}
+.not-verify {
+    background-color: #FF1500;
+    color: white;
+    border-radius: 8px;
+    font-size: 10px;
+    padding: 1px 6px;
+    display: inline-block;
+    font-weight: 500;
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landlord Profile</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-[#737070] font-supreme">
+    <div class="max-w-[425px] mx-auto px-5 py-4">
+      <!-- Top Section: Profile + Menu -->
+      <div class="relative flex flex-col items-center mb-6">
+        <!-- Nav Dots -->
+        <div class="nav-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <!-- Profile Picture -->
+        <div class="relative mb-2">
+          <div class="profile-image-container">
+            <img
+              src="../assets/images/avatar.png"
+              alt="Profile"
+              class="profile-image"
+            />
+          </div>
+          <button
+            class="camera-button absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4"
+          >
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+
+        <!-- Name and Email -->
+        <h2 class="text-2xl font-supreme text-center">John Doe</h2>
+        <p class="tp-email font-supreme text-center">johndoe@gmail.com</p>
+      </div>
+
+      <!-- Personal Details -->
+      <section class="personal-details-section">
+        <h3 class="section-title">Personal Details</h3>
+        <div class="personal-details">
+          <div class="detail-item">
+            <span class="label">Full Name:</span>
+            <span class="value">John Doe</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Gender:</span>
+            <span class="value">Male</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Address:</span>
+            <span class="value">Tunga, Niger State</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Phone Number:</span>
+            <span class="value">08012345678</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">E-mail:</span>
+            <span class="value">johndoe@gmail.com</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account Details -->
+      <section class="personal-details-section">
+        <h3 class="section-title">Account Details</h3>
+        <div class="personal-details">
+          <div class="detail-item">
+            <span class="label">Account Created:</span>
+            <span class="value">20, March 2025</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Verification Status:</span>
+            <span class="value">
+              <span class="not-verify inline-flex items-center text-green-600">
+                Not Verified
+              </span>
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Language Preference:</span>
+            <span class="value">English</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Listings -->
+      <section class="listing-section">
+        <div class="listing-heading">
+          <h3 class="value">Listings</h3>
+          <h3 class="value">Booked</h3>
+        </div>
+        <div class="listing-image-container">
+          <img
+            src="../assets/images/house1.jpg"
+            alt="Lodge Image"
+            class="listing-image"
+          />
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
