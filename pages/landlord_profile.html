@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
   </head>
 
   <body class="bg-[#737070] font-supreme">
@@ -21,10 +22,19 @@
       <!-- Top Section: Profile + Menu -->
       <div class="relative flex flex-col items-center mb-6">
         <!-- Nav Dots -->
-        <div class="nav-dots">
+        <div class="nav-dots cursor-pointer" onclick="toggleNav('topNavMenu')">
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
+        </div>
+        <!-- Top Nav Menu -->
+        <div id="topNavMenu" class="topNavMenu hidden">
+          <ul>
+            <li class="py-1"><a href="#">Dashboard</a></li>
+            <li class="py-1"><a href="#">Edit Profile</a></li>
+            <li class="py-1"><a href="#">Add Lodge</a></li>
+            <li class="py-1"><a href="#">Rentify-Home</a></li>
+          </ul>
         </div>
 
         <!-- Profile Picture -->
@@ -37,10 +47,18 @@
             />
           </div>
           <button
+            onclick="toggleNav('dp_menu')"
             class="camera-button absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4"
           >
             <i class="fa-solid fa-camera"></i>
           </button>
+          <!-- Profile Image Nav -->
+          <div id="dp_menu" class="hidden dp_menu">
+            <ul>
+              <li class="py-1"><a href="#">Change Picture</a></li>
+              <li class="py-1"><a href="#">Remove Picture</a></li>
+            </ul>
+          </div>
         </div>
 
         <!-- Name and Email -->
@@ -104,14 +122,91 @@
           <h3 class="value">Listings</h3>
           <h3 class="value">Booked</h3>
         </div>
-        <div class="listing-image-container">
-          <img
-            src="../assets/images/house1.jpg"
-            alt="Lodge Image"
-            class="listing-image"
-          />
+        <div class="lodge-container">
+          <div class="lodge-image-container relative">
+            <div class="img-dots" onclick="toggleNav('imgNavMenu')">
+              <span class="i-dot"></span>
+              <span class="i-dot"></span>
+              <span class="i-dot"></span>
+            </div>
+
+            <img
+              src="../assets/images/house1.jpg"
+              alt="Lodge Image"
+              class="lodge-image"
+            />
+            <!-- Profile Image Nav -->
+            <div id="imgNavMenu" class="hidden imgNavMenu">
+              <ul>
+                <li class="py-1"><a href="#">Edit Lodge</a></li>
+                <li class="py-1"><a href="#">Delete Lodge</a></li>
+                <li class="py-1"><a href="#">Mark Lodge as Full</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="lodge-details">
+            <h4 class="l-name">Sunrise Apartments</h4>
+            <p class="l-room">5 Rooms Left</p>
+          </div>
+          <div class="lodge-image-container">
+            <div onclick="toggleNav('imageNavMenu')" class="img-dots">
+              <span class="i-dot"></span>
+              <span class="i-dot"></span>
+              <span class="i-dot"></span>
+            </div>
+
+            <img
+              src="../assets/images/house2.jpg"
+              alt="Lodge Image"
+              class="lodge-image"
+            />
+          </div>
+
+          <div class="lodge-details">
+            <h4 class="l-name">The Barracks Lodge</h4>
+            <p class="l-room">2 Rooms Left</p>
+          </div>
         </div>
       </section>
     </div>
+    <script>
+      function toggleNav(id) {
+        const el = document.getElementById(id);
+        const isVisible = el.classList.contains("show");
+
+        // Hide all menus first
+        document
+          .querySelectorAll(
+            "#topNavMenu, #imgNavMenu, #dp_menu, #lodgeMenu1, #lodgeMenu2"
+          )
+          .forEach((menu) => menu.classList.remove("show"));
+
+        // Show clicked menu if it was not already visible
+        if (!isVisible) {
+          el.classList.add("show");
+        }
+      }
+
+      // Optional: Hide all menus when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !e.target.closest(".nav-dots") &&
+          !e.target.closest(".img-dots") &&
+          !e.target.closest("#topNavMenu") &&
+          !e.target.closest("#dp_menu") &&
+          !e.target.closest("#imgNavMenu") &&
+          !e.target.closest(".camera-button") &&
+          !e.target.closest("#lodgeMenu1") &&
+          !e.target.closest("#lodgeMenu2")
+        ) {
+          document
+            .querySelectorAll(
+              "#topNavMenu, #imgNavMenu, #dp_menu, #lodgeMenu1, #lodgeMenu2"
+            )
+            .forEach((menu) => menu.classList.remove("show"));
+        }
+      });
+    </script>
   </body>
 </html>

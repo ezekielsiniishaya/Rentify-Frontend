@@ -1,169 +1,280 @@
-.selectedTab1{
-    color:#EC704A;
-    font-weight: 700;
-    padding-bottom: 12px;
-    border-color: #EC704A;
-    border-bottom-width: 3px;
-    border-style: solid;
+/* === Tab Styles === */
+.selectedTab1,
+.selectedTab2 {
+  color: #ec704a;
+  font-weight: 700;
 }
 
-.selectedTab2{
-    color: #EC704A;
-    font-weight: 700;
-    background-color:white;
-    border-color: #0E08540A;
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 15px;
+.selectedTab1 {
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ec704a;
 }
-/* Landlord Profile Styles */
+
+.selectedTab2 {
+  background-color: white;
+  border: 3px solid #0e08540a;
+  border-radius: 15px;
+}
+
+/* === Font === */
 .font-supreme {
-    font-family: "Supreme Variable", sans-serif;
+  font-family: "Supreme Variable", sans-serif;
 }
 
+/* === Profile Image === */
 .profile-image-container {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 10px auto 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100px;
+  height: 100px;
+  margin: 10px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
+/* === Camera Button === */
 .camera-button {
-    width: 18px;
-    height: 18px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #4b5563;
-    position: relative;
-    right: 0;
-    bottom: 0;
-    transform: translate(375%, -100%);
-    border: 2px solid white;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  background: white;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform: translate(375%, -100%);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.camera-button i {
-    font-size: 12px;
+/* === Top Nav Dots === */
+.nav-dots,
+.img-dots {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  gap: 5px;
+  position: absolute;
 }
 
 .nav-dots {
-    border: #4b5563 1px solid;
-    width: 45px;
-    height: 45px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 5px;
-    margin-top: 10px;
-    margin-right: 5px;
-    position: absolute;
-    transform: translate(350%, 10%);
+  border: 1px solid #4b5563;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-right: 5px;
+  transform: translate(350%, 10%);
+}
+
+.img-dots {
+  flex-direction: row;
+  margin-top: 10px;
+  margin-right: 5px;
+  transform: translate(645%, -10%);
+}
+
+.dot,
+.i-dot {
+  background-color: black;
+  border-radius: 50%;
 }
 
 .dot {
-    width: 25px;
-    height: 1px;
-    background-color: black;
+  width: 25px;
+  height: 1px;
 }
 
+.i-dot {
+  width: 10px;
+  height: 10px;
+}
+
+/* === Email Text === */
 .tp-email {
-    margin-top: 7px;
-    font-size: 11px;
+  margin-top: 7px;
+  font-size: 11px;
 }
 
+/* === Section Styles === */
 .personal-details-section {
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-top: 20px;
+  padding: 0 24px;
+  margin-top: 20px;
 }
 
 .section-title {
-    font-size: 1rem;
-    margin-top: 30px;
-    color: #000000;
+  margin-top: 30px;
+  font-size: 1rem;
+  color: #000;
+}
+
+.section-title-listing,
+.listing-heading {
+  margin-left: 25px;
+}
+.listing-heading {
+  display: grid;
+  grid-template-columns: 280px auto;
+  margin-bottom: 5px;
+}
+.personal-details,
+.verify,
+.not-verify {
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 18px;
+  margin-top: 10px;
 }
 
 .personal-details {
-    background-color: #f6f6f6;
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 18px;
-    margin-top: 10px;
+  background-color: #f6f6f6;
 }
 
 .detail-item {
-    display: grid;
-    grid-template-columns: 160px auto;
-    margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: 160px auto;
+  margin-bottom: 5px;
 }
 
-.listing-section {
-    margin-top: 30px;
-    font-family: sans-serif;
-}
-
-.listing-image-container {
-    width: 340px;
-    height: 280px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    margin: 30px auto 16px;
-    object-fit: cover;
-    object-position: center;
-}
-
-.listing-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    border-radius: 12px;
-}
-
-.section-title-listing {
-    margin-left: 25px;
-}
-
-.listing-heading {
-    display: grid;
-    grid-template-columns: 280px auto;
-    margin-bottom: 5px;
-    margin-left: 25px;
-}
-.verify {
-    background-color: #22c55e;
-    color: white;
-    border-radius: 8px;
-    font-size: 10px;
-    padding: 1px 6px;
-    display: inline-block;
-    font-weight: 500;
-}
+/* === Verification Badges === */
+.verify,
 .not-verify {
-    background-color: #FF1500;
-    color: white;
-    border-radius: 8px;
-    font-size: 10px;
-    padding: 1px 6px;
-    display: inline-block;
-    font-weight: 500;
+  font-size: 10px;
+  padding: 1px 6px;
+  display: inline-block;
+  font-weight: 500;
+  color: white;
+}
+
+.verify {
+  background-color: #22c55e;
+}
+
+.not-verify {
+  background-color: #ff1500;
+}
+
+/* === Lodge Listings === */
+.listing-section {
+  margin-top: 30px;
+}
+
+.lodge-container {
+  margin: 20px auto;
+}
+
+.lodge-image-container {
+  width: 345px;
+  height: 250px;
+  margin: 30px auto 16px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  object-fit: cover;
+}
+
+.lodge-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.lodge-details {
+  display: grid;
+  grid-template-columns: 250px auto;
+  margin-left: 40px;
+}
+
+.l-name {
+  font-size: 13px;
+  color: #000;
+  margin-top: -2px;
+}
+
+.l-room {
+  font-size: 12px;
+  color: #444343;
+}
+
+/* === Shared Nav Menu Styles === */
+.topNavMenu,
+.dp_menu,
+.imgNavMenu {
+  width: 250px;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  display: none;
+}
+
+.dp_menu {
+  width: 150px;
+  height: 80px;
+  top: 100px;
+  margin-bottom: 10px;
+}
+
+.topNavMenu {
+  height: 190px;
+  top: 70px;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+.imgNavMenu {
+  height: 135px;
+  top: 50px;
+  left: 48px;
+  margin-bottom: 80px;
+  position: absolute;
+}
+
+/* Show active nav menu */
+.topNavMenu.show,
+.imgNavMenu.show,
+.dp_menu.show {
+  display: flex !important;
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* === Menu Lists === */
+.topNavMenu ul,
+.dp_menu ul,
+.imgNavMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.topNavMenu li,
+.dp_menu li,
+.imgNavMenu li {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background 0.2s;
+}
+
+.topNavMenu li:last-child,
+.dp_menu li:last-child,
+.imgNavMenu li:last-child {
+  border-bottom: none;
 }
