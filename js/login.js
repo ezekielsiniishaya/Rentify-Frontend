@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Send the login request to the server
-      const res = await fetch(`${BASE_URL}${url}`, {
+      const res = await fetch(`http://localhost:5000${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -112,7 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showSuccess("Login successful!");
         localStorage.setItem("token", data.token); // Save the token
         localStorage.setItem("userType", userType); // Re-save user type if needed
-        window.location.href = "home.html"; // Redirect to the home page
+        if (userType == "tenant") {
+          window.location.href = "home.html"; // Redirect to the home page for tenants
+        } else if (userType == "landlord") {
+          window.location.href = "landlord_profile.html";
+        }
       } else {
         // Handle server-side errors
         console.error("Server Error:", data);
@@ -131,5 +135,4 @@ document.addEventListener("DOMContentLoaded", () => {
     showSuccess("Logged out successfully.");
     window.location.href = "login.html";
   }
-
 });
