@@ -73,11 +73,20 @@
   margin-bottom: 35px;
 }
 .nav-dots {
+  position: absolute;
+  top: 10px;
+  right: 30px; 
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #4b5563;
+  border-radius: 50%;
   flex-direction: column;
-  margin-top: 10px;
-  margin-right: 24px;
-  transform: translate(350%, 10%);
+  gap: 5px;
+  background-color: white; 
+  z-index: 999; /
 }
 
 .dot,
