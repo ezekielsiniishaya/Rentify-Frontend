@@ -69,20 +69,15 @@
   gap: 5px;
   position: absolute;
 }
-
+.section-top {
+  margin-bottom: 35px;
+}
 .nav-dots {
   border: 1px solid #4b5563;
   flex-direction: column;
   margin-top: 10px;
-  margin-right: 5px;
+  margin-right: 24px;
   transform: translate(350%, 10%);
-}
-
-.img-dots {
-  flex-direction: row;
-  margin-top: 10px;
-  margin-right: 5px;
-  transform: translate(645%, -10%);
 }
 
 .dot,
@@ -94,11 +89,6 @@
 .dot {
   width: 25px;
   height: 1px;
-}
-
-.i-dot {
-  width: 10px;
-  height: 10px;
 }
 
 /* === Email Text === */
@@ -114,20 +104,16 @@
 }
 
 .section-title {
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 1rem;
-  color: #000;
+  color: black;
 }
 
 .section-title-listing,
 .listing-heading {
-  margin-left: 25px;
+  margin-left: 39px;
 }
-.listing-heading {
-  display: grid;
-  grid-template-columns: 280px auto;
-  margin-bottom: 5px;
-}
+
 .personal-details,
 .verify,
 .not-verify {
@@ -143,10 +129,15 @@
 
 .detail-item {
   display: grid;
-  grid-template-columns: 160px auto;
+  grid-template-columns: 150px auto;
   margin-bottom: 5px;
 }
-
+.detail-item .value {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
 /* === Verification Badges === */
 .verify,
 .not-verify {
@@ -172,22 +163,48 @@
 }
 
 /* === Lodge Listings === */
+.lodge-item {
+  margin: 20px auto;
+  padding-left: 23px;
+  padding-right: 23px;
+}
 .listing-section {
   margin-top: 30px;
 }
-
+.listing-heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin: 10px 24px 5px;
+  align-items: center;
+}
 .lodge-container {
   margin: 20px auto;
 }
 
 .lodge-image-container {
-  width: 345px;
-  height: 250px;
-  margin: 30px auto 16px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
   overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   object-fit: cover;
+}
+.img-dots {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  width: auto;
+  height: auto;
+}
+.i-dot {
+  width: 6px;
+  height: 6px;
+  background-color: black;
+  border-radius: 9999px; /* perfectly round */
 }
 
 .lodge-image {
@@ -200,8 +217,10 @@
 
 .lodge-details {
   display: grid;
-  grid-template-columns: 250px auto;
-  margin-left: 40px;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin: 12px 16px 0;
+  align-items: center;
 }
 
 .l-name {
