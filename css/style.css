@@ -131,14 +131,14 @@
 .personal-details,
 .verify,
 .not-verify {
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 14px;
   padding: 18px;
-  margin-top: 10px;
 }
 
 .personal-details {
   background-color: #f6f6f6;
+  margin-top: 10px;
 }
 
 .detail-item {
@@ -150,18 +150,24 @@
 /* === Verification Badges === */
 .verify,
 .not-verify {
-  font-size: 10px;
-  padding: 1px 6px;
-  display: inline-block;
-  font-weight: 500;
+  font-size: 9px;
+  padding: 2px 6px;
+  line-height: 15px;
+  display: inline;
+  font-weight: 600;
   color: white;
+  margin-top: 1px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .verify {
+  width: 50px;
   background-color: #22c55e;
 }
 
 .not-verify {
+  width: 70px;
   background-color: #ff1500;
 }
 
@@ -231,7 +237,7 @@
 }
 
 .topNavMenu {
-  height: 190px;
+  height: 170px;
   top: 70px;
   margin-bottom: 80px;
   position: relative;
@@ -277,4 +283,44 @@
 .dp_menu li:last-child,
 .imgNavMenu li:last-child {
   border-bottom: none;
+}
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.btn-confirm-yes,
+.btn-confirm-no {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+/* Yes Button Styles */
+.btn-confirm-yes {
+  background-color: #dc2626; /* red-600 */
+  color: white;
+}
+
+.btn-confirm-yes:hover {
+  background-color: #b91c1c; /* red-700 */
+}
+
+/* No Button Styles */
+.btn-confirm-no {
+  background-color: #e5e7eb; /* gray-200 */
+  color: #1f2937; /* gray-800 */
+}
+
+.btn-confirm-no:hover {
+  background-color: #d1d5db; /* gray-300 */
 }
