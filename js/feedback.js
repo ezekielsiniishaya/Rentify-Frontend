@@ -79,7 +79,7 @@ export function initFeedback() {
       </div>
       <div style="margin-bottom:16px;">
         <label style="display:block; margin-bottom:6px; font-weight:500; color:#444;">Name</label>
-        <input type="text" id="name" style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
+        <input type="text" id="name" placeholder="Zira Tumba" style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
       </div>
       <div style="margin-bottom:16px;">
         <label style="display:block; margin-bottom:6px; font-weight:500; color:#444;">Phone Number</label>

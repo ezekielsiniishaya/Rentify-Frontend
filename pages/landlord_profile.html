@@ -20,26 +20,25 @@
       if (!localStorage.getItem("token")) {
         window.location.href = "./login.html";
       }
-      console.log(localStorage.getItem("token"));
     </script>
-    <script></script>
   </head>
 
   <body class="bg-[#737070] font-supreme">
     <div class="max-w-[425px] mx-auto px-5 py-4">
-      <!-- Top Section: Profile + Menu -->
+      <!-- Top Section -->
       <div class="section-top relative flex flex-col items-center mb-6">
-        <!-- Nav Dots -->
-        <div class="nav-dots cursor-pointer" onclick="toggleNav('topNavMenu')">
+        <!-- Nav Dots with data-menu-id -->
+        <div class="nav-dots cursor-pointer" data-menu-id="topNavMenu">
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
         </div>
-        <!-- Top Nav Menu -->
+
+        <!-- Top Navigation Menu -->
         <div id="topNavMenu" class="topNavMenu hidden">
           <ul>
-            <li class="py-1"><a href="#">Dashboard</a></li>
-            <li class="py-1"><a href="#">Edit Profile</a></li>
+          
+            <li id="editProfile" class="py-1"><a href="#">Edit Profile</a></li>
             <li class="py-1"><a href="#">Add Lodge</a></li>
             <li class="py-1">
               <a href="https://rentify-ng.netlify.app/pages/home"
@@ -51,7 +50,7 @@
           </ul>
         </div>
 
-        <!-- Profile Picture -->
+        <!-- Profile Picture and Camera Icon -->
         <div class="relative mb-2">
           <div class="profile-image-container">
             <img
@@ -61,13 +60,14 @@
             />
           </div>
           <button
-            onclick="toggleNav('dp_menu')"
+            data-menu-id="dp_menu"
             class="camera-button absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4"
           >
             <i class="fa-solid fa-camera"></i>
           </button>
-          <!-- Profile Image Nav -->
-          <div id="dp_menu" class="hidden dp_menu">
+
+          <!-- Dropdown menu for profile picture -->
+          <div id="dp_menu" class="dp_menu hidden">
             <ul>
               <li class="py-1"><a href="#">Change Picture</a></li>
               <li class="py-1"><a href="#">Remove Picture</a></li>
@@ -75,9 +75,9 @@
           </div>
         </div>
 
-        <!-- Name and Email -->
-        <h2 class="text-2xl font-supreme text-center">John Doe</h2>
-        <p class="tp-email font-supreme text-center">johndoe@gmail.com</p>
+        <!-- Display Name & Email -->
+        <h2 class="text-2xl font-supreme text-center">Zira Tumba</h2>
+        <p class="tp-email font-supreme text-center">zira@example.com</p>
       </div>
 
       <!-- Personal Details -->
@@ -86,7 +86,7 @@
         <div class="personal-details">
           <div class="detail-item">
             <span class="label">Full Name:</span>
-            <span class="value">John Doe</span>
+            <span class="value">Zira Tumba</span>
           </div>
           <div class="detail-item">
             <span class="label">Gender:</span>
@@ -101,8 +101,12 @@
             <span class="value">08012345678</span>
           </div>
           <div class="detail-item">
+            <span class="label">Phone Number 2:</span>
+            <span class="value">08012345628</span>
+          </div>
+          <div class="detail-item">
             <span class="label">E-mail:</span>
-            <span class="value">johndoe@gmail.com</span>
+            <span class="value">zira@example.com</span>
           </div>
         </div>
       </section>
@@ -117,7 +121,7 @@
           </div>
           <div class="detail-item">
             <span class="label">Verification Status:</span>
-            <span class="value">Not Verified </span>
+            <span class="value">Not Verified</span>
           </div>
           <div class="detail-item">
             <span class="label">Language Preference:</span>
@@ -126,15 +130,15 @@
         </div>
       </section>
 
-      <!-- Listings -->
+      <!-- Listings Section -->
       <section class="listing-section">
         <div class="listing-heading">
           <h3 class="value">Listings</h3>
           <h3 class="value">Booked</h3>
         </div>
-        <div id="landlordLodges" class="lodge-container relative">
-          <!-- Lodge items will be dynamically inserted here -->
-        </div>
+        <div id="landlordLodges" class="lodge-container relative"></div>
+
+        <!-- Confirmation Box -->
         <div
           id="confirmBox"
           class="hidden absolute z-50 bg-white border border-gray-300 rounded shadow p-3"
