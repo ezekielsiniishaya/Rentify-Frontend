@@ -1,4 +1,96 @@
 import { initFeedback } from "./feedback.js";
+const dpModal = document.getElementById("dpModal");
+const dpFileInput = document.getElementById("dpFileInput");
+const dpPreview = document.getElementById("dpPreview");
+const submitDpUpload = document.getElementById("submitDpUpload");
+const cancelDpUpload = document.getElementById("cancelDpUpload");
+const dpImage = document.getElementById("landlordDp");
+
+// Show modal when "Change Picture" clicked
+document.getElementById("changeDp").addEventListener("click", () => {
+  dpFileInput.value = "";
+  dpPreview.src = "";
+  dpPreview.classList.add("hidden");
+  dpModal.classList.remove("hidden");
+});
+
+// Preview when file is selected
+dpFileInput.addEventListener("change", () => {
+  const file = dpFileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      dpPreview.src = e.target.result;
+      dpPreview.classList.remove("hidden");
+    };
+    reader.readAsDataURL(file);
+  } else {
+    dpPreview.classList.add("hidden");
+  }
+});
+
+// Upload when "Upload" button is clicked
+submitDpUpload.addEventListener("click", async () => {
+  const file = dpFileInput.files[0];
+  if (!file) return showError("Please select a file");
+  const token = localStorage.getItem("token");
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const res = await fetch(
+      "https://rentify-backend-production-f85a.up.railway.app/api/landlords/profile",
+      {
+        method: "PUT",
+        body: formData,
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Upload failed");
+
+    dpImage.src = data.landlord.profile_picture;
+    dpModal.classList.add("hidden");
+  } catch (err) {
+    console.error(err);
+    alert("Error uploading picture");
+  }
+});
+
+// Cancel modal
+cancelDpUpload.addEventListener("click", () => {
+  dpModal.classList.add("hidden");
+});
+document.getElementById("removeDp").addEventListener("click", (e) => {
+  const anchor = document.getElementById("cameraButton");
+
+  showConfirmation(
+    "Remove your profile picture?",
+    async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          "https://rentify-backend-production-f85a.up.railway.app/api/landlords/profile-picture",
+          {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to remove picture");
+
+        showSuccess("Profile picture removed successfully");
+        await fetchLandlordData(); // refreshes UI including fallback image
+      } catch (err) {
+        console.error(err);
+        showError("Error removing picture");
+      }
+    },
+    anchor
+  );
+});
 
 function toggleNav(id) {
   const el = document.getElementById(id);
@@ -63,7 +155,7 @@ function showConfirmation(message, onConfirm, anchorElement) {
 
   box.style.position = "absolute";
   box.style.top = `${rect.top + scrollTop - 30}px`;
-  box.style.left = `${rect.left + scrollLeft - 90}px`;
+  box.style.left = `${rect.left + scrollLeft - 105}px`;
   box.style.borderRadius = "15px";
   box.classList.remove("hidden");
 

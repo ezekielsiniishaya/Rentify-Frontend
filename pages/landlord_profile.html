@@ -37,7 +37,6 @@
         <!-- Top Navigation Menu -->
         <div id="topNavMenu" class="topNavMenu hidden">
           <ul>
-          
             <li id="editProfile" class="py-1"><a href="#">Edit Profile</a></li>
             <li class="py-1"><a href="#">Add Lodge</a></li>
             <li class="py-1">
@@ -54,12 +53,14 @@
         <div class="relative mb-2">
           <div class="profile-image-container">
             <img
+              id="landlordDp"
               src="../assets/images/avatar.png"
               alt="Profile"
               class="profile-image"
             />
           </div>
           <button
+            id="cameraButton"
             data-menu-id="dp_menu"
             class="camera-button absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4"
           >
@@ -69,9 +70,21 @@
           <!-- Dropdown menu for profile picture -->
           <div id="dp_menu" class="dp_menu hidden">
             <ul>
-              <li class="py-1"><a href="#">Change Picture</a></li>
-              <li class="py-1"><a href="#">Remove Picture</a></li>
+              <li id="changeDp" class="py-1"><a href="#">Change Picture</a></li>
+              <li id="removeDp" class="py-1"><a href="#">Remove Picture</a></li>
             </ul>
+          </div>
+          <!-- Profile Picture Modal -->
+          <div id="dpModal" class="modal-overlay hidden">
+            <div class="modal-content">
+              <h2>Change Profile Picture</h2>
+              <input type="file" id="dpFileInput" accept="image/*" />
+              <img id="dpPreview" src="" alt="Preview" class="hidden" />
+              <div class="modal-actions">
+                <button id="cancelDpUpload" class="btn cancel">Cancel</button>
+                <button id="submitDpUpload" class="btn upload">Upload</button>
+              </div>
+            </div>
           </div>
         </div>
 

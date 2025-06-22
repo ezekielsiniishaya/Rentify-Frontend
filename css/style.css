@@ -358,3 +358,92 @@
 .show {
   display: block;
 }
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeInScale 0.3s ease;
+}
+
+/* Modal Title */
+.modal-content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* File Input */
+#dpFileInput {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Image Preview */
+#dpPreview {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+/* Button Group */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.btn.cancel {
+  background-color: #e2e8f0;
+  color: #333;
+}
+
+.btn.upload {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Hidden class */
+.hidden {
+  display: none;
+}
+
+/* Fade and scale animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
