@@ -35,29 +35,10 @@
     <!-- Redirect if not authenticated -->
     <script>
       if (!localStorage.getItem("token")) {
-        window.location.href = "/login.html";
+        window.location.href = "./login.html";
       }
       console.log(localStorage.getItem("token"));
     </script>
-
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-      }
-      .content-wrapper {
-        flex: 1;
-      }
-      footer {
-        margin-top: auto;
-        position: sticky;
-        bottom: 0;
-        background: #faf9f6;
-        z-index: 10;
-      }
-    </style>
   </head>
 
   <body class="font-chubbo bg-[#F0EFFB]">
@@ -96,6 +77,6 @@
       <span class="text-[13px]">@FutminnaStartupCampus</span>
     </footer>
 
-    <script src="../js/home.js"></script>
+    <script type="module" src="../js/home.js"></script>
   </body>
 </html>

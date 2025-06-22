@@ -1,3 +1,5 @@
+import { initFeedback } from "./feedback.js";
+
 /**
  * Toggles the visibility of a menu by ID, while hiding all others.
  * This is used for menus like lodge options (Edit, Delete, etc.).
@@ -298,6 +300,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
   }
+  // logout function
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userType");
+    showSuccess("Logged out successfully");
+    // Redirect to login page after logout
+    window.location.href = "../index.html";
+  });
 
   await fetchLandlordData();
 });

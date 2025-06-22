@@ -15,6 +15,14 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
+    <script>
+      // Redirect to login if not authenticated
+      if (!localStorage.getItem("token")) {
+        window.location.href = "./login.html";
+      }
+      console.log(localStorage.getItem("token"));
+    </script>
+    <script></script>
   </head>
 
   <body class="bg-[#737070] font-supreme">
@@ -38,6 +46,8 @@
                 >Rentify-Home</a
               >
             </li>
+            <li id="logoutBtn" class="py-1"><a href="#">Logout</a></li>
+            <li id="feedback" class="py-1"><a href="#">Reach to Us</a></li>
           </ul>
         </div>
 
@@ -142,6 +152,6 @@
       </section>
     </div>
 
-    <script src="../js/landlord.js"></script>
+    <script type="module" src="../js/landlord.js"></script>
   </body>
 </html>

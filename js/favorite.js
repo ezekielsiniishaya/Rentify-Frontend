@@ -1,5 +1,5 @@
-// favorite.js
 const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
+
 // Reusable error and success message handlers
 function showError(message) {
   const container = document.getElementById("errorContainer");
@@ -35,6 +35,7 @@ function showSuccess(message) {
   setTimeout(() => (container.style.display = "none"), 5000);
 }
 
+// ✅ Use event listeners only (no inline onclick)
 async function fetchFavorites() {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -65,20 +66,34 @@ async function fetchFavorites() {
     lodges.forEach((lodge) => {
       const lodgeElement = document.createElement("div");
       lodgeElement.classList.add("lodge-item", "mt-[10px]", "max-w-[320px]");
+
+      // Create heart icon element
+      const heartIcon = document.createElement("i");
+      heartIcon.className =
+        "fa-solid fa-heart text-[24px] text-[#ec1818] cursor-pointer";
+      heartIcon.addEventListener("click", () =>
+        removeFavorite(lodge.id, heartIcon)
+      );
+
       lodgeElement.innerHTML = `
-          <img src="${
-            lodge.images?.[0] || "../assets/images/default.jpg"
-          }" alt="${lodge.name}" class="w-full h-60 rounded-xl object-cover" />
-          <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
-            <div>
-              <h3>${lodge.name}</h3>
-              <p class="text-[#444343]">₦${lodge.price || "N/A"}</p>
-            </div>
-            <i class="fa-solid fa-heart text-[24px] text-[#ec1818] cursor-pointer" onclick="removeFavorite(${
-              lodge.id
-            }, this)"></i>
+        <img src="${lodge.images?.[0] || "../assets/images/default.jpg"}" 
+             alt="${lodge.name}" 
+             class="w-full h-60 rounded-xl object-cover" />
+
+        <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
+          <div>
+            <h3>${lodge.name}</h3>
+            <p class="text-[#444343]">₦${lodge.price || "N/A"}</p>
           </div>
-        `;
+          <div class="heart-icon-container"></div> <!-- placeholder -->
+        </div>
+      `;
+
+      // Append heart icon to the placeholder div
+      lodgeElement
+        .querySelector(".heart-icon-container")
+        .appendChild(heartIcon);
+
       lodgeContainer.appendChild(lodgeElement);
     });
   } catch (err) {
@@ -102,7 +117,6 @@ async function removeFavorite(lodgeId, iconElement) {
 
     if (!response.ok) throw new Error("Failed to remove favorite.");
 
-    // Remove the lodge card from UI
     iconElement.closest(".lodge-item").remove();
     showSuccess("Removed from favorites.");
   } catch (error) {
