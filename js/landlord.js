@@ -63,7 +63,7 @@ cancelDpUpload.addEventListener("click", () => {
   dpModal.classList.add("hidden");
 });
 document.getElementById("removeDp").addEventListener("click", (e) => {
-  const anchor = document.getElementById("cameraButton");
+  const anchor = document.getElementById("removeDp");
 
   showConfirmation(
     "Remove your profile picture?",
@@ -82,7 +82,7 @@ document.getElementById("removeDp").addEventListener("click", (e) => {
         if (!res.ok) throw new Error(data.error || "Failed to remove picture");
 
         showSuccess("Profile picture removed successfully");
-        await fetchLandlordData(); // refreshes UI including fallback image
+        dpImage.src = "../assets/images/avatar.png"; // reset to default image
       } catch (err) {
         console.error(err);
         showError("Error removing picture");
@@ -112,6 +112,7 @@ function toggleNav(id) {
   }
 }
 
+// Global click handler to close all nav menus when clicking outside
 document.addEventListener("click", (e) => {
   const clickedInsideMenu = e.target.closest(
     ".imgNavMenu, .nav-menu, #topNavMenu, #dp_menu"
@@ -128,8 +129,8 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function attachNavListeners() {
-  document.querySelectorAll("[data-menu-id]").forEach((el) => {
+function attachImageNavListeners() {
+  document.querySelectorAll("[data-menu-id^='imgNavMenu-']").forEach((el) => {
     const id = el.getAttribute("data-menu-id");
     if (!id) return;
 
@@ -139,6 +140,29 @@ function attachNavListeners() {
       toggleNav(id);
     });
   });
+}
+function attachTopNavListeners() {
+  const topNavBtn = document.querySelector("[data-menu-id='topNavMenu']");
+  if (!topNavBtn) return;
+
+  topNavBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleNav("topNavMenu");
+  });
+}
+function attachProfilePictureNav() {
+  const dpBtn = document.querySelector("[data-menu-id='dp_menu']");
+  if (!dpBtn) return;
+
+  dpBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleNav("dp_menu");
+  });
+}
+function attachNavListeners() {
+  attachImageNavListeners();
 }
 
 function showConfirmation(message, onConfirm, anchorElement) {
@@ -154,8 +178,27 @@ function showConfirmation(message, onConfirm, anchorElement) {
   const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 
   box.style.position = "absolute";
-  box.style.top = `${rect.top + scrollTop - 30}px`;
-  box.style.left = `${rect.left + scrollLeft - 105}px`;
+  //  Conditional position tweak if anchor is logoutBtn
+  if (anchorElement.id === "logoutBtn") {
+    box.style.top = `${
+      rect.top + scrollTop + anchorElement.offsetHeight - 40
+    }px`;
+    box.style.left = `${rect.left + scrollLeft - 20}px`; // slightly left
+  } else if (anchorElement.classList.contains("toggle-visibility-btn")) {
+    box.style.top = `${
+      rect.top + scrollTop + anchorElement.offsetHeight - 100
+    }px`;
+    box.style.left = `${rect.left + scrollLeft - 70}px`;
+  } else if (anchorElement.id === "removeDp") {
+    box.style.top = `${
+      rect.top + scrollTop + anchorElement.offsetHeight - 90
+    }px`;
+    box.style.left = `${rect.left + scrollLeft - 37}px`; // slightly left
+  } else {
+    // Default positioning
+    box.style.top = `${rect.top + scrollTop - 30}px`;
+    box.style.left = `${rect.left + scrollLeft - 105}px`;
+  }
   box.style.borderRadius = "15px";
   box.classList.remove("hidden");
 
@@ -222,24 +265,6 @@ function showSuccess(message) {
   setTimeout(() => container.classList.add("hidden"), 5000);
 }
 
-async function deleteLodge(lodgeId, token) {
-  try {
-    const res = await fetch(
-      `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}`,
-      {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Failed to delete lodge");
-    return data;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-}
-
 async function fetchLandlordData() {
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
   const token = localStorage.getItem("token");
@@ -302,6 +327,7 @@ async function fetchLandlordData() {
             break;
         }
       });
+
     const editProfileBtn = document.getElementById("editProfile");
     editProfileBtn.addEventListener("click", () => showEditForm(landlord));
 
@@ -326,7 +352,14 @@ async function fetchLandlordData() {
                 <li class="py-1"><a href="#" class="delete-lodge-btn" data-id="${
                   lodge.id
                 }">Delete Lodge</a></li>
-                <li class="py-1"><a href="#">Mark Lodge as Full</a></li>
+          <li class="py-1">
+  <a href="#" class="toggle-visibility-btn" 
+    data-lodge-id="${lodge.id}" 
+    data-visible="${lodge.display_status}">
+    ${lodge.display_status ? "Mark as Full" : "Mark as Available"}
+  </a>
+</li>
+
               </ul>
             </div>
           </div>
@@ -341,6 +374,7 @@ async function fetchLandlordData() {
 
     attachNavListeners();
 
+    // Delete lodge
     document.querySelectorAll(".delete-lodge-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -359,6 +393,49 @@ async function fetchLandlordData() {
             }
           },
           btn
+        );
+      });
+    });
+
+    // Toggle visibility
+    document.querySelectorAll(".toggle-visibility-btn").forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const lodgeId = button.dataset.lodgeId;
+        const isVisible = button.dataset.visible === "true";
+        const actionText = isVisible
+          ? "Mark this lodge as Full?"
+          : "Mark this lodge as Available?";
+        showConfirmation(
+          `${actionText}`,
+          async () => {
+            try {
+              const response = await fetch(
+                `${BASE_URL}/api/lodges/${lodgeId}/visibility`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ display_status: !isVisible }),
+                }
+              );
+
+              const result = await response.json();
+
+              if (response.ok) {
+                showSuccess(result.message);
+                await fetchLandlordData(); // Re-fetch data to reflect update
+              } else {
+                showError(result.error || "Visibility change failed");
+              }
+            } catch (err) {
+              console.error(err);
+              showError("Error updating visibility.");
+            }
+          },
+          button // anchor for confirmation box
         );
       });
     });
@@ -462,10 +539,13 @@ function showEditForm(landlord = {}) {
   overlay.appendChild(form);
   document.body.appendChild(overlay);
   document.body.style.overflow = "hidden";
-  document.getElementById("cancelEdit").addEventListener("click", () => {
-    overlay.remove();
-    document.body.style.overflow = "";
-  });
+  const cancelBtn = form.querySelector("#cancelEdit");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      overlay.remove();
+      document.body.style.overflow = "";
+    });
+  }
 
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) {
@@ -542,14 +622,23 @@ function showEditForm(landlord = {}) {
 document.addEventListener("DOMContentLoaded", async () => {
   await fetchLandlordData();
   initFeedback();
-
+  attachTopNavListeners();
+  attachProfilePictureNav();
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userType");
-      showSuccess("Logged out successfully");
-      window.location.href = "../index.html";
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      showConfirmation(
+        "Are you sure you want to logout?",
+        () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userType");
+          showSuccess("Logged out successfully");
+          window.location.href = "../index.html";
+        },
+        logoutBtn // anchor element for positioning
+      );
     });
   }
 });

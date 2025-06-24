@@ -247,7 +247,7 @@
 .topNavMenu,
 .dp_menu,
 .imgNavMenu {
-  width: 250px;
+  width: 200px;
   background-color: white;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -271,8 +271,8 @@
 
 .imgNavMenu {
   height: 135px;
-  top: 50px;
-  left: 48px;
+  top: 40px;
+  left: 61px;
   margin-bottom: 80px;
   position: absolute;
 }

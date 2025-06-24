@@ -53,6 +53,7 @@
         <div class="relative mb-2">
           <div class="profile-image-container">
             <img
+              id="profile-picture"
               id="landlordDp"
               src="../assets/images/avatar.png"
               alt="Profile"
@@ -78,7 +79,18 @@
           <div id="dpModal" class="modal-overlay hidden">
             <div class="modal-content">
               <h2>Change Profile Picture</h2>
-              <input type="file" id="dpFileInput" accept="image/*" />
+              <label
+                for="dpFileInput"
+                class="btn upload cursor-pointer inline-block"
+              >
+                Choose Image
+              </label>
+              <input
+                type="file"
+                id="dpFileInput"
+                accept="image/*"
+                class="hidden"
+              />
               <img id="dpPreview" src="" alt="Preview" class="hidden" />
               <div class="modal-actions">
                 <button id="cancelDpUpload" class="btn cancel">Cancel</button>
@@ -92,7 +104,13 @@
         <h2 class="text-2xl font-supreme text-center">Zira Tumba</h2>
         <p class="tp-email font-supreme text-center">zira@example.com</p>
       </div>
-
+      <!--Error message container-->
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
+        <p id="errorMessage"></p>
+      </div>
       <!-- Personal Details -->
       <section class="personal-details-section">
         <h3 class="section-title">Personal Details</h3>
