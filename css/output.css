@@ -26,6 +26,7 @@
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-800: oklch(27.8% 0.033 256.848);
@@ -302,6 +303,9 @@
   .my-\[40px\] {
     margin-block: 40px;
   }
+  .my-auto {
+    margin-block: auto;
+  }
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
@@ -371,8 +375,17 @@
   .h-2 {
     height: calc(var(--spacing) * 2);
   }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
+  }
   .h-60 {
     height: calc(var(--spacing) * 60);
+  }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
   }
   .h-\[10px\] {
     height: 10px;
@@ -401,6 +414,9 @@
   .h-\[56px\] {
     height: 56px;
   }
+  .h-\[90px\] {
+    height: 90px;
+  }
   .h-\[114px\] {
     height: 114px;
   }
@@ -410,17 +426,32 @@
   .h-\[189px\] {
     height: 189px;
   }
+  .h-\[200px\] {
+    height: 200px;
+  }
   .h-\[350px\] {
     height: 350px;
   }
   .h-auto {
     height: auto;
   }
+  .h-full {
+    height: 100%;
+  }
   .min-h-screen {
     min-height: 100vh;
   }
   .w-2 {
     width: calc(var(--spacing) * 2);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-50 {
+    width: calc(var(--spacing) * 50);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
   }
   .w-\[10\%\] {
     width: 10%;
@@ -616,6 +647,10 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 4px;
   }
+  .border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
   .border-\[\#00000040\] {
     border-color: #00000040;
   }
@@ -630,6 +665,9 @@
   }
   .border-gray-300 {
     border-color: var(--color-gray-300);
+  }
+  .border-gray-400 {
+    border-color: var(--color-gray-400);
   }
   .border-green-500 {
     border-color: var(--color-green-500);
@@ -757,11 +795,17 @@
   .pt-\[35px\] {
     padding-top: 35px;
   }
+  .pr-\[30px\] {
+    padding-right: 30px;
+  }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
   }
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-5 {
+    padding-bottom: calc(var(--spacing) * 5);
   }
   .pb-\[25px\] {
     padding-bottom: 25px;
@@ -948,6 +992,13 @@
   .duration-300 {
     --tw-duration: 300ms;
     transition-duration: 300ms;
+  }
+  .hover\:border-gray-600 {
+    &:hover {
+      @media (hover: hover) {
+        border-color: var(--color-gray-600);
+      }
+    }
   }
   .hover\:bg-\[\#da5e38\] {
     &:hover {
