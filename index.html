@@ -17,6 +17,13 @@
         }
       }
     </style>
+    <script type="module">
+      import { initFeedback } from "./js/feedback.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initFeedback();
+      });
+    </script>
   </head>
 
   <body class="font-jakarta bg-[#F0EFFB]">
@@ -207,8 +214,8 @@
         <p class="pt-[15px]">@FutminnaStartupCampus</p>
       </footer>
     </div>
-    <script src="js/feedback.js"></script>
   </body>
+
   <script>
     document.getElementById("rentTab").addEventListener("click", function () {
       document.getElementById("rentTab").classList.add("selectedTab1");

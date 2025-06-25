@@ -8,53 +8,131 @@
             content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
         <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
         <meta name="author" content="Rentify Team">
-        <link href="css/output.css" rel="stylesheet">
+        <link href="../css/output.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="icon" type="image/png" href="assets/images/Frame.svg">
     </head>
 
     <body>
-        <img src="assets/images/apt.png" alt="Logo" class="hidden">
-        <div>
-            <span>$Title</span>
-            <span>heart</span>
-        </div>
-        <p>$address</p>
-        <div class="flex">
-            <img src="assets/images/house1.jpg" alt="House Image" class="w-full h-auto">
-            <div>
-                <span></span>
+        <img id="lodgeImg" alt="House Image" class="w-full h-[350px] object-cover">
+        <main class="px-[30px]">
+            <div class="flex justify-between pt-[20px]">
+                <span class="font-[400] text-[24px]" id="lodgeTitle"></span>
+                <span>
+                    <i class="fa-heart fa-regular text-[35px]"></i>
+                </span>
             </div>
-        </div>
-        <p> tfguh</p>
-        <div>
-            reveeeeeeeeeee
-        </div>
+            <p class="text-[12px] border-b-2 border-black" id="lodgeAddress">Talba road, opposite goverment secondary
+                school...</p>
+            <div class="flex border-b-2 border-black py-[10px]">
+                <img id="hostImg" alt="Host Image" class="w-[60px] rounded-full h-auto mr-[10px]">
+                <div class="flex flex-col self-center">
+                    <span id="lodgeHost">Hosted by Mr. Emmanuel</span>
+                    <span class="text-[12px]" id="hostStatus">New Host</span>
+                </div>
+            </div>
+            <p id="lodgeDescription" class="border-b-2 border-black py-[10px] text-[12px]"> </p>
+            <div id="reviewSection" class="flex overflow-x-auto">
+            </div>
+        </main>
     </body>
     <script>
-        const lodges = [
+        const lodges = {
+            id: 1,
+
+            lodgeName: "Sanity Lodge, Talba Road",
+            address: "Talba road, opposite goverment secondary school",
+            image: "house1.jpg",
+            description: "Convenient with room and kitchen, just 10 minutes walk to school gate...",
+            host: "Mr. Emmanuel",
+            hostStatus: "New Host",
+            hostImage: "host.png",
+            roomsAvailable: 3
+        };
+
+        const review = [
             {
-                id: 1,
-                image: "house1.jpg",
-                title: "Cozy Retreat",
-                lodgeName: "Sunrise Lodge",
-                roomsAvailable: 3
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
             },
             {
-                id: 2,
-                image: "house2.jpg",
-                title: "Urban Escape",
-                lodgeName: "Cityview Lodge",
-                roomsAvailable: 5
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
             },
             {
-                id: 3,
-                image: "house1.jpg",
-                title: "Beachside Bliss",
-                lodgeName: "Seaside Lodge",
-                roomsAvailable: 2
-            }
-        ];
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+            {
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+            {
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+            {
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+            {
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+            {
+                user: "john Doe",
+                review: "Very good lodge. this ia a review card by a tenant."
+            },
+
+        ]
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const lodgeTitle = document.getElementById("lodgeTitle");
+            lodgeTitle.textContent = lodges.lodgeName;
+
+            const lodgeAddress = document.getElementById("lodgeAddress");
+            lodgeAddress.textContent = lodges.address;
+
+            const lodgeImg = document.getElementById("lodgeImg");
+            lodgeImg.src = `../assets/images/${lodges.image}`;
+
+            const lodgeDescription = document.getElementById("lodgeDescription");
+            lodgeDescription.textContent = lodges.description;
+
+            const lodgeHost = document.getElementById("lodgeHost");
+            lodgeHost.textContent = `Hosted by ${lodges.host}`;
+
+            const hostStatus = document.getElementById("hostStatus");
+            hostStatus.textContent = lodges.hostStatus;
+
+            const hostImg = document.getElementById("hostImg");
+            hostImg.src = `../assets/images/${lodges.hostImage}`;
+
+            const reviewSection = document.getElementById("reviewSection");
+            reviewSection.innerHTML = ""; // Clear existing content
+
+            review.forEach(r => {
+                const reviewDiv = document.createElement("div");
+                reviewDiv.className = "border-b py-2 bg-[#F8F9FE] w-[200px]";
+
+                const userSpan = document.createElement("span");
+                userSpan.className = "font-semibold";
+                userSpan.textContent = r.user;
+
+                const reviewP = document.createElement("p");
+                reviewP.className = "text-[12px]";
+                reviewP.textContent = r.review;
+
+                reviewDiv.appendChild(userSpan);
+                reviewDiv.appendChild(reviewP);
+
+                reviewSection.appendChild(reviewDiv);
+            });
+
+
+        });
+
+
     </script>
 
 

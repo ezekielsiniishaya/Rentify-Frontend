@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landlord Profile</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
+    <script>
+      // Redirect to login if not authenticated
+      if (!localStorage.getItem("token")) {
+        window.location.href = "./login.html";
+      }
+    </script>
+  </head>
+
+  <body class="bg-[#737070] font-supreme">
+    <div class="max-w-[425px] mx-auto px-5 py-4">
+      <!-- Top Section -->
+      <div class="section-top relative flex flex-col items-center mb-6">
+        <!-- Nav Dots with data-menu-id -->
+        <div class="nav-dots cursor-pointer" data-menu-id="topNavMenu">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <!-- Top Navigation Menu -->
+        <div id="topNavMenu" class="topNavMenu hidden">
+          <ul>
+            <li id="editProfile" class="py-1"><a href="#">Edit Profile</a></li>
+            <li class="py-1"><a href="#">Add Lodge</a></li>
+            <li class="py-1">
+              <a href="https://rentify-ng.netlify.app/pages/home"
+                >Rentify-Home</a
+              >
+            </li>
+            <li id="logoutBtn" class="py-1"><a href="#">Logout</a></li>
+            <li id="feedback" class="py-1"><a href="#">Reach to Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Profile Picture and Camera Icon -->
+        <div class="relative mb-2">
+          <div class="profile-image-container">
+            <img
+              id="profile-picture"
+              id="landlordDp"
+              src="../assets/images/avatar.png"
+              alt="Profile"
+              class="profile-image"
+            />
+          </div>
+          <button
+            id="cameraButton"
+            data-menu-id="dp_menu"
+            class="camera-button absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4"
+          >
+            <i class="fa-solid fa-camera"></i>
+          </button>
+
+          <!-- Dropdown menu for profile picture -->
+          <div id="dp_menu" class="dp_menu hidden">
+            <ul>
+              <li id="changeDp" class="py-1"><a href="#">Change Picture</a></li>
+              <li id="removeDp" class="py-1"><a href="#">Remove Picture</a></li>
+            </ul>
+          </div>
+          <!-- Profile Picture Modal -->
+          <div id="dpModal" class="modal-overlay hidden">
+            <div class="modal-content">
+              <h2>Change Profile Picture</h2>
+              <label
+                for="dpFileInput"
+                class="btn upload cursor-pointer inline-block"
+              >
+                Choose Image
+              </label>
+              <input
+                type="file"
+                id="dpFileInput"
+                accept="image/*"
+                class="hidden"
+              />
+              <img id="dpPreview" src="" alt="Preview" class="hidden" />
+              <div class="modal-actions">
+                <button id="cancelDpUpload" class="btn cancel">Cancel</button>
+                <button id="submitDpUpload" class="btn upload">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Display Name & Email -->
+        <h2 class="text-2xl font-supreme text-center">Zira Tumba</h2>
+        <p class="tp-email font-supreme text-center">zira@example.com</p>
+      </div>
+      <!--Error message container-->
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
+        <p id="errorMessage"></p>
+      </div>
+      <!-- Personal Details -->
+      <section class="personal-details-section">
+        <h3 class="section-title">Personal Details</h3>
+        <div class="personal-details">
+          <div class="detail-item">
+            <span class="label">Full Name:</span>
+            <span class="value">Zira Tumba</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Gender:</span>
+            <span class="value">Male</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Address:</span>
+            <span class="value">Tunga, Niger State</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Phone Number:</span>
+            <span class="value">08012345678</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Phone Number 2:</span>
+            <span class="value">08012345628</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">E-mail:</span>
+            <span class="value">zira@example.com</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account Details -->
+      <section class="personal-details-section">
+        <h3 class="section-title">Account Details</h3>
+        <div class="personal-details">
+          <div class="detail-item">
+            <span class="label">Account Created:</span>
+            <span class="value">20, March 2025</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Verification Status:</span>
+            <span class="value">Not Verified</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Language Preference:</span>
+            <span class="value">English</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Listings Section -->
+      <section class="listing-section">
+        <div class="listing-heading">
+          <h3 class="value">Listings</h3>
+          <h3 class="value">Booked</h3>
+        </div>
+        <div id="landlordLodges" class="lodge-container relative"></div>
+
+        <!-- Confirmation Box -->
+        <div
+          id="confirmBox"
+          class="hidden absolute z-50 bg-white border border-gray-300 rounded shadow p-3"
+        >
+          <p id="confirmMessage" class="text-sm mb-2"></p>
+          <div class="flex justify-end gap-2">
+            <div class="flex justify-end gap-3 mt-2">
+              <div class="confirm-buttons">
+                <button id="confirmYes" class="btn-confirm-yes">Yes</button>
+                <button id="confirmNo" class="btn-confirm-no">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="../js/landlord.js"></script>
+  </body>
+</html>

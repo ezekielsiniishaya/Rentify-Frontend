@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function showError(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");
-        errorMessage.textContent = message;
+    errorMessage.textContent = message;
     errorContainer.classList.remove("hidden");
 
     // Auto-hide after 5 seconds
@@ -112,7 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showSuccess("Login successful!");
         localStorage.setItem("token", data.token); // Save the token
         localStorage.setItem("userType", userType); // Re-save user type if needed
-        window.location.href = "home.html"; // Redirect to the home page
+        if (userType == "tenant") {
+          window.location.href = "home.html"; // Redirect to the home page for tenants
+        } else if (userType == "landlord") {
+          window.location.href = "landlord_profile.html";
+        }
       } else {
         // Handle server-side errors
         console.error("Server Error:", data);
@@ -124,4 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
       showError("Server connection error.");
     }
   });
+  // Logout
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userType");
+    showSuccess("Logged out successfully.");
+    window.location.href = "login.html";
+  }
 });

@@ -2,46 +2,51 @@
 <html lang="en">
 
   <head>
-    <meta charset=" UTF-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
-    <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
-    <meta name="author" content="Rentify Team">
-    <title>Rentify - Onboarding</title>
+    <title>Rentify - Welcome</title>
     <link href="../css/output.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
   </head>
 
   <body class="font-chubbo font-[400] bg-[#F0EFFB]">
+
+    <!-- Centered logo and heading -->
+
     <div class="max-w-[425px] mx-auto bg-white md:my-[10px] md:rounded-xl pt-[30px] min-h-screen relative">
       <div class="w-fit mx-auto text-center">
         <h1 class="text-[40px]">Rentify</h1>
         <h2 class="text-[20px]">The smart way to find housing.</h2>
         <img class="h-[189px] mx-auto" src="../assets/images/3f2c3cb4d3e4de1dffb489355c1ad16934982856.png" />
       </div>
+
+      <!-- Selection options -->
       <div class="p-[30px]">
         <h2 class="text-[18px]">Continue as</h2>
 
         <a href="javascript:void(0);" onclick="selectUserType('landlord')"
-          class="h-[114px] place-content-center shadow-[0_4px_2px_1px_rgba(240,239,251,1)] rounded-b-xl place-items-center flex justify-between px-[10%] block">
+          class="h-[114px] shadow-[0_4px_2px_1px_rgba(240,239,251,1)] rounded-b-xl flex items-center justify-between px-[10%] mt-[10px] block">
           <span class="text-[20px]">Landlord</span>
           <img class="h-[44px]" src="../assets/images/roundArrow.png" />
         </a>
 
         <a href="javascript:void(0);" onclick="selectUserType('tenant')"
-          class="h-[114px] place-content-center rounded-b-xl shadow-[0_4px_2px_1px_rgba(240,239,251,1)] mt-[20px] place-items-center flex justify-between px-[10%] block">
+          class="h-[114px] shadow-[0_4px_2px_1px_rgba(240,239,251,1)] rounded-b-xl flex items-center justify-between px-[10%] mt-[20px] block">
           <span class="text-[20px]">Tenant</span>
           <img class="h-[44px]" src="../assets/images/roundArrow.png" />
         </a>
       </div>
+
+      <!-- User selection script -->
       <script>
         function selectUserType(type) {
           localStorage.setItem("userType", type); // Save the choice
           window.location.href = "signup.html";
         }
       </script>
-      <footer class="text-center h-[40px] content-end w-full absolute bottom-0">
+
+      <!-- Footer -->
+      <footer class="text-center h-[40px] w-full absolute bottom-0">
         <span class="text-[13px]">@FutminnaStartupCampus</span>
       </footer>
     </div>
