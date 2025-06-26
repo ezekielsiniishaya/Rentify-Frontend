@@ -196,8 +196,8 @@ function showConfirmation(message, onConfirm, anchorElement) {
     box.style.left = `${rect.left + scrollLeft - 37}px`; // slightly left
   } else {
     // Default positioning
-    box.style.top = `${rect.top + scrollTop - 30}px`;
-    box.style.left = `${rect.left + scrollLeft - 105}px`;
+    box.style.top = `${rect.top + scrollTop - 25}px`;
+    box.style.left = `${rect.left + scrollLeft - 90}px`;
   }
   box.style.borderRadius = "15px";
   box.classList.remove("hidden");
@@ -292,7 +292,6 @@ async function deleteLodge(lodgeId, token) {
     return false;
   }
 }
-
 
 async function fetchLandlordData() {
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
@@ -552,6 +551,13 @@ function showEditForm(landlord = {}) {
       <p id="errorMessage"></p>
     </div>
     <div style="margin-bottom:16px;">
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" placeholder="Enter your name"
+    value="${landlord.name || ""}"
+    style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
+</div>
+
+    <div style="margin-bottom:16px;">
       <label>Phone Number</label>
       <input type="tel" id="phone1" placeholder="08012345678" required
         value="${landlord.phone_number || ""}"
@@ -569,6 +575,20 @@ function showEditForm(landlord = {}) {
         value="${landlord.address || ""}"
         style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
     </div>
+   <div style="margin-bottom:16px;">
+  <label for="gender">Gender</label>
+  <select id="gender" name="gender"
+    style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
+    <option value="">Select your gender</option>
+    <option value="male" ${
+      landlord.gender === "male" ? "selected" : ""
+    }>Male</option>
+    <option value="female" ${
+      landlord.gender === "female" ? "selected" : ""
+    }>Female</option>
+  </select>
+</div>
+
     <div style="margin-bottom:16px;">
       <label>Language Preference</label>
       <input type="text" id="language" placeholder="e.g., English"
@@ -601,7 +621,8 @@ function showEditForm(landlord = {}) {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
+    const name = document.getElementById("name").value.trim();
+    const gender = document.getElementById("gender").value;
     const phone1 = document.getElementById("phone1").value.trim();
     const phone2 = document.getElementById("phone2").value.trim();
     const address = document.getElementById("address").value.trim();
@@ -623,6 +644,8 @@ function showEditForm(landlord = {}) {
       btn.style.opacity = "0.7";
 
       const data = {
+        name,
+        gender,
         phone_number: phone1,
         phone_number_2: phone2 || null,
         address,

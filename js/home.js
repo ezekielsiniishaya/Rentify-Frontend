@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const lodgeContainer = document.querySelector(".lodge-container");
   const favoriteLink = document.getElementById("favoriteLink");
   const searchInput = document.querySelector("input[placeholder='Search']");
-  const tenantHeaading = document.getElementById("tenant-heading");
+  const tenantHeading = document.getElementById("tenant-heading");
   const landlordHeading = document.getElementById("landlord-heading");
   console.log("User Type:", userType);
 
@@ -16,9 +16,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (searchInput) searchInput.style.display = "none";
     if (favoriteLink) favoriteLink.style.display = "none";
-    if (tenantHeaading) tenantHeaading.style.display = "none";
+    if (tenantHeading) tenantHeading.style.display = "none";
+  } else {
+    landlordHeading.style.display = "none";
   }
-landlordHeading.style.display = "none";
   function hideError() {
     const errorContainer = document.getElementById("errorContainer");
     if (errorContainer) errorContainer.style.display = "none";

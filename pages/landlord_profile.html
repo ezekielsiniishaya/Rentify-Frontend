@@ -39,7 +39,11 @@
           <ul>
             <li id="editProfile" class="py-1"><a href="#">Edit Profile</a></li>
             <li class="py-1">
-              <a href="./upload_rentals.html">Add Lodge</a>
+              <a
+                href="upload_rentals.html"
+                onclick="localStorage.removeItem('editingLodgeId')"
+                >Add Lodge</a
+              >
             </li>
             <li class="py-1">
               <a href="./home.html">Rentify-Home</a>
@@ -167,7 +171,7 @@
           <h3 class="value">Listings</h3>
           <h3 class="value">Booked</h3>
         </div>
-        <div id="landlordLodges" class="lodge-container relative"></div>
+        <div id="landlordLodges" class="relative"></div>
 
         <!-- Confirmation Box -->
         <div

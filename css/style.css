@@ -108,7 +108,7 @@
 
 /* === Section Styles === */
 .personal-details-section {
-  padding: 0 24px;
+  padding: 0 15px;
   margin-top: 20px;
 }
 
@@ -174,20 +174,20 @@
 /* === Lodge Listings === */
 .lodge-item {
   margin: 20px auto;
-  padding-left: 23px;
-  padding-right: 23px;
+  padding-left: 17px;
+  padding-right: 17px;
 }
 .listing-section {
   margin-top: 30px;
 }
 .listing-heading {
   display: grid;
-  grid-template-columns: 1fr auto;
-  margin: 10px 24px 5px;
+  grid-template-columns: 1fr 50px;
+  margin: 5px 16px;
   align-items: center;
 }
 .lodge-container {
-  margin: 20px auto;
+  margin: 14px;
 }
 
 .lodge-image-container {
@@ -264,10 +264,10 @@
 
 .topNavMenu {
   height: 214px;
-  top: 70px;
+  top: 9px;
   margin-bottom: 80px;
   position: absolute;
-  right: 0;
+  right: 91;
   z-index: 3;
 }
 
@@ -454,7 +454,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 6px 22px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .profile-icon {
@@ -470,7 +470,7 @@
   justify-content: center;
   align-items: center;
 }
-header .tenant-heading {
+#tenant-heading {
   text-align: center;
   align-items: center;
   margin: 6px 22px;
@@ -480,6 +480,6 @@ header .tenant-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 6px 22px;
   font-size: 1.2rem;
+  margin: 5px;
 }

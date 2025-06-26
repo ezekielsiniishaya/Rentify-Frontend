@@ -65,7 +65,7 @@ async function fetchFavorites() {
 
     lodges.forEach((lodge) => {
       const lodgeElement = document.createElement("div");
-      lodgeElement.classList.add("lodge-item", "mt-[10px]", "max-w-[320px]");
+      lodgeElement.classList.add("lodge-item");
 
       // Create heart icon element
       const heartIcon = document.createElement("i");
