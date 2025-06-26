@@ -8,39 +8,74 @@
             content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen." />
         <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord" />
         <meta name="author" content="Rentify Team" />
-        <title>Rentify - Add Rentals</title>
+        <title>Rentify - Add or Edit Rentals</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <link href="../css/output.css" rel="stylesheet" />
     </head>
 
-    <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-        <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
-            <header class="flex pb-5">
-                <a href="/pages/landlord_profile.html" class="my-auto pr-[30px]" title="Back to Profile">
-                    <i class="fa-solid fa-arrow-left text-[25px]"></i>
-                </a>
-                <h1 class="text-2xl text-gray-800 font-bold">Create New Rental</h1>
-            </header>
-            <!--Error message container-->
-            <div id="errorContainer" class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
-                <p id="errorMessage"></p>
-            </div>
-            <form id="uploadForm" class="flex flex-col gap-4" novalidate enctype="multipart/form-data">
-                <div>
-                    <span for="name" class="block text-sm text-gray-600 mb-1">Lodge Name</span>
-                    <input name="name" id="lodgeName" type="text" placeholder="Kings Lodge"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="capacity" class="block text-sm text-gray-600 mb-1">Capacity</span>
-                    <input name="capacity" id="rentDuration" type="number" placeholder="e.g. 5"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="available_rooms" class="block text-sm text-gray-600 mb-1">Available Rooms</span>
-                    <input name="available_rooms" id="noRoom" type="number" placeholder="e.g. 5"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
+  <body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
+      <header class="flex pb-5">
+        <a
+          href="/pages/landlord_profile.html"
+          class="my-auto pr-[30px]"
+          title="Back to Profile"
+        >
+          <i class="fa-solid fa-arrow-left text-[25px]"></i>
+        </a>
+        <h1 id="formTitle" class="text-2xl text-gray-800 font-bold">
+          Create New Rental
+        </h1>
+      </header>
+      <!--Error message container-->
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
+        <p id="errorMessage"></p>
+      </div>
+      <form
+        id="uploadForm"
+        class="flex flex-col gap-4"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <div>
+          <span for="name" class="block text-sm text-gray-600 mb-1"
+            >Lodge Name</span
+          >
+          <input
+            name="name"
+            id="lodgeName"
+            type="text"
+            placeholder="Kings Lodge"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
+        <div>
+          <span for="capacity" class="block text-sm text-gray-600 mb-1"
+            >Capacity</span
+          >
+          <input
+            name="capacity"
+            id="rentDuration"
+            type="number"
+            placeholder="e.g. 5"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
+        <div>
+          <span for="available_rooms" class="block text-sm text-gray-600 mb-1"
+            >Available Rooms</span
+          >
+          <input
+            name="available_rooms"
+            id="noRoom"
+            type="number"
+            placeholder="e.g. 5"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
 
                 <div>
                     <span for="price" class="block text-sm text-gray-600 mb-1">Price</span>

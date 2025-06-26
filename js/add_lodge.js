@@ -1,7 +1,39 @@
+function showError(message) {
+  const container = document.getElementById("errorContainer");
+  const text = document.getElementById("errorMessage");
+  if (!container || !text) return;
+
+  text.textContent = message;
+  container.classList.remove(
+    "hidden",
+    "bg-green-100",
+    "border-green-500",
+    "text-green-700"
+  );
+  container.classList.add("bg-red-100", "border-red-500", "text-red-700");
+
+  setTimeout(() => container.classList.add("hidden"), 5000);
+}
+
+function showSuccess(message) {
+  const container = document.getElementById("errorContainer");
+  const text = document.getElementById("errorMessage");
+  if (!container || !text) return;
+
+  text.textContent = message;
+  container.classList.remove(
+    "hidden",
+    "bg-red-100",
+    "border-red-500",
+    "text-red-700"
+  );
+  container.classList.add("bg-green-100", "border-green-500", "text-green-700");
+
+  setTimeout(() => container.classList.add("hidden"), 5000);
+}
 document.addEventListener("DOMContentLoaded", () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const lodgeId = urlParams.get("id");
-  console.log("Lodge ID from URL:", lodgeId);
+  const lodgeId = localStorage.getItem("editingLodgeId");
+  console.log("Lodge ID:", lodgeId);
 
   const form = document.getElementById("uploadForm");
   const areaSelect = document.getElementById("areaSelect");
@@ -85,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function loadLodgeForEdit(id) {
-    console.log("Lodge ID from URL:", id);
+    document.getElementById("formTitle").textContent = "Edit Rental";
 
     try {
       const token = localStorage.getItem("token");
@@ -99,8 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await res.json();
       const lodge = result.lodge;
 
-      console.log("Fetched lodge:", result);
-
       document.getElementById("lodgeName").value = lodge.name || "";
       document.getElementById("noRoom").value = lodge.available_rooms || "";
       document.getElementById("rentDuration").value = lodge.capacity || "";
@@ -110,19 +140,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
       areaSelect.value = lodge.area?.name || lodge.area_name || "";
 
-      if (lodge.images && lodge.images.length > 0) {
-        imagePreview.innerHTML = "";
-        lodge.images.forEach((img) => {
-          const wrapper = document.createElement("div");
-          wrapper.className = "relative";
-          const image = document.createElement("img");
-          image.src = img.image_url;
-          image.className =
-            "w-24 h-24 object-cover rounded border border-gray-300";
-          wrapper.appendChild(image);
-          imagePreview.appendChild(wrapper);
+      let imagesToDelete = [];
+
+      lodge.images.forEach((imgUrl) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "relative";
+
+        const image = document.createElement("img");
+        image.src = imgUrl;
+        image.className =
+          "w-24 h-24 object-cover rounded border border-gray-300";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "×";
+        removeBtn.className =
+          "absolute top-[-8px] right-[-8px] bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs";
+        removeBtn.addEventListener("click", () => {
+          imagesToDelete.push(imgUrl);
+          wrapper.remove();
         });
-      }
+
+        wrapper.appendChild(image);
+        wrapper.appendChild(removeBtn);
+        imagePreview.appendChild(wrapper);
+      });
 
       const submitBtn = form.querySelector("button[type='submit']");
       if (submitBtn) submitBtn.textContent = "Update Lodge";
@@ -159,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedFiles.forEach((file) => formData.append("images", file));
 
     const endpoint = isEdit
-      ? `https://rentify-backend-production-f85a.up.railway.app/api/lodges/edit/${lodgeId}`
+      ? `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}`
       : "https://rentify-backend-production-f85a.up.railway.app/api/lodges/add";
 
     try {
@@ -177,10 +218,10 @@ document.addEventListener("DOMContentLoaded", () => {
         : { error: await res.text() };
 
       if (res.ok) {
-        alert(`Lodge ${isEdit ? "updated" : "created"} successfully!`);
-        window.location.href = "landlord_profle.html";
+        showSuccess(`Lodge ${isEdit ? "updated" : "created"} successfully!`);
+        window.location.href = "landlord_profile.html";
       } else {
-        alert(result.error || "Something went wrong");
+        showError(result.error || "Something went wrong");
       }
     } catch (err) {
       console.error("Form submit error:", err);

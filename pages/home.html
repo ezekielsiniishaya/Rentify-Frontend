@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Rentify - Home</title>
-    <meta name="description" content="Rentify - Your go-to platform for easy renting." />
+    <meta
+      name="description"
+      content="Rentify - Your go-to platform for easy renting."
+    />
     <meta name="keywords" content="rent, rental, housing, apartments, homes" />
     <meta name="author" content="Futminna Startup Campus" />
     <meta name="theme-color" content="#F0EFFB" />
 
     <meta property="og:title" content="Rentify - Home" />
-    <meta property="og:description" content="Rentify - Your go-to platform for easy renting." />
+    <meta
+      property="og:description"
+      content="Rentify - Your go-to platform for easy renting."
+    />
     <meta property="og:image" content="../assets/images/Frame.svg" />
-    <meta property="og:url" content="https://rentify-ng.netlify.app/pages/home" />
+    <meta
+      property="og:url"
+      content="https://rentify-ng.netlify.app/pages/home"
+    />
     <meta property="og:type" content="website" />
 
     <link href="../css/output.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
 
     <!-- Redirect if not authenticated -->
@@ -28,44 +40,14 @@
       }
       console.log(localStorage.getItem("token"));
     </script>
-    <style>
-      .heading-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 148px;
-        margin-top: 10px;
-      }
-
-      .page-heading {
-        font-size: 17px;
-        font-weight: 400;
-        text-align: left;
-      }
-
-      .profile-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background-color: white;
-        border: 1px solid #ccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .profile-icon i {
-        font-size: 14px;
-        color: #374151;
-        /* same grey as before */
-      }
-    </style>
   </head>
 
   <body class="font-chubbo bg-[#F0EFFB]">
-    <div class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6] min-h-screen">
-      <header class="relative px-[30px] pt-[10px]">
-        <div class="heading-container">
+    <div
+      class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6] min-h-screen"
+    >
+      <header class="relative px-[25px] pt-[10px]">
+        <div id="landlord-heading" class="heading-container">
           <h1 class="page-heading">Rent with ease</h1>
           <a href="../pages/landlord_profile.html" id="profile">
             <div class="profile-icon">
@@ -73,20 +55,29 @@
             </div>
           </a>
         </div>
-
-        <div class="flex justify-between items-center gap-[5%] mt-[10px] mb-[10px]">
-          <input type="text" placeholder="Search" class="border border-gray-300 rounded-xl p-2 w-full h-[44px]" />
+        <h1 class="tenant-heading">Rent with Ease</h1>
+        <div
+          class="search-bar justify-between items-center gap-[5%] mt-[10px] mb-[10px]"
+        >
+          <input
+            type="text"
+            placeholder="Search"
+            class="border border-gray-300 rounded-xl p-2 w-full h-[44px]"
+          />
           <a href="favorite.html" id="favoriteLink">
             <i class="fa-regular fa-heart text-[24px]"></i>
           </a>
         </div>
       </header>
 
-      <div id="errorContainer" class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
         <p id="errorMessage"></p>
       </div>
 
-      <main class="px-[30px] lodge-container pb-4">
+      <main class="px-[20px] lodge-container pb-4">
         <!-- Lodge items will be inserted here dynamically -->
       </main>
     </div>
@@ -97,5 +88,4 @@
 
     <script type="module" src="../js/home.js"></script>
   </body>
-
 </html>

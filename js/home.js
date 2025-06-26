@@ -7,10 +7,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const lodgeContainer = document.querySelector(".lodge-container");
   const favoriteLink = document.getElementById("favoriteLink");
   const searchInput = document.querySelector("input[placeholder='Search']");
-
-  const profile = document.getElementById("profile");
-  const topNavMenu = document.getElementById("topNavMenu");
-
+  const tenantHeaading = document.getElementById("tenant-heading");
+  const landlordHeading = document.getElementById("landlord-heading");
   console.log("User Type:", userType);
 
   if (!isTenant) {
@@ -18,11 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (searchInput) searchInput.style.display = "none";
     if (favoriteLink) favoriteLink.style.display = "none";
-
-    // Show only nav dots initially
-    if (profile) profile.classList.remove("hidden");
+    if (tenantHeaading) tenantHeaading.style.display = "none";
   }
-
+landlordHeading.style.display = "none";
   function hideError() {
     const errorContainer = document.getElementById("errorContainer");
     if (errorContainer) errorContainer.style.display = "none";

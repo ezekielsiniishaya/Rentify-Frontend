@@ -264,6 +264,35 @@ function showSuccess(message) {
 
   setTimeout(() => container.classList.add("hidden"), 5000);
 }
+async function deleteLodge(lodgeId, token) {
+  try {
+    const response = await fetch(
+      `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showError(data.error || "Failed to delete lodge");
+      console.error("Delete error:", data.error);
+      return false;
+    }
+
+    showSuccess(data.message || "Lodge deleted successfully");
+    return true;
+  } catch (err) {
+    console.error("Error deleting lodge:", err);
+    showError("Server error while deleting lodge");
+    return false;
+  }
+}
+
 
 async function fetchLandlordData() {
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
@@ -347,23 +376,22 @@ async function fetchLandlordData() {
               lodge.images?.[0] || "../assets/images/house1.jpg"
             }" alt="Lodge Image" class="lodge-image" />
             <div id="imgNavMenu-${index}" class="hidden imgNavMenu">
-              <ul>
-            <li class="py-1">
-  <a href="#" class="edit-lodge" data-id="${lodge.id}">Edit Lodge</a>
-</li>
+ <ul>
+  <li class="py-1">
+    <a href="#" class="edit-lodge" data-id="${lodge.id}">Edit Lodge</a>
+  </li>
+  <li class="py-1">
+    <a href="#" class="delete-lodge-btn" data-id="${lodge.id}">Delete Lodge</a>
+  </li>
+  <li class="py-1">
+    <a href="#" class="toggle-visibility-btn" 
+       data-lodge-id="${lodge.id}" 
+       data-visible="${lodge.display_status}">
+      ${lodge.display_status ? "Mark as Full" : "Mark as Available"}
+    </a>
+  </li>
+</ul>
 
-                <li class="py-1"><a href="#" class="delete-lodge-btn" data-id="${
-                  lodge.id
-                }">Delete Lodge</a></li>
-          <li class="py-1">
-  <a href="#" class="toggle-visibility-btn" 
-    data-lodge-id="${lodge.id}" 
-    data-visible="${lodge.display_status}">
-    ${lodge.display_status ? "Mark as Full" : "Mark as Available"}
-  </a>
-</li>
-
-              </ul>
             </div>
           </div>
           <div class="lodge-details">
@@ -409,9 +437,8 @@ async function fetchLandlordData() {
           alert("Lodge ID missing");
           return;
         }
-
-        console.log("Editing lodge with ID:", lodgeId); // ✅ Optional debug
-        window.location.href = `upload_rentals.html?id=${lodgeId}`;
+        localStorage.setItem("editingLodgeId", lodgeId);
+        window.location.href = "upload_rentals.html";
       });
     });
 
