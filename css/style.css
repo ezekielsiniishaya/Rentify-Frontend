@@ -84,7 +84,7 @@
   border: 1px solid #4b5563;
   border-radius: 50%;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background-color: white;
   z-index: 999;
 }

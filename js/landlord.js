@@ -348,7 +348,10 @@ async function fetchLandlordData() {
             }" alt="Lodge Image" class="lodge-image" />
             <div id="imgNavMenu-${index}" class="hidden imgNavMenu">
               <ul>
-                <li class="py-1"><a href="#">Edit Lodge</a></li>
+            <li class="py-1">
+  <a href="#" class="edit-lodge" data-id="${lodge.id}">Edit Lodge</a>
+</li>
+
                 <li class="py-1"><a href="#" class="delete-lodge-btn" data-id="${
                   lodge.id
                 }">Delete Lodge</a></li>
@@ -394,6 +397,21 @@ async function fetchLandlordData() {
           },
           btn
         );
+      });
+    });
+    document.querySelectorAll(".edit-lodge").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const lodgeId = btn.dataset.id || btn.getAttribute("data-id");
+        console.log(lodgeId);
+        if (!lodgeId) {
+          alert("Lodge ID missing");
+          return;
+        }
+
+        console.log("Editing lodge with ID:", lodgeId); // ✅ Optional debug
+        window.location.href = `upload_rentals.html?id=${lodgeId}`;
       });
     });
 
