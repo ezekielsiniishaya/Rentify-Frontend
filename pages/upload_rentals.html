@@ -1,76 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen."
+    />
+    <meta
+      name="keywords"
+      content="rental, accomodation, FUT Minna, offk, GK, landlord"
+    />
+    <meta name="author" content="Rentify Team" />
+    <title>Rentify - Add Rentals</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="../css/output.css" rel="stylesheet" />
+  </head>
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description"
-            content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
-        <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
-        <meta name="author" content="Rentify Team">
-        <title>Rentify - Add Rentals</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link href="../css/output.css" rel="stylesheet" />
-
-    </head>
-
-    <body class="bg-gray-100 flex justify-center items-center min-h-screen">
-        <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
-            <header class="flex pb-5">
-                <span class="my-auto pr-[30px]">
-                    <i class="fa-solid fa-arrow-left text-[25px]"></i>
-                </span>
-                <h1 class="text-2xl text-gray-800 font-bold">Create New Rental</h1>
-            </header>
-            <!--Error message container-->
-            <div id="errorContainer" class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
-                <p id="errorMessage"></p>
-            </div>
-            <form id="uploadForm" class="flex flex-col gap-4" novalidate>
-
-                <div>
-                    <span for="lodgeName" class="block text-sm text-gray-600 mb-1">Lodge Name</span>
-                    <input id="lodgeName" type="email" placeholder="Kings Lodge"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="noRoom" class="block text-sm text-gray-600 mb-1">Number of Rooms</span>
-                    <input id="noRoom" type="text" placeholder="eg. 5"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="lodgeName" class="block text-sm text-gray-600 mb-1"> Rent Duration</span>
-                    <input id="lodgeName" type="text" placeholder="5 months"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="price" class="block text-sm text-gray-600 mb-1">Price</span>
-                    <input id="price" type="number" placeholder="10000"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
-                </div>
-                <div>
-                    <span for="description" class="block text-sm text-gray-600 mb-1">Description</span>
-                    <input id="description" type="textarea" placeholder="Write a short description of lodge"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent h-[90px]" />
-
-                </div>
-                <div>
-                    <label
-                        class="w-full h-50 border-2 border-dashed border-gray-400 rounded-xl flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:border-gray-600 transiton mx-auto">
-                        <span for="image" class="text-center
-                        ">Add Image</span>
-                        <input id=" image" type="file" name="image" class="hidden" />
-                    </label>
-                </div>
-
-
-                <button type="submit"
-                    class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors">
-                    Post Rental
-                </button>
-            </form>
+  <body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
+      <header class="flex pb-5">
+        <a
+          href="/pages/landlord_profile.html"
+          class="my-auto pr-[30px]"
+          title="Back to Profile"
+        >
+          <i class="fa-solid fa-arrow-left text-[25px]"></i>
+        </a>
+        <h1 class="text-2xl text-gray-800 font-bold">Create New Rental</h1>
+      </header>
+      <!--Error message container-->
+      <div
+        id="errorContainer"
+        class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700"
+      >
+        <p id="errorMessage"></p>
+      </div>
+      <form
+        id="uploadForm"
+        class="flex flex-col gap-4"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <div>
+          <span for="name" class="block text-sm text-gray-600 mb-1"
+            >Lodge Name</span
+          >
+          <input
+            name="name"
+            id="lodgeName"
+            type="text"
+            placeholder="Kings Lodge"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
         </div>
-        <script src="../js/login.js"></script>
-    </body>
+        <div>
+          <span for="capacity" class="block text-sm text-gray-600 mb-1"
+            >Capacity</span
+          >
+          <input
+            name="capacity"
+            id="rentDuration"
+            type="number"
+            placeholder="e.g. 5"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
+        <div>
+          <span for="available_rooms" class="block text-sm text-gray-600 mb-1"
+            >Available Rooms</span
+          >
+          <input
+            name="available_rooms"
+            id="noRoom"
+            type="number"
+            placeholder="e.g. 5"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
 
+        <div>
+          <span for="price" class="block text-sm text-gray-600 mb-1"
+            >Price</span
+          >
+          <input
+            name="price"
+            id="price"
+            type="number"
+            placeholder="10000"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <span for="address" class="block text-sm text-gray-600 mb-1"
+            >Address</span
+          >
+          <input
+            name="address"
+            id="address"
+            type="text"
+            placeholder="e.g. No 3, Akintunde street"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          />
+        </div>
+
+        <div>
+          <span for="area" class="block text-sm text-gray-600 mb-1">Area</span>
+          <select
+            name="area"
+            id="areaSelect"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+          >
+            <option selected value="">Select an area</option>
+          </select>
+        </div>
+
+        <div>
+          <span for="description" class="block text-sm text-gray-600 mb-1"
+            >Description</span
+          >
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Write a short description of lodge"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent h-[90px]"
+          ></textarea>
+        </div>
+        <div class="flex flex-col gap-3">
+          <!-- Add Image Button -->
+          <button
+            type="button"
+            id="addImageBtn"
+            class="w-full bg-white border-2 border-dashed border-gray-400 text-gray-600 py-3 rounded-xl hover:border-gray-600 transition text-center"
+          >
+            Add Images
+          </button>
+
+          <!-- Hidden file input -->
+          <input
+            type="file"
+            name="images"
+            id="images"
+            multiple
+            accept="image/*"
+            class="hidden"
+          />
+
+          <!-- Image Preview Area -->
+          <div id="imagePreview" class="flex flex-wrap gap-3"></div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors"
+        >
+          Post Rental
+        </button>
+      </form>
+    </div>
+    <script src="../js/add_lodge.js"></script>
+  </body>
 </html>
