@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description"
+            content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
+        <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
+        <meta name="author" content="Rentify Team">
+        <title>Rentify - Add Rentals</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="../css/output.css" rel="stylesheet" />
+
+    </head>
+
+    <body class="bg-gray-100 flex justify-center items-center min-h-screen">
+        <div
+            class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6] min-h-screen p-[25px]">
+            <header class="flex pb-5">
+                <a href="landlord_profile.html">
+                    <span class="my-auto pr-[30px]">
+                        <i class="fa-solid fa-arrow-left text-[25px]"></i>
+                    </span>
+                </a>
+                <h1 class="text-2xl text-gray-800 font-bold">Edit Profile</h1>
+            </header>
+            <!--Error message container-->
+            <div id="errorContainer" class="hidden mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
+                <p id="errorMessage"></p>
+            </div>
+            <form id="uploadForm" class="flex flex-col gap-4" novalidate>
+
+                <div>
+                    <span for="name" class="block text-sm text-gray-600 mb-1">Full Name</span>
+                    <input id="name" type="name" placeholder="eg. John Doe"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                </div>
+                <div>
+                    <span for="gender" class="block text-sm text-gray-600 mb-1">Gender</span>
+                    <select id="gender"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"">
+                        <option selected disabled>Choose a gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+
+                </div>
+                <div>
+                    <span for=" phone" class="block text-sm text-gray-600 mb-1"> Phone Number</span>
+                        <input id="phone" type="tel" placeholder="07012345678"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                </div>
+                <div>
+                    <span for="address" class="block text-sm text-gray-600 mb-1">Address</span>
+                    <input id="address" type="text" placeholder="Gidan Kwano, Opp. Kff"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                </div>
+                <div>
+                    <span for="address" class="block text-sm text-gray-600 mb-1">Email</span>
+                    <input id="address" type="email" placeholder="example@gmail.com"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent"
+                        required />
+                </div>
+                <div>
+                    <button type="submit"
+                        class="w-full bg-[#EC704A] hover:bg-[#da5e38] text-white py-3 rounded-lg font-semibold transition-colors mt-[50px]">
+                        Update Profile
+                    </button>
+            </form>
+        </div>
+        <script src="../js/login.js"></script>
+    </body>
+
+</html>

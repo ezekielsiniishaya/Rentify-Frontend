@@ -17,9 +17,11 @@
     <body class="bg-gray-100 flex justify-center items-center min-h-screen">
         <div class="w-[360px] bg-white rounded-xl shadow-md p-6">
             <header class="flex pb-5">
-                <span class="my-auto pr-[30px]">
-                    <i class="fa-solid fa-arrow-left text-[25px]"></i>
-                </span>
+                <a href="landlord_profile.html">
+                    <span class="my-auto pr-[30px]">
+                        <i class="fa-solid fa-arrow-left text-[25px]"></i>
+                    </span>
+                </a>
                 <h1 class="text-2xl text-gray-800 font-bold">Create New Rental</h1>
             </header>
             <!--Error message container-->
@@ -35,18 +37,39 @@
                 </div>
                 <div>
                     <span for="noRoom" class="block text-sm text-gray-600 mb-1">Number of Rooms</span>
-                    <input id="noRoom" type="text" placeholder="eg. 5"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                    <select id="noRoom"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent">
+                        <option selected disabled>Rooms available for rent</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6+</option>
+                    </select>
+
+
                 </div>
                 <div>
-                    <span for="lodgeName" class="block text-sm text-gray-600 mb-1"> Rent Duration</span>
-                    <input id="lodgeName" type="text" placeholder="5 months"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                    <span for="rentDuration" class="block text-sm text-gray-600 mb-1"> Rent Duration</span>
+                    <select id="rentDuration"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent">
+                        <option selected disabled>Rent Duration</option>
+                        <option>6 month</option>
+                        <option>1 year</option>
+                        <option>Others</option>
+                    </select>
+
                 </div>
                 <div>
                     <span for="price" class="block text-sm text-gray-600 mb-1">Price</span>
-                    <input id="price" type="number" placeholder="10000"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent" />
+                    <div class="flex items-center">
+                        <span
+                            class="bg-[#EC704A] rounded-lg w-[30px] text-[28px] py-1 rounded-r-none text-center "><b>₦</b></span>
+                        <input id="price" type="number" placeholder="10000"
+                            class="w-full px-4 py-3 border-l-0 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EC704A] focus:border-transparent rounded-l-none " />
+                    </div>
+
                 </div>
                 <div>
                     <span for="description" class="block text-sm text-gray-600 mb-1">Description</span>
@@ -55,12 +78,15 @@
 
                 </div>
                 <div>
-                    <label
+                    <label id="dropzone"
                         class="w-full h-50 border-2 border-dashed border-gray-400 rounded-xl flex flex-col items-center justify-center text-gray-500 cursor-pointer hover:border-gray-600 transiton mx-auto">
                         <span for="image" class="text-center
                         ">Add Image</span>
-                        <input id=" image" type="file" name="image" class="hidden" />
+                        <input id="fileInput" multiple type="file" name="image" class="hidden" accept="image/*" />
                     </label>
+                    <div id="preview" class="flex flex-wrap gap-2 mt-2">
+                        <!-- Image previews will be inserted here -->
+                    </div>
                 </div>
 
 
@@ -70,7 +96,64 @@
                 </button>
             </form>
         </div>
-        <script src="../js/login.js"></script>
+        <script>
+            const dropzone = document.getElementById('dropzone');
+            const fileInput = document.getElementById('fileInput');
+            const preview = document.getElementById('preview');
+
+            // Trigger file input when clicked
+            dropzone.addEventListener('click', () => fileInput.click());
+
+            // Handle file input selection
+            fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+            // Handle drag-and-drop files
+            ['dragover', 'dragenter'].forEach(event => {
+                dropzone.addEventListener(event, e => {
+                    e.preventDefault();
+                    dropzone.classList.add('border-blue-500');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(event => {
+                dropzone.addEventListener(event, e => {
+                    e.preventDefault();
+                    dropzone.classList.remove('border-blue-500');
+                });
+            });
+
+            dropzone.addEventListener('drop', e => {
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            // Preview handler
+            function handleFiles(files) {
+                Array.from(files).forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'relative w-24 h-24';
+
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'w-full h-full object-cover rounded shadow';
+
+                        const removeBtn = document.createElement('button');
+                        removeBtn.innerHTML = '&times;';
+                        removeBtn.className = 'absolute top-0 right-0 bg-white text-red-500 rounded-full w-6 h-6 flex items-center justify-center text-sm shadow hover:bg-red-100';
+                        removeBtn.onclick = () => wrapper.remove();
+
+                        wrapper.appendChild(img);
+                        wrapper.appendChild(removeBtn);
+                        preview.appendChild(wrapper);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        </script>
     </body>
 
 </html>
