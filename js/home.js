@@ -108,9 +108,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         lodgeElement.innerHTML = `
-          <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
-               alt="${lodge.name}" 
-               class="w-full h-60 rounded-xl object-cover" />
+         <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
+                <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
+                    alt="${lodge.name}" 
+                    class="w-full h-60 rounded-xl object-cover" />
       
           <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
             <div>
@@ -127,8 +128,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 : ""
             }
           </div>
+          </div>
         `;
+
         lodgeContainer.appendChild(lodgeElement);
+
+        const card = lodgeElement.querySelector(".lodge-card");
+        card.addEventListener("click", (e) => {
+          if (e.target.classList.contains("fa-heart")) return;
+
+          localStorage.setItem("selectedLodgeId", lodge.id);
+          window.location.href = "/pages/apartment.html";
+        });
       });
     } catch (err) {
       console.error("Error loading lodges:", err);

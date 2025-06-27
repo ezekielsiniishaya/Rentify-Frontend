@@ -1,238 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rentify – Student housing made easy." />
+    <meta
+      name="keywords"
+      content="rental, accommodation, FUT Minna, landlord"
+    />
+    <meta name="author" content="Rentify Team" />
+    <link href="../css/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="assets/images/Frame.svg" />
+  </head>
 
-    <head>
-        <meta charset=" UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-            content="Rentify – A platform that seeks to connect students to house owners eliminating the need for dubious middlemen.">
-        <meta name="keywords" content="rental, accomodation, FUT Minna, offk, GK, landlord">
-        <meta name="author" content="Rentify Team">
-        <link href="../css/output.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="icon" type="image/png" href="assets/images/Frame.svg">
-    </head>
+  <body class="bg-[#FAF0F6]">
+    <div
+      class="content-wrapper max-w-[425px] mx-auto bg-[#FAF9F6] w-full md:my-[10px] md:rounded-xl min-h-screen"
+    >
+      <!-- Carousel -->
+      <div id="carousel" class="relative w-full h-[350px]">
+        <img
+          id="lodgeImg"
+          alt="House Image"
+          class="w-full h-[350px] object-cover transition-opacity duration-300"
+          src=""
+        />
+        <button
+          id="prevBtn"
+          type="button"
+          class="absolute left-2 top-1/2 -translate-y-1/2 bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100"
+        >
+          <i class="fa fa-chevron-left text-white text-[30px]"></i>
+        </button>
+        <button
+          id="nextBtn"
+          type="button"
+          class="absolute right-2 top-1/2 -translate-y-1/2 bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100"
+        >
+          <i class="fa fa-chevron-right text-white text-[30px]"></i>
+        </button>
+        <div
+          id="carouselDots"
+          class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2"
+        ></div>
+      </div>
 
-    <body class="bg-[#FAF0F6]">
-        <div class="content-wrapper max-w-[425px] mx-auto bg-[#FAF9F6] w-full md:my-[10px] md:rounded-xl  min-h-screen">
-            <!-- Carousel Container -->
-            <div id="carousel" class="relative w-full h-[350px]">
-                <img id="lodgeImg" alt="House Image"
-                    class="w-full h-[350px] object-cover transition-opacity duration-300"
-                    src="../assets/images/house1.jpg">
-                <!-- Carousel Controls -->
-                <button id="prevBtn" type="button"
-                    class="absolute left-2 top-1/2 -translate-y-1/2 bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100">
-                    <i class="fa fa-chevron-left  text-white text-[30px]"></i>
-                </button>
-                <button id="nextBtn" type="button"
-                    class="absolute right-2 top-1/2 -translate-y-1/2  bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100">
-                    <i class="fa fa-chevron-right  text-white text-[30px]"></i>
-                </button>
-                <!-- Dots -->
-                <div id="carouselDots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2"></div>
-            </div>
+      <main class="px-[30px] pb-[25px]">
+        <div class="flex justify-between pt-[20px]">
+          <span class="font-[500] text-[24px]" id="lodgeTitle"></span>
+          <span><i class="fa-heart fa-regular text-[25px]"></i></span>
+        </div>
+        <p
+          class="text-[14px] border-b-1 border-black py-[10px]"
+          id="lodgeAddress"
+        ></p>
 
-            <main class="px-[30px] pb-[25px]">
-                <div class="flex justify-between pt-[20px]">
-                    <span class="font-[500] text-[24px]" id="lodgeTitle"></span>
-                    <span>
-                        <i class="fa-heart fa-regular text-[25px]"></i>
-                    </span>
-                </div>
-                <p class="text-[14px] border-b-1 border-black py-[10px]" id="lodgeAddress">Talba road, opposite
-                    goverment secondary school...</p>
-                <div class="flex border-b-1 border-black py-[10px]">
-                    <img id="hostImg" alt="Host Image" class="w-[60px] rounded-full h-auto mr-[10px]">
-                    <div class="flex flex-col self-center">
-                        <span id="lodgeHost">Hosted by Mr. Emmanuel</span>
-                        <span class="text-[14px]" id="hostStatus">New Host</span>
-                    </div>
-                </div>
-                <p id="lodgeDescription" class="border-b-1 border-black py-[10px] text-[12px]"> </p>
-
-                <div id="reviewSection" class="flex overflow-x-auto h-[130px]">
-                </div>
-            </main>
-
-            <footer
-                class="py-2  mx-auto sticky bottom-0 bg-[#FAF9F6] flex justify-between px-[30px] border-t-1 border-[#00000040]">
-                <div>
-                    <span id="price" class="text-[18px]">N667889</span>
-                    <p class="text-[16px]">For a <span id="duration">1 year</span></p>
-                </div>
-                <button class="bg-[#EC704A] text-white px-4 py-2 rounded-lg mt-2 font-400 ">
-                    Contact Host
-                </button>
-            </footer>
+        <div class="flex border-b-1 border-black py-[10px]">
+          <img
+            id="hostImg"
+            alt="Host"
+            class="w-[60px] rounded-full h-auto mr-[10px]"
+          />
+          <div class="flex flex-col self-center">
+            <span id="lodgeHost"></span>
+            <span class="text-[14px]" id="hostStatus"></span>
+          </div>
         </div>
 
-    </body>
-    <script>
-        // Add more images to the lodge object
+        <p
+          id="lodgeDescription"
+          class="border-b-1 border-black py-[10px] text-[12px]"
+        ></p>
 
-        let currentImg = 0;
-        const lodgeImg = document.getElementById("lodgeImg");
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const carouselDots = document.getElementById("carouselDots");
+        <div
+          id="reviewSection"
+          class="flex overflow-x-auto h-[130px] space-x-2"
+        ></div>
+      </main>
 
-        function updateCarousel() {
-            lodgeImg.src = `../assets/images/${lodges.images[currentImg]}`;
-            // Update dots
-            carouselDots.innerHTML = "";
-            lodges.images.forEach((_, index) => {
-
-                const dot = document.createElement("span");
-                dot.className = `inline-block w-2 h-2 rounded-full ${index === currentImg ? "bg-[#EC704A]" : "bg-gray-300"}`;
-                dot.style.cursor = "pointer";
-                dot.onclick = () => {
-                    currentImg = index;
-                    updateCarousel();
-                };
-                carouselDots.appendChild(dot);
-            });
-        }
-
-        prevBtn.onclick = () => {
-            currentImg = (currentImg - 1 + lodges.images.length) % lodges.images.length;
-            updateCarousel();
-        };
-        nextBtn.onclick = () => {
-            currentImg = (currentImg + 1) % lodges.images.length;
-            updateCarousel();
-        };
-
-
-
-
-        const lodges = {
-            id: 1,
-            lodgeName: "Sanity Lodge, Talba Road",
-            address: "Talba road, opposite goverment secondary school",
-            images: [
-                "house1.jpg",
-                "house2.jpg",
-                "house1.jpg"
-            ],
-            description: "Convenient with room and kitchen, just 10 minutes walk to school gate...",
-            host: "Mr. Emmanuel",
-            hostStatus: "New Host",
-            hostImage: "host.png",
-            roomsAvailable: 3
-        };
-
-        const review = [
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-            {
-                user: "john Doe",
-                review: "Very good lodge. this ia a review card by a tenant."
-            },
-
-        ]
-
-        const reviewk = [];
-        document.addEventListener("DOMContentLoaded", () => {
-
-            const lodgeTitle = document.getElementById("lodgeTitle");
-            lodgeTitle.textContent = lodges.lodgeName;
-
-            const lodgeAddress = document.getElementById("lodgeAddress");
-            lodgeAddress.textContent = lodges.address;
-
-            const lodgeImg = document.getElementById("lodgeImg");
-            lodgeImg.src = `../assets/images/${lodges.image}`;
-
-            const lodgeDescription = document.getElementById("lodgeDescription");
-            lodgeDescription.textContent = lodges.description;
-
-            const lodgeHost = document.getElementById("lodgeHost");
-            lodgeHost.textContent = `Hosted by ${lodges.host}`;
-
-            const hostStatus = document.getElementById("hostStatus");
-            hostStatus.textContent = lodges.hostStatus;
-
-            const hostImg = document.getElementById("hostImg");
-            hostImg.src = `../assets/images/${lodges.hostImage}`;
-
-            const reviewSection = document.getElementById("reviewSection");
-            reviewSection.innerHTML = ""; // Clear existing content
-
-
-            //if review is empty
-
-
-
-            if (review.length === 0) {
-                console.log("tis empty");
-
-                const reviewDiv = document.createElement("div");
-                reviewDiv.className = "pt-2 min-w-[200px]";
-
-                const userSpan = document.createElement("span");
-                userSpan.className = "font-semibold pb-2";
-                userSpan.textContent = "Review(0)";
-
-                const reviewP = document.createElement("p");
-                reviewP.className = "text-[12px]";
-                reviewP.textContent = "No reviews yet";
-
-                reviewDiv.appendChild(userSpan);
-                reviewDiv.appendChild(reviewP);
-
-                reviewSection.appendChild(reviewDiv);
-            } else {
-                review.forEach(r => {
-                    const reviewDiv = document.createElement("div");
-                    reviewDiv.className = "m-2 p-2 bg-[#F8F9FE] min-w-[200px]";
-
-                    const userSpan = document.createElement("span");
-                    userSpan.className = "font-semibold pb-2";
-                    userSpan.textContent = "@" + r.user;
-
-                    const reviewP = document.createElement("p");
-                    reviewP.className = "text-[12px]";
-                    reviewP.textContent = r.review;
-
-                    reviewDiv.appendChild(userSpan);
-                    reviewDiv.appendChild(reviewP);
-
-                    reviewSection.appendChild(reviewDiv);
-                });
-            }
-
-            updateCarousel();
-        });
-
-
-    </script>
-
-
+      <footer
+        class="py-2 mx-auto sticky bottom-0 bg-[#FAF9F6] flex justify-between px-[30px] border-t-1 border-[#00000040]"
+      >
+        <div>
+          <span id="price" class="text-[18px]">₦0</span>
+          <p class="text-[16px]">For a <span id="duration">0 duration</span></p>
+        </div>
+        <button
+          class="bg-[#EC704A] text-white px-4 py-2 rounded-lg mt-2 font-400"
+        >
+          Contact Host
+        </button>
+      </footer>
+    </div>
+    <script src="../js/apartment.js"></script>
+  </body>
 </html>
