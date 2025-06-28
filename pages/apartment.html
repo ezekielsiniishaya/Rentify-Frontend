@@ -14,10 +14,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="icon" type="image/png" href="assets/images/Frame.svg" />
   </head>
 
-  <body class="bg-[#FAF0F6]">
+  <body class="font-chubbo [#FAF0F6]">
     <div
       class="content-wrapper max-w-[425px] mx-auto bg-[#FAF9F6] w-full md:my-[10px] md:rounded-xl min-h-screen"
     >
@@ -52,7 +53,7 @@
       <main class="px-[30px] pb-[25px]">
         <div class="flex justify-between pt-[20px]">
           <span class="font-[500] text-[24px]" id="lodgeTitle"></span>
-          <span><i class="fa-heart fa-regular text-[25px]"></i></span>
+          <span id="heart"></span>
         </div>
         <p
           class="text-[14px] border-b-1 border-black py-[10px]"
@@ -63,11 +64,23 @@
           <img
             id="hostImg"
             alt="Host"
-            class="w-[60px] rounded-full h-auto mr-[10px]"
+            class="w-[60px] h-[60px] rounded-full object-cover mr-[10px] cursor-pointer"
           />
+          <!-- Modal for Enlarged Image -->
+          <div
+            id="imageModal"
+            class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+          >
+            <img
+              id="enlargedImage"
+              src=""
+              alt="Enlarged Profile"
+              class="max-w-[90%] max-h-[90%] rounded-full shadow-lg"
+            />
+          </div>
           <div class="flex flex-col self-center">
             <span id="lodgeHost"></span>
-            <span class="text-[14px]" id="hostStatus"></span>
+            <span class="text-[14px]" id="hostStatus" class="verify"></span>
           </div>
         </div>
 
@@ -87,7 +100,6 @@
       >
         <div>
           <span id="price" class="text-[18px]">₦0</span>
-          <p class="text-[16px]">For a <span id="duration">0 duration</span></p>
         </div>
         <button
           class="bg-[#EC704A] text-white px-4 py-2 rounded-lg mt-2 font-400"
