@@ -66,24 +66,24 @@
             alt="Host"
             class="w-[60px] h-[60px] rounded-full object-cover mr-[10px] cursor-pointer"
           />
-          <!-- Modal for Enlarged Image -->
-          <div
-            id="imageModal"
-            class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
-          >
-            <img
-              id="enlargedImage"
-              src=""
-              alt="Enlarged Profile"
-              class="max-w-[90%] max-h-[90%] rounded-full shadow-lg"
-            />
-          </div>
+
           <div class="flex flex-col self-center">
             <span id="lodgeHost"></span>
             <span class="text-[14px]" id="hostStatus" class="verify"></span>
           </div>
         </div>
-
+        <!-- Modal for Enlarged Image -->
+        <div
+          id="imageModal"
+          class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+        >
+          <img
+            id="enlargedImage"
+            src=""
+            alt="Enlarged Profile"
+            class="max-w-[90%] max-h-[90%] shadow-lg"
+          />
+        </div>
         <p
           id="lodgeDescription"
           class="border-b-1 border-black py-[10px] text-[12px]"
