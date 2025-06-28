@@ -687,26 +687,134 @@ function showEditForm(landlord = {}) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await fetchLandlordData();
-  initFeedback();
-  attachTopNavListeners();
-  attachProfilePictureNav();
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+async function fetchLandlordViewOnly(landlordId) {
+  // Hide profile picture and camera button (e.g., when not the owner)
+  const profilePicture = document.getElementById("nav");
+  const cameraButton = document.getElementById("cameraButton");
 
-      showConfirmation(
-        "Are you sure you want to logout?",
-        () => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("userType");
-          showSuccess("Logged out successfully");
-          window.location.href = "../index.html";
+  if (profilePicture) profilePicture.classList.add("hidden");
+  if (cameraButton) cameraButton.classList.add("hidden");
+
+  const token = localStorage.getItem("token");
+
+  try {
+    const res = await fetch(
+      `https://rentify-backend-production-f85a.up.railway.app/api/landlords/${landlordId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        logoutBtn // anchor element for positioning
-      );
+      }
+    );
+    if (!res.ok) throw new Error("Failed to fetch landlord details.");
+
+    const data = await res.json();
+    const landlord = data.landlord;
+    const lodges = landlord.lodges || [];
+
+    // Populate UI with landlord info
+    document.querySelector(".profile-image").src =
+      landlord.profile_picture || "../assets/images/avatar.png";
+    document.querySelector("h2.text-2xl").textContent =
+      landlord.name || "Landlord";
+    document.querySelector(".tp-email").textContent = landlord.email || "";
+
+    document
+      .querySelectorAll(".personal-details .detail-item")
+      .forEach((item) => {
+        const label = item.querySelector(".label")?.textContent.trim();
+        const valueElement = item.querySelector(".value");
+        if (!label || !valueElement) return;
+
+        switch (label) {
+          case "Full Name:":
+            valueElement.textContent = landlord.name || "Null";
+            break;
+          case "Gender:":
+            valueElement.textContent = landlord.gender || "Null";
+            break;
+          case "Address:":
+            valueElement.textContent = landlord.address || "Null";
+            break;
+          case "Phone Number:":
+            valueElement.textContent = landlord.phone_number || "Null";
+            break;
+          case "Phone Number 2:":
+            valueElement.textContent = landlord.phone_number_2 || "Null";
+            break;
+          case "E-mail:":
+            valueElement.textContent = landlord.email || "Null";
+            break;
+          case "Account Created:":
+            valueElement.textContent = landlord.account_created
+              ? new Date(landlord.account_created).toDateString()
+              : "N/A";
+            break;
+          case "Verification Status:":
+            valueElement.innerHTML = landlord.verification_status
+              ? `<span class="verify">Verified</span>`
+              : `<span class="not-verify">Not Verified</span>`;
+            break;
+          case "Language Preference:":
+            valueElement.textContent = landlord.language_preference || "Null";
+            break;
+        }
+      });
+
+    const lodgeDiv = document.getElementById("landlordLodges");
+    lodgeDiv.innerHTML = "";
+
+    lodges.forEach((lodge) => {
+      const html = `
+        <div class="lodge-item">
+          <div class="lodge-image-container">
+            <img src="${lodge.images?.[0] || "../assets/images/house1.jpg"}"
+                 alt="Lodge Image" class="lodge-image" />
+          </div>
+          <div class="lodge-details">
+            <h4 class="l-name">${lodge.name}</h4>
+            <p class="l-room">${lodge.available_rooms} Rooms Left</p>
+          </div>
+        </div>
+      `;
+      lodgeDiv.insertAdjacentHTML("beforeend", html);
     });
+  } catch (err) {
+    console.error(err);
+    showError("Could not load landlord profile.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const landlordId = localStorage.getItem("viewedLandlordId");
+
+  if (landlordId) {
+    // Read-only view for visitor
+    await fetchLandlordViewOnly(landlordId);
+  } else {
+    // Authenticated landlord dashboard
+    await fetchLandlordData();
+    initFeedback();
+    attachTopNavListeners();
+    attachProfilePictureNav();
+
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        showConfirmation(
+          "Are you sure you want to logout?",
+          () => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userType");
+            showSuccess("Logged out successfully");
+            window.location.href = "../index.html";
+          },
+          logoutBtn
+        );
+      });
+    }
   }
 });

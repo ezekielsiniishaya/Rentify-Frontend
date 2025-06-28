@@ -93,6 +93,21 @@
           id="reviewSection"
           class="flex overflow-x-auto h-[130px] space-x-2"
         ></div>
+        <!-- Review Input Box -->
+        <div class="mt-4 px-[5px]">
+          <h2 class="text-[16px] font-semibold mb-2">Leave a Review</h2>
+          <textarea
+            id="reviewText"
+            class="w-full h-[80px] border border-gray-300 rounded-lg p-2 text-[14px] resize-none"
+            placeholder="Write your review here..."
+          ></textarea>
+          <button
+            id="submitReview"
+            class="mt-2 bg-[#EC704A] text-white px-4 py-2 rounded-lg text-[14px] hover:bg-[#d45f3a] transition-colors duration-200"
+          >
+            Submit Review
+          </button>
+        </div>
       </main>
 
       <footer
@@ -102,11 +117,23 @@
           <span id="price" class="text-[18px]">₦0</span>
         </div>
         <button
+          id="contactHostBtn"
           class="bg-[#EC704A] text-white px-4 py-2 rounded-lg mt-2 font-400"
         >
           Contact Host
         </button>
       </footer>
+      <a
+        href="javascript:history.back()"
+        class="flex items-center gap-2 mt-4 ml-4 w-max px-4 py-2 bg-[#EC704A] text-white rounded-lg shadow hover:bg-[#d45f3a] transition-colors duration-200"
+      >
+        <img
+          src="../assets/images/ArrowLeft.png"
+          class="h-[20px] w-[20px]"
+          alt="Go Back"
+        />
+        <span class="text-[16px] font-medium">Go Back</span>
+      </a>
     </div>
     <script src="../js/apartment.js"></script>
   </body>

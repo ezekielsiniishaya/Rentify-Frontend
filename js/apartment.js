@@ -71,7 +71,7 @@ nextBtn.onclick = () => {
 };
 
 async function fetchLodge() {
-  const lodgeId = localStorage.getItem("selectedLodgeId"); // fixed typo
+  const lodgeId = localStorage.getItem("selectedLodgeId");
   if (!lodgeId) {
     console.error("No lodge ID in storage");
     return;
@@ -99,6 +99,9 @@ async function fetchLodge() {
   }
 }
 function populateLodgeDetails(lodge, favoriteIds = []) {
+  // Store landlord ID for later use
+  localStorage.setItem("viewedLandlordId", lodge.host?.id);
+  console.log("Viewed Landlord ID:", lodge.host?.id);
   const isFavorite = favoriteIds.includes(lodge.id);
   const heartClass = isFavorite ? "fa-solid text-[#ec1818]" : "fa-regular";
 
@@ -168,8 +171,8 @@ function populateLodgeDetails(lodge, favoriteIds = []) {
       const div = document.createElement("div");
       div.className = "m-2 p-2 bg-[#F8F9FE] min-w-[200px]";
       div.innerHTML = `
-        <span class="font-semibold pb-2">@${r.user}</span>
-        <p class="text-[12px]">${r.review}</p>
+        <span class="font-semibold pb-2">@${r.tenant_name}</span>
+        <p class="text-[12px]">${r.review_text}</p>
       `;
       reviewSection.appendChild(div);
     });
@@ -244,5 +247,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   imageModal.addEventListener("click", () => {
     imageModal.classList.add("hidden");
+  });
+});
+document.getElementById("submitReview").addEventListener("click", () => {
+  const reviewText = document.getElementById("reviewText").value.trim();
+
+  if (!reviewText) {
+    showError("Please enter a review.");
+    return;
+  }
+
+  // Example: Replace this with your actual lodge ID and API call
+  const lodgeId = localStorage.getItem("selectedLodgeId");
+  const token = localStorage.getItem("token");
+  fetch(
+    `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}/reviews`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        review_text: reviewText,
+        rating: 5, // Optional: Add rating selection UI
+      }),
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      showSuccess("Review submitted successfully!");
+      document.getElementById("reviewText").value = "";
+      // Option 1: Reload all lodge data (including reviews)
+      fetchLodge();
+
+      // Option 2 (alternative): If API returns the new review, you could append it directly:
+      // if (data.review) {
+      //   const reviewSection = document.getElementById("reviewSection");
+      //   const div = document.createElement("div");
+      //   div.className = "m-2 p-2 bg-[#F8F9FE] min-w-[200px]";
+      //   div.innerHTML = `
+      //     <span class="font-semibold pb-2">@${data.review.tenant_name}</span>
+      //     <p class="text-[12px]">${data.review.review_text}</p>
+      //   `;
+      //   reviewSection.appendChild(div);
+      // }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const contactBtn = document.getElementById("contactHostBtn");
+  contactBtn.addEventListener("click", () => {
+    const landlordId = localStorage.getItem("viewedLandlordId");
+
+    if (!landlordId) {
+      alert("Landlord information is missing.");
+      return;
+    }
+
+    window.location.href = `/pages/landlord_profile.html`;
   });
 });
