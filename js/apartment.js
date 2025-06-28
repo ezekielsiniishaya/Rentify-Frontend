@@ -97,6 +97,7 @@ async function fetchLodge() {
   } catch (err) {
     console.error("Error loading lodge:", err);
   }
+  localStorage.removeItem("selectedlodgeId");
 }
 function populateLodgeDetails(lodge, favoriteIds = []) {
   // Store landlord ID for later use

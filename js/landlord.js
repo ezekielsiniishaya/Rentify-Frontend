@@ -294,6 +294,8 @@ async function deleteLodge(lodgeId, token) {
 }
 
 async function fetchLandlordData() {
+  const nav = document.getElementById("nav");
+  if (nav) nav.classList.add("hidden");
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
   const token = localStorage.getItem("token");
 
@@ -689,7 +691,7 @@ function showEditForm(landlord = {}) {
 
 async function fetchLandlordViewOnly(landlordId) {
   // Hide profile picture and camera button (e.g., when not the owner)
-  const profilePicture = document.getElementById("nav");
+  const profilePicture = document.getElementById("nav2");
   const cameraButton = document.getElementById("cameraButton");
 
   if (profilePicture) profilePicture.classList.add("hidden");
@@ -785,6 +787,7 @@ async function fetchLandlordViewOnly(landlordId) {
     console.error(err);
     showError("Could not load landlord profile.");
   }
+  localStorage.removeItem("viewedLandlordId");
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
