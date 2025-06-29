@@ -377,22 +377,29 @@ async function fetchLandlordData() {
               lodge.images?.[0] || "../assets/images/house1.jpg"
             }" alt="Lodge Image" class="lodge-image" />
             <div id="imgNavMenu-${index}" class="hidden imgNavMenu">
- <ul>
-  <li class="py-1">
-    <a href="#" class="edit-lodge" data-id="${lodge.id}">Edit Lodge</a>
-  </li>
-  <li class="py-1">
-    <a href="#" class="delete-lodge-btn" data-id="${lodge.id}">Delete Lodge</a>
-  </li>
-  <li class="py-1">
-    <a href="#" class="toggle-visibility-btn" 
-       data-lodge-id="${lodge.id}" 
-       data-visible="${lodge.display_status}">
-      ${lodge.display_status ? "Mark as Full" : "Mark as Available"}
-    </a>
-  </li>
-</ul>
-
+              <ul>
+                <li class="py-1">
+                  <a href="#" class="edit-lodge" data-id="${
+                    lodge.id
+                  }">Edit Lodge</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="delete-lodge-btn" data-id="${
+                    lodge.id
+                  }">Delete Lodge</a>
+                </li>
+                <li class="py-1">
+                  <a href="#" class="toggle-visibility-btn" 
+                     data-lodge-id="${lodge.id}" 
+                     data-visible="${lodge.display_status}">
+                    ${
+                      lodge.display_status
+                        ? "Mark as Full"
+                        : "Mark as Available"
+                    }
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="lodge-details">
@@ -401,7 +408,28 @@ async function fetchLandlordData() {
           </div>
         </div>
       `;
+
+      // Insert lodge HTML
       lodgeDiv.insertAdjacentHTML("beforeend", html);
+
+      // Select the lodge just inserted
+      const cards = lodgeDiv.querySelectorAll(".lodge-item");
+      const latestCard = cards[cards.length - 1];
+
+      // Attach event listener to the latest lodge card
+      latestCard.addEventListener("click", (e) => {
+        // prevent redirect if edit/delete/toggle is clicked
+        if (
+          e.target.closest(".edit-lodge") ||
+          e.target.closest(".delete-lodge-btn") ||
+          e.target.closest(".toggle-visibility-btn")
+        ) {
+          return;
+        }
+
+        localStorage.setItem("selectedLodgeId", lodge.id);
+        window.location.href = "/pages/apartment.html";
+      });
     });
 
     attachNavListeners();
@@ -819,5 +847,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
       });
     }
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const dpImageEl = document.getElementById("profile-picture"); // or landlordDp
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+
+  if (dpImageEl && modal && modalImg) {
+    dpImageEl.style.cursor = "pointer";
+
+    dpImageEl.addEventListener("click", () => {
+      modalImg.src = dpImageEl.src;
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    });
+
+    // Close on click anywhere, even on the image
+    modal.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    });
+  } else {
+    console.error("Modal elements not found");
   }
 });

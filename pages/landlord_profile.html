@@ -32,7 +32,11 @@
 
       <div class="section-top relative flex flex-col items-center mb-6">
         <!-- Nav Dots with data-menu-id -->
-        <div id="nav2" class="nav-dots cursor-pointer" data-menu-id="topNavMenu">
+        <div
+          id="nav2"
+          class="nav-dots cursor-pointer"
+          data-menu-id="topNavMenu"
+        >
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
@@ -83,6 +87,18 @@
               <li id="removeDp" class="py-1"><a href="#">Remove Picture</a></li>
             </ul>
           </div>
+          <div
+            id="imageModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50"
+          >
+            <img
+              id="modalImage"
+              src=""
+              alt="Enlarged Profile"
+              class="max-w-full max-h-[90vh] shadow-lg"
+            />
+          </div>
+
           <!-- Profile Picture Modal -->
           <div id="dpModal" class="modal-overlay hidden">
             <div class="modal-content">

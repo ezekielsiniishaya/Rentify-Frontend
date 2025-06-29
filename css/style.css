@@ -486,3 +486,55 @@
 #hostImg {
   height: 60px;
 }
+#imageModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#imageModal img {
+  max-width: 100%;
+  max-height: 90vh;
+
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.hidden {
+  display: none !important;
+}
+#searchFilterBox {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  z-index: 50;
+}
+
+#searchFilterBox select,
+#searchFilterBox input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+}
+
+#searchFilterBox button {
+  background-color: #4f46e5;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#searchFilterBox button:hover {
+  background-color: #4338ca;
+}

@@ -1,62 +1,68 @@
+const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
+
 document.addEventListener("DOMContentLoaded", async () => {
-  const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
   const token = localStorage.getItem("token");
   const userType = localStorage.getItem("userType");
   const isTenant = userType === "tenant";
 
   const lodgeContainer = document.querySelector(".lodge-container");
   const favoriteLink = document.getElementById("favoriteLink");
-  const searchInput = document.querySelector("input[placeholder='Search']");
+  const searchInput = document.getElementById("searchInput");
   const tenantHeading = document.getElementById("tenant-heading");
   const landlordHeading = document.getElementById("landlord-heading");
-  console.log("User Type:", userType);
+  const filterType = document.getElementById("filterType");
+  const filterValueLabel = document.getElementById("filterValueLabel");
+  const filterValueInput = document.getElementById("filterValue");
+  const areaDropdownLabel = document.getElementById("areaDropdownLabel");
+  const areaDropdown = document.getElementById("areaDropdown");
+  const searchFilterBox = document.getElementById("searchFilterBox");
+  const applySearchFilter = document.getElementById("applySearchFilter");
 
   if (!isTenant) {
-    // Hide tenant-specific elements
-
     if (searchInput) searchInput.style.display = "none";
     if (favoriteLink) favoriteLink.style.display = "none";
     if (tenantHeading) tenantHeading.style.display = "none";
   } else {
-    landlordHeading.style.display = "none";
+    if (landlordHeading) landlordHeading.style.display = "none";
   }
+
   function hideError() {
     const errorContainer = document.getElementById("errorContainer");
     if (errorContainer) errorContainer.style.display = "none";
   }
 
   function showError(message) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorMessage = document.getElementById("errorMessage");
-    if (!errorContainer || !errorMessage) return;
+    const container = document.getElementById("errorContainer");
+    const text = document.getElementById("errorMessage");
+    if (!container || !text) return;
 
-    errorMessage.textContent = message;
-    errorContainer.style.display = "block";
-    errorContainer.style.backgroundColor = "#fee2e2";
-    errorContainer.style.borderLeft = "4px solid #ef4444";
-    errorContainer.style.color = "#b91c1c";
-    errorContainer.style.padding = "12px";
-    errorContainer.style.marginBottom = "16px";
-    errorContainer.style.borderRadius = "8px";
-    errorContainer.style.fontWeight = "500";
+    text.textContent = message;
+    container.style.display = "block";
+    container.style.backgroundColor = "#fee2e2";
+    container.style.borderLeft = "4px solid #ef4444";
+    container.style.color = "#b91c1c";
+    container.style.padding = "12px";
+    container.style.marginBottom = "16px";
+    container.style.borderRadius = "8px";
+    container.style.fontWeight = "500";
 
     setTimeout(hideError, 5000);
   }
 
   function showSuccess(message) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorMessage = document.getElementById("errorMessage");
-    if (!errorContainer || !errorMessage) return;
+    const container = document.getElementById("errorContainer");
+    const text = document.getElementById("errorMessage");
+    if (!container || !text) return;
 
-    errorMessage.textContent = message;
-    errorContainer.style.display = "block";
-    errorContainer.style.backgroundColor = "#dcfce7";
-    errorContainer.style.borderLeft = "4px solid #22c55e";
-    errorContainer.style.color = "#166534";
-    errorContainer.style.padding = "12px";
-    errorContainer.style.marginBottom = "16px";
-    errorContainer.style.borderRadius = "8px";
-    errorContainer.style.fontWeight = "500";
+    text.textContent = message;
+    container.style.display = "block";
+    container.style.backgroundColor = "#dcfce7";
+    container.style.borderLeft = "4px solid #22c55e";
+    container.style.color = "#166534";
+    container.style.padding = "12px";
+    container.style.marginBottom = "16px";
+    container.style.borderRadius = "8px";
+    container.style.fontWeight = "500";
 
     setTimeout(hideError, 5000);
   }
@@ -106,40 +112,37 @@ document.addEventListener("DOMContentLoaded", async () => {
           "mt-[10px]",
           "max-width-[320px]"
         );
-
         lodgeElement.innerHTML = `
-         <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
-                <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
-                    alt="${lodge.name}" 
-                    class="w-full h-60 rounded-xl object-cover" />
-      
-          <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
-            <div>
-              <h3>${lodge.name}</h3>
-              <p class="text-[#444343]">${
-                lodge.available_rooms
-              } rooms available</p>
+          <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
+            <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
+                 alt="${lodge.name}" 
+                 class="w-full h-60 rounded-xl object-cover" />
+            <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
+              <div>
+                <h3>${lodge.name}</h3>
+                <p class="text-[#444343]">${
+                  lodge.available_rooms
+                } rooms available</p>
+              </div>
+              ${
+                isTenant
+                  ? `<i id="lodge${lodge.id}" 
+                        class="${heartClass} fa-heart text-[24px] cursor-pointer" 
+                        onclick="addFav(${lodge.id})"></i>`
+                  : ""
+              }
             </div>
-            ${
-              isTenant
-                ? `<i id="lodge${lodge.id}" 
-                      class="${heartClass} fa-heart text-[24px] cursor-pointer" 
-                      onclick="addFav(${lodge.id})"></i>`
-                : ""
-            }
-          </div>
           </div>
         `;
-
         lodgeContainer.appendChild(lodgeElement);
 
-        const card = lodgeElement.querySelector(".lodge-card");
-        card.addEventListener("click", (e) => {
-          if (e.target.classList.contains("fa-heart")) return;
-
-          localStorage.setItem("selectedLodgeId", lodge.id);
-          window.location.href = "/pages/apartment.html";
-        });
+        lodgeElement
+          .querySelector(".lodge-card")
+          .addEventListener("click", (e) => {
+            if (e.target.classList.contains("fa-heart")) return;
+            localStorage.setItem("selectedLodgeId", lodge.id);
+            window.location.href = "/pages/apartment.html";
+          });
       });
     } catch (err) {
       console.error("Error loading lodges:", err);
@@ -176,5 +179,141 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.addFav = addFav;
   }
 
+  // 🧠 Filter logic
+  filterType.addEventListener("change", async () => {
+    const selected = filterType.value;
+
+    if (selected === "area_id") {
+      filterValueLabel.classList.add("hidden");
+      areaDropdownLabel.classList.remove("hidden");
+
+      if (areaDropdown.children.length <= 1) {
+        const areas = await fetchAreas();
+        areas.forEach((area) => {
+          const option = document.createElement("option");
+          option.value = area.id;
+          option.textContent = area.name;
+          areaDropdown.appendChild(option);
+        });
+      }
+    } else {
+      filterValueLabel.classList.remove("hidden");
+      areaDropdownLabel.classList.add("hidden");
+    }
+  });
+
+  applySearchFilter.addEventListener("click", () => {
+    const type = filterType.value;
+    const value =
+      type === "area_id" ? areaDropdown.value : filterValueInput.value.trim();
+    console.log(value);
+    if (!value) return;
+    fetchFilteredLodges({ [type]: value });
+    searchFilterBox.classList.add("hidden");
+  });
+
+  searchInput.addEventListener("focus", () => {
+    searchFilterBox.classList.remove("hidden");
+  });
+
+  searchInput.addEventListener("input", () => {
+    searchFilterBox.classList.add("hidden");
+  });
+
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const name = searchInput.value.trim();
+      if (name) fetchFilteredLodges({ name });
+    }
+  });
+
+  function fetchFilteredLodges(queryParams) {
+    const query = new URLSearchParams(queryParams).toString();
+    fetch(`${BASE_URL}/api/lodges/search?${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.lodges) renderLodges(data.lodges);
+      })
+      .catch((err) => {
+        console.error("Search error:", err);
+      });
+  }
+
+  function renderLodges(lodges) {
+    lodgeContainer.innerHTML = "";
+    lodges.forEach((lodge) => {
+      const lodgeElement = document.createElement("div");
+      lodgeElement.classList.add(
+        "lodge-item",
+        "mt-[10px]",
+        "max-width-[320px]"
+      );
+      lodgeElement.innerHTML = `
+        <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
+          <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
+               alt="${lodge.name}" 
+               class="w-full h-60 rounded-xl object-cover" />
+          <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
+            <div>
+              <h3>${lodge.name}</h3>
+              <p class="text-[#444343]">${
+                lodge.available_rooms
+              } rooms available</p>
+            </div>
+          </div>
+        </div>
+      `;
+      lodgeElement
+        .querySelector(".lodge-card")
+        .addEventListener("click", () => {
+          localStorage.setItem("selectedLodgeId", lodge.id);
+          window.location.href = "/pages/apartment.html";
+        });
+      lodgeContainer.appendChild(lodgeElement);
+    });
+  }
+
+  async function fetchAreas() {
+    try {
+      const res = await fetch(`${BASE_URL}/api/lodges/areas`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to fetch areas");
+      console.log(data);
+      return data.areas;
+    } catch (err) {
+      console.error("Error fetching areas:", err);
+      return [];
+    }
+  }
+
   await fetchLodges();
+  async function updateFilterInput() {
+    const selected = filterType.value;
+
+    if (selected === "area_id") {
+      filterValueLabel.classList.add("hidden");
+      areaDropdownLabel.classList.remove("hidden");
+
+      // Populate area dropdown only once
+      if (areaDropdown.children.length <= 1) {
+        const areas = await fetchAreas();
+        areas.forEach((area) => {
+          const option = document.createElement("option");
+          option.value = area.id;
+          option.textContent = area.name;
+          areaDropdown.appendChild(option);
+        });
+      }
+    } else {
+      filterValueLabel.classList.remove("hidden");
+      areaDropdownLabel.classList.add("hidden");
+    }
+  }
+  filterType.addEventListener("change", updateFilterInput);
+  await updateFilterInput();
 });
