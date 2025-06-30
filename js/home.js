@@ -37,7 +37,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!container || !text) return;
 
     text.textContent = message;
-    container.style.display = "block";
+
+    // Tailwind fix: remove hidden, ensure visible
+    container.classList.remove("hidden");
+    container.classList.add("block");
+    container.style.display = "block"; // extra safety
+
     container.style.backgroundColor = "#fee2e2";
     container.style.borderLeft = "4px solid #ef4444";
     container.style.color = "#b91c1c";
@@ -46,7 +51,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.style.borderRadius = "8px";
     container.style.fontWeight = "500";
 
-    setTimeout(hideError, 5000);
+    // Hide again after 5s
+    setTimeout(() => {
+      container.classList.add("hidden");
+      container.classList.remove("block");
+    }, 5000);
   }
 
   function showSuccess(message) {
@@ -220,25 +229,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchFilterBox.classList.add("hidden");
   });
 
-  searchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const name = searchInput.value.trim();
-      if (name) fetchFilteredLodges({ name });
-    }
+  const searchForm = document.getElementById("searchForm");
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = searchInput.value.trim();
+    if (name) fetchFilteredLodges({ name });
   });
 
   function fetchFilteredLodges(queryParams) {
     const query = new URLSearchParams(queryParams).toString();
+
     fetch(`${BASE_URL}/api/lodges/search?${query}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.lodges) renderLodges(data.lodges);
+        lodgeContainer.innerHTML = "";
+        const lodges = data?.lodges;
+        const message = data?.message;
+
+        if (Array.isArray(lodges) && lodges.length > 0) {
+          renderLodges(lodges);
+        } else {
+          console.log("Showing Error!");
+          showError(message || "No lodges found for your search.");
+        }
       })
       .catch((err) => {
         console.error("Search error:", err);
+        showError("An error occurred while searching lodges.");
       });
   }
 
@@ -315,4 +335,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   filterType.addEventListener("change", updateFilterInput);
   await updateFilterInput();
+  document.addEventListener("click", (event) => {
+    const isClickInsideInput = searchInput.contains(event.target);
+    const isClickInsideFilterBox = searchFilterBox.contains(event.target);
+
+    if (!isClickInsideInput && !isClickInsideFilterBox) {
+      searchFilterBox.classList.add("hidden");
+    }
+  });
 });
