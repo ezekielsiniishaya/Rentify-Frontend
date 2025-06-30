@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
 
-  console.log(userType); // Debugging
-
   function showError(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");

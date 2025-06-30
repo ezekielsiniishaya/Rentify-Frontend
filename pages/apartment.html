@@ -16,6 +16,12 @@
     />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="icon" type="image/png" href="assets/images/Frame.svg" />
+    <!-- Redirect if not authenticated -->
+    <script>
+      if (!localStorage.getItem("token")) {
+        window.location.href = "./login.html";
+      }
+    </script>
   </head>
 
   <body class="font-chubbo [#FAF0F6]">

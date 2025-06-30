@@ -538,3 +538,7 @@
 #searchFilterBox button:hover {
   background-color: #4338ca;
 }
+.l-profile {
+  padding-left: 10px;
+  padding-right: 10px;
+}

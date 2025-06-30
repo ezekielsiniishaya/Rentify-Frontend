@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const type = filterType.value;
     const value =
       type === "area_id" ? areaDropdown.value : filterValueInput.value.trim();
-    console.log(value);
+
     if (!value) return;
     fetchFilteredLodges({ [type]: value });
     searchFilterBox.classList.add("hidden");
@@ -283,7 +283,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to fetch areas");
-      console.log(data);
       return data.areas;
     } catch (err) {
       console.error("Error fetching areas:", err);
