@@ -542,3 +542,44 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.back-button-advanced {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  background-color: #c8c8c8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  left: 9px;
+  top: 6px;
+}
+
+.arrow-container {
+  position: relative;
+  width: 13px;
+  height: 16px;
+}
+
+.arrow-line {
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  background: gray;
+  top: 7px;
+  left: 0;
+}
+
+.arrow-head {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg);
+  left: 0;
+  top: 4px;
+}

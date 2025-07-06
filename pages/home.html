@@ -54,7 +54,8 @@
             </div>
           </a>
         </div>
-        <h1 id="tenant-heading">Rent with Ease</h1>
+        <h1 id="tenant-heading" onclick="location.reload()">Rent with Ease</h1>
+
         <div
           class="search-bar justify-between items-center gap-[5%] mt-[10px] mb-[10px]"
         >
@@ -67,6 +68,10 @@
                 class="w-full border border-gray-300 rounded-xl p-3 h-[44px] text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />
             </form>
+            <ul
+              id="suggestionList"
+              class="absolute z-50 w-full bg-white border border-gray-300 rounded-md mt-1 hidden max-h-60 overflow-y-auto text-sm"
+            ></ul>
 
             <!-- Filter popup -->
             <div

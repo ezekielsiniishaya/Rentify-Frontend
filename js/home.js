@@ -211,7 +211,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  applySearchFilter.addEventListener("click", () => {
+  applySearchFilter.addEventListener("click", (event) => {
+    const isClickInsideInput = searchInput.contains(event.target);
+    const isClickInsideFilterBox = searchFilterBox.contains(event.target);
+    const isClickInsideSuggestions = suggestionList.contains(event.target);
+
+    if (
+      !isClickInsideInput &&
+      !isClickInsideFilterBox &&
+      !isClickInsideSuggestions
+    ) {
+      suggestionList.classList.add("hidden");
+    }
+
     const type = filterType.value;
     const value =
       type === "area_id" ? areaDropdown.value : filterValueInput.value.trim();
@@ -227,6 +239,55 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   searchInput.addEventListener("input", () => {
     searchFilterBox.classList.add("hidden");
+  });
+  const suggestionList = document.getElementById("suggestionList");
+
+  let debounceTimeout;
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+    searchFilterBox.classList.add("hidden");
+    clearTimeout(debounceTimeout);
+
+    if (!query) {
+      suggestionList.classList.add("hidden");
+      suggestionList.innerHTML = "";
+      return;
+    }
+
+    debounceTimeout = setTimeout(async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          `${BASE_URL}/api/lodges/suggestions?q=${encodeURIComponent(query)}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await res.json();
+
+        if (!Array.isArray(data.lodges) || data.lodges.length === 0) {
+          suggestionList.classList.add("hidden");
+          suggestionList.innerHTML = "";
+          return;
+        }
+
+        suggestionList.innerHTML = "";
+        data.lodges.forEach((lodge) => {
+          const li = document.createElement("li");
+          li.textContent = lodge.name;
+          li.className = "px-3 py-2 hover:bg-gray-200 cursor-pointer";
+          li.addEventListener("click", () => {
+            searchInput.value = lodge.name;
+            suggestionList.classList.add("hidden");
+            fetchFilteredLodges({ name: lodge.name });
+          });
+          suggestionList.appendChild(li);
+        });
+        suggestionList.classList.remove("hidden");
+      } catch (err) {
+        console.error("Autosuggest error:", err);
+      }
+    }, 300);
   });
 
   const searchForm = document.getElementById("searchForm");

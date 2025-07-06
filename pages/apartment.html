@@ -15,13 +15,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="icon" type="image/png" href="assets/images/Frame.svg" />
+    <link rel="icon" type="image/png" href="../assets/images/Frame.svg" />
     <!-- Redirect if not authenticated -->
     <script>
       if (!localStorage.getItem("token")) {
         window.location.href = "./login.html";
       }
     </script>
+    <title>Apartment-Rentify</title>
   </head>
 
   <body class="font-chubbo [#FAF0F6]">
@@ -30,6 +31,12 @@
     >
       <!-- Carousel -->
       <div id="carousel" class="relative w-full h-[350px]">
+        <button onclick="history.back()" class="back-button-advanced">
+          <div class="arrow-container">
+            <div class="arrow-line"></div>
+            <div class="arrow-head"></div>
+          </div>
+        </button>
         <img
           id="lodgeImg"
           alt="House Image"
@@ -129,17 +136,6 @@
           Contact Host
         </button>
       </footer>
-      <a
-        href="javascript:history.back()"
-        class="flex items-center gap-2 mt-4 ml-4 w-max px-4 py-2 bg-[#EC704A] text-white rounded-lg shadow hover:bg-[#d45f3a] transition-colors duration-200"
-      >
-        <img
-          src="../assets/images/ArrowLeft.png"
-          class="h-[20px] w-[20px]"
-          alt="Go Back"
-        />
-        <span class="text-[16px] font-medium">Go Back</span>
-      </a>
     </div>
     <script src="../js/apartment.js"></script>
   </body>
