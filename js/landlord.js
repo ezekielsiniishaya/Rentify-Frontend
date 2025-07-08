@@ -672,15 +672,17 @@ function showEditForm(landlord = {}) {
       btn.disabled = true;
       btn.textContent = "Saving...";
       btn.style.opacity = "0.7";
-
       const data = {
         name,
         gender,
         phone_number: phone1,
-        phone_number_2: phone2 || null,
         address,
         language_preference: language,
       };
+
+      if (phone2) {
+        data.phone_number_2 = phone2;
+      }
 
       const token = localStorage.getItem("token");
 
