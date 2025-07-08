@@ -1,4 +1,5 @@
-const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
+import { fetchAndRenderLodges } from "./main.js";
+import { BASE_URL } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
@@ -17,179 +18,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   const areaDropdown = document.getElementById("areaDropdown");
   const searchFilterBox = document.getElementById("searchFilterBox");
   const applySearchFilter = document.getElementById("applySearchFilter");
+  const suggestionList = document.getElementById("suggestionList");
+  const searchForm = document.getElementById("searchForm");
 
-  if (!isTenant) {
-    if (searchInput) searchInput.style.display = "none";
-    if (favoriteLink) favoriteLink.style.display = "none";
-    if (tenantHeading) tenantHeading.style.display = "none";
-  } else {
-    if (landlordHeading) landlordHeading.style.display = "none";
+  // Hide irrelevant sections
+  if (isTenant) landlordHeading?.classList.add("hidden");
+  else {
+    searchInput?.classList.add("hidden");
+    favoriteLink?.classList.add("hidden");
+    tenantHeading?.classList.add("hidden");
   }
 
-  function hideError() {
-    const errorContainer = document.getElementById("errorContainer");
-    if (errorContainer) errorContainer.style.display = "none";
-  }
+  // Render lodges with heart icon if tenant
+  fetchAndRenderLodges({
+    endpoint: "/api/lodges/displayed",
+    containerSelector: ".lodge-container",
+    onEmptyMessage: "No lodges available yet.",
+    showRoomCount: true,
+    isTenant,
+    token,
+  });
 
-  function showError(message) {
-    const container = document.getElementById("errorContainer");
-    const text = document.getElementById("errorMessage");
-    if (!container || !text) return;
-
-    text.textContent = message;
-
-    // Tailwind fix: remove hidden, ensure visible
-    container.classList.remove("hidden");
-    container.classList.add("block");
-    container.style.display = "block"; // extra safety
-
-    container.style.backgroundColor = "#fee2e2";
-    container.style.borderLeft = "4px solid #ef4444";
-    container.style.color = "#b91c1c";
-    container.style.padding = "12px";
-    container.style.marginBottom = "16px";
-    container.style.borderRadius = "8px";
-    container.style.fontWeight = "500";
-
-    // Hide again after 5s
-    setTimeout(() => {
-      container.classList.add("hidden");
-      container.classList.remove("block");
-    }, 5000);
-  }
-
-  function showSuccess(message) {
-    const container = document.getElementById("errorContainer");
-    const text = document.getElementById("errorMessage");
-    if (!container || !text) return;
-
-    text.textContent = message;
-    container.style.display = "block";
-    container.style.backgroundColor = "#dcfce7";
-    container.style.borderLeft = "4px solid #22c55e";
-    container.style.color = "#166534";
-    container.style.padding = "12px";
-    container.style.marginBottom = "16px";
-    container.style.borderRadius = "8px";
-    container.style.fontWeight = "500";
-
-    setTimeout(hideError, 5000);
-  }
-
-  async function getFavoriteLodgeIds() {
-    if (!token || !isTenant) return [];
+  // Fetch areas once for dropdown
+  async function fetchAreas() {
     try {
-      const res = await fetch(`${BASE_URL}/api/lodges/tenant/favorite`, {
+      const res = await fetch(`${BASE_URL}/api/lodges/areas`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Failed to fetch favorites");
       const data = await res.json();
-      return data.lodges.map((lodge) => lodge.id);
+      if (!res.ok) throw new Error(data.error || "Failed to fetch areas");
+      return data.areas;
     } catch (err) {
-      console.error("Error fetching favorites:", err);
+      console.error("Error fetching areas:", err);
       return [];
     }
   }
 
-  async function fetchLodges() {
-    try {
-      hideError();
-      const res = await fetch(`${BASE_URL}/api/lodges/verified`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Failed to fetch lodges");
-      const data = await res.json();
-      const lodges = data.lodges || [];
-
-      const favoriteIds = await getFavoriteLodgeIds();
-      lodgeContainer.innerHTML = "";
-
-      if (lodges.length === 0) {
-        showError("No lodges available at the moment.");
-        return;
-      }
-
-      lodges.forEach((lodge) => {
-        const isFavorite = favoriteIds.includes(lodge.id);
-        const heartClass = isFavorite
-          ? "fa-solid text-[#ec1818]"
-          : "fa-regular";
-
-        const lodgeElement = document.createElement("div");
-        lodgeElement.classList.add(
-          "lodge-item",
-          "mt-[10px]",
-          "max-width-[320px]"
-        );
-        lodgeElement.innerHTML = `
-          <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
-            <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
-                 alt="${lodge.name}" 
-                 class="w-full h-60 rounded-xl object-cover" />
-            <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
-              <div>
-                <h3>${lodge.name}</h3>
-                <p class="text-[#444343]">${
-                  lodge.available_rooms
-                } rooms available</p>
-              </div>
-              ${
-                isTenant
-                  ? `<i id="lodge${lodge.id}" 
-                        class="${heartClass} fa-heart text-[24px] cursor-pointer" 
-                        onclick="addFav(${lodge.id})"></i>`
-                  : ""
-              }
-            </div>
-          </div>
-        `;
-        lodgeContainer.appendChild(lodgeElement);
-
-        lodgeElement
-          .querySelector(".lodge-card")
-          .addEventListener("click", (e) => {
-            if (e.target.classList.contains("fa-heart")) return;
-            localStorage.setItem("selectedLodgeId", lodge.id);
-            window.location.href = "/pages/apartment.html";
-          });
-      });
-    } catch (err) {
-      console.error("Error loading lodges:", err);
-      lodgeContainer.innerHTML = "<p>Could not load lodges.</p>";
-    }
-  }
-
-  async function addFav(lodgeId) {
-    if (!token) return showError("Please login first.");
-    try {
-      const res = await fetch(`${BASE_URL}/api/lodges/${lodgeId}/favorite`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.error || "Favorite failed");
-
-      const heartIcon = document.getElementById(`lodge${lodgeId}`);
-      if (heartIcon) {
-        heartIcon.classList.remove("fa-regular");
-        heartIcon.classList.add("fa-solid", "text-[#ec1818]");
-      }
-
-      showSuccess(result.message || "Added to favorites");
-    } catch (err) {
-      showError(err.message || "Could not add to favorites.");
-    }
-  }
-
-  if (isTenant) {
-    window.addFav = addFav;
-  }
-
-  // 🧠 Filter logic
-  filterType.addEventListener("change", async () => {
+  // Update dropdown/input depending on filter selected
+  async function updateFilterInput() {
     const selected = filterType.value;
 
     if (selected === "area_id") {
@@ -209,45 +75,41 @@ document.addEventListener("DOMContentLoaded", async () => {
       filterValueLabel.classList.remove("hidden");
       areaDropdownLabel.classList.add("hidden");
     }
+  }
+
+  await updateFilterInput();
+  filterType.addEventListener("change", updateFilterInput);
+
+  // Handle search input toggle
+  searchInput?.addEventListener("focus", () => {
+    searchFilterBox.classList.remove("hidden");
   });
 
-  applySearchFilter.addEventListener("click", (event) => {
-    const isClickInsideInput = searchInput.contains(event.target);
+  searchInput?.addEventListener("input", () => {
+    searchFilterBox.classList.add("hidden");
+  });
+
+  document.addEventListener("click", (event) => {
+    const isClickInsideInput = searchInput?.contains(event.target);
     const isClickInsideFilterBox = searchFilterBox.contains(event.target);
-    const isClickInsideSuggestions = suggestionList.contains(event.target);
-
-    if (
-      !isClickInsideInput &&
-      !isClickInsideFilterBox &&
-      !isClickInsideSuggestions
-    ) {
-      suggestionList.classList.add("hidden");
+    if (!isClickInsideInput && !isClickInsideFilterBox) {
+      searchFilterBox.classList.add("hidden");
     }
+  });
 
+  applySearchFilter.addEventListener("click", () => {
     const type = filterType.value;
     const value =
       type === "area_id" ? areaDropdown.value : filterValueInput.value.trim();
-
     if (!value) return;
     fetchFilteredLodges({ [type]: value });
     searchFilterBox.classList.add("hidden");
   });
 
-  searchInput.addEventListener("focus", () => {
-    searchFilterBox.classList.remove("hidden");
-  });
-
-  searchInput.addEventListener("input", () => {
-    searchFilterBox.classList.add("hidden");
-  });
-  const suggestionList = document.getElementById("suggestionList");
-
   let debounceTimeout;
-  searchInput.addEventListener("input", () => {
+  searchInput?.addEventListener("input", () => {
     const query = searchInput.value.trim();
-    searchFilterBox.classList.add("hidden");
     clearTimeout(debounceTimeout);
-
     if (!query) {
       suggestionList.classList.add("hidden");
       suggestionList.innerHTML = "";
@@ -256,12 +118,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     debounceTimeout = setTimeout(async () => {
       try {
-        const token = localStorage.getItem("token");
         const res = await fetch(
           `${BASE_URL}/api/lodges/suggestions?q=${encodeURIComponent(query)}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await res.json();
 
@@ -290,8 +149,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 300);
   });
 
-  const searchForm = document.getElementById("searchForm");
-
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = searchInput.value.trim();
@@ -311,9 +168,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         const message = data?.message;
 
         if (Array.isArray(lodges) && lodges.length > 0) {
-          renderLodges(lodges);
+          fetchAndRenderLodges({
+            endpoint: `/api/lodges/search?${query}`,
+            containerSelector: ".lodge-container",
+            onEmptyMessage: "No lodges match your filter.",
+            showRoomCount: true,
+            isTenant,
+            token,
+          });
         } else {
-          console.log("Showing Error!");
           showError(message || "No lodges found for your search.");
         }
       })
@@ -322,86 +185,4 @@ document.addEventListener("DOMContentLoaded", async () => {
         showError("An error occurred while searching lodges.");
       });
   }
-
-  function renderLodges(lodges) {
-    lodgeContainer.innerHTML = "";
-    lodges.forEach((lodge) => {
-      const lodgeElement = document.createElement("div");
-      lodgeElement.classList.add(
-        "lodge-item",
-        "mt-[10px]",
-        "max-width-[320px]"
-      );
-      lodgeElement.innerHTML = `
-        <div class="lodge-card cursor-pointer" data-id="${lodge.id}">
-          <img src="${lodge.images?.[0] || "default-lodge.jpg"}" 
-               alt="${lodge.name}" 
-               class="w-full h-60 rounded-xl object-cover" />
-          <div class="flex justify-between items-center font-supreme font-[400] text-[12px] pt-[10px] px-[10px]">
-            <div>
-              <h3>${lodge.name}</h3>
-              <p class="text-[#444343]">${
-                lodge.available_rooms
-              } rooms available</p>
-            </div>
-          </div>
-        </div>
-      `;
-      lodgeElement
-        .querySelector(".lodge-card")
-        .addEventListener("click", () => {
-          localStorage.setItem("selectedLodgeId", lodge.id);
-          window.location.href = "/pages/apartment.html";
-        });
-      lodgeContainer.appendChild(lodgeElement);
-    });
-  }
-
-  async function fetchAreas() {
-    try {
-      const res = await fetch(`${BASE_URL}/api/lodges/areas`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to fetch areas");
-      return data.areas;
-    } catch (err) {
-      console.error("Error fetching areas:", err);
-      return [];
-    }
-  }
-
-  await fetchLodges();
-  async function updateFilterInput() {
-    const selected = filterType.value;
-
-    if (selected === "area_id") {
-      filterValueLabel.classList.add("hidden");
-      areaDropdownLabel.classList.remove("hidden");
-
-      // Populate area dropdown only once
-      if (areaDropdown.children.length <= 1) {
-        const areas = await fetchAreas();
-        areas.forEach((area) => {
-          const option = document.createElement("option");
-          option.value = area.id;
-          option.textContent = area.name;
-          areaDropdown.appendChild(option);
-        });
-      }
-    } else {
-      filterValueLabel.classList.remove("hidden");
-      areaDropdownLabel.classList.add("hidden");
-    }
-  }
-  filterType.addEventListener("change", updateFilterInput);
-  await updateFilterInput();
-  document.addEventListener("click", (event) => {
-    const isClickInsideInput = searchInput.contains(event.target);
-    const isClickInsideFilterBox = searchFilterBox.contains(event.target);
-
-    if (!isClickInsideInput && !isClickInsideFilterBox) {
-      searchFilterBox.classList.add("hidden");
-    }
-  });
 });
