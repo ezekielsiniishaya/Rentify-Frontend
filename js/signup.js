@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const userType = localStorage.getItem("userType");
   const form = document.getElementById("signupForm");
-  const nameFieldWrapper = document.getElementById("name");
-  const emailFieldWrapper = document.getElementById("email");
+  const nameField = document.getElementById("name");
+  const emailField = document.getElementById("email");
 
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
 
-  // Show error message
   function showError(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(hideError, 5000);
   }
 
-  // Show success message
   function showSuccess(message) {
     const errorContainer = document.getElementById("errorContainer");
     const errorMessage = document.getElementById("errorMessage");
@@ -30,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(hideError, 3000);
   }
 
-  // Hide both messages
   function hideError() {
     const errorContainer = document.getElementById("errorContainer");
     errorContainer.classList.add("hidden");
@@ -38,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Adjust form fields based on user type
   if (userType === "tenant") {
-    nameFieldWrapper.classList.remove("hidden");
+    nameField.classList.remove("hidden");
   } else if (userType === "landlord") {
-    emailFieldWrapper.classList.remove("hidden");
+    emailField.classList.remove("hidden");
   } else {
     alert("User type not selected. Please go back to onboarding.");
     window.location.href = "onboarding.html";
@@ -53,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const phone_number = document.getElementById("phone_number").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirm_password").value;
-    const email = document.getElementById("email_input")?.value?.trim();
-    const name = document.getElementById("name_input")?.value?.trim();
+    const email = document.getElementById("emailField")?.value?.trim();
+    const name = document.getElementById("nameField")?.value?.trim();
 
-    // Phone validation
+    // Validate phone number
     if (!/^(070|080|081|090|091)\d{8}$/.test(phone_number)) {
       showError("Valid phone number required.");
       return;
@@ -91,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Send request
     try {
       const res = await fetch(`${BASE_URL}${url}`, {
         method: "POST",
@@ -99,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(body),
       });
 
-      const data = await res.json();
+      const data = await res.json(); // ✅ call once, at the top
 
       if (res.ok) {
         if (data.redirect) {
