@@ -98,8 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json();
 
       if (res.ok) {
-        showSuccess("Registration successful!");
-        window.location.href = "login.html";
+        window.location.href = data.redirect;
       } else {
         showError(data.message || data.error || "Signup failed.");
       }

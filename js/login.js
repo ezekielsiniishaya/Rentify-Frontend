@@ -31,6 +31,25 @@ document.addEventListener("DOMContentLoaded", () => {
     errorContainer.classList.add("hidden");
   }
   const userType = localStorage.getItem("userType");
+  // Display message from URL and optionally hide form
+  (function checkRedirectMessage() {
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("message");
+
+    if (msg) {
+      const decoded = decodeURIComponent(msg.replace(/\+/g, " "));
+      showSuccess(decoded);
+
+      // Hide the form if message is about verification
+      if (
+        decoded.toLowerCase().includes("verify your email") ||
+        decoded.toLowerCase().includes("email successfully verified")
+      ) {
+        const form = document.getElementById("loginForm");
+        if (form) form.classList.add("hidden");
+      }
+    }
+  })();
 
   const phoneField = document.getElementById("phone_number");
   const phoneInput = document.getElementById("phone_number_input");

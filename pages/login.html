@@ -110,20 +110,6 @@
         </p>
       </form>
     </div>
-    <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const message = urlParams.get("message");
-
-      if (message) {
-        const successContainer = document.getElementById("successContainer");
-        const successMessage = document.getElementById("successMessage");
-        successMessage.textContent = decodeURIComponent(
-          message.replace(/\+/g, " ")
-        );
-        successContainer.classList.remove("hidden");
-      }
-    </script>
-
     <script src="../js/login.js"></script>
   </body>
 </html>
