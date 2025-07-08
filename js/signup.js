@@ -98,8 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json();
 
       if (res.ok) {
-        const msg = encodeURIComponent(data.message || "Email verified.");
-        window.location.href = `/pages/login.html?message=${msg}`;
+        form.classList.add("hidden");
+        showSuccess(
+          data.message || "Registered. Please check your email to verify."
+        );
       } else {
         showError(data.message || data.error || "Signup failed.");
       }
