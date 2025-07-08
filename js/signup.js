@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Adjust form fields based on user type
   if (userType === "tenant") {
     nameField.classList.remove("hidden");
+    emailField.classList.remove("hidden");
   } else if (userType === "landlord") {
     emailField.classList.remove("hidden");
   } else {
@@ -67,7 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
         showError("Name is required.");
         return;
       }
+      if (!email || !/^[a-z]+\.[ms]?\d{7}@st\.futminna\.edu\.ng$/.test(email)) {
+        showError("Only FUTMinna student emails are allowed.");
+        return;
+      }
+
       body.name = name;
+      body.email = email;
       url = "/api/tenants/register";
     } else if (userType === "landlord") {
       if (!email || !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
