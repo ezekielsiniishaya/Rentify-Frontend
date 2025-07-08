@@ -41,10 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showSuccess(decoded);
 
       // Hide the form if message is about verification
-      if (
-        decoded.toLowerCase().includes("verify your email") ||
-        decoded.toLowerCase().includes("email successfully verified")
-      ) {
+      if (decoded.toLowerCase().includes("verify your email")) {
         const form = document.getElementById("loginForm");
         if (form) form.classList.add("hidden");
       }

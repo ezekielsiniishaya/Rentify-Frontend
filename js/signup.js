@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body.name = name;
       url = "/api/tenants/register";
     } else if (userType === "landlord") {
-      if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
+      if (!email || !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
         showError("A valid email address is required.");
         return;
       }
