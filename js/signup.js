@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("signupForm");
   const nameField = document.getElementById("name");
   const emailField = document.getElementById("email");
-
+  const phoneField = document.getElementById("phone");
   const BASE_URL = "https://rentify-backend-production-f85a.up.railway.app";
 
   function showError(message) {
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (userType === "tenant") {
     nameField.classList.remove("hidden");
     emailField.classList.remove("hidden");
+    phoneField.classList.add("hidden");
   } else if (userType === "landlord") {
     emailField.classList.remove("hidden");
   } else {
@@ -54,33 +55,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("emailField")?.value?.trim();
     const name = document.getElementById("nameField")?.value?.trim();
 
-    // Validate phone number
-    if (!/^(070|080|081|090|091)\d{8}$/.test(phone_number)) {
-      showError("Valid phone number required.");
-      return;
-    }
-
     let body = { phone_number, password };
     let url = "";
 
     if (userType === "tenant") {
-      if (!name) {
-        showError("Name is required.");
-        return;
-      }
       if (!email || !/^[a-z]+\.[ms]?\d{7}@st\.futminna\.edu\.ng$/.test(email)) {
         showError("Only FUTMinna student emails are allowed.");
         return;
       }
-
       body.name = name;
       body.email = email;
       url = "/api/tenants/register";
     } else if (userType === "landlord") {
+      // Validate phone number
+      if (!/^(070|080|081|090|091)\d{8}$/.test(phone_number)) {
+        showError("Valid phone number required.");
+        return;
+      }
+      // Validate email
       if (!email || !/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
         showError("A valid email address is required.");
         return;
       }
+
       body.email = email;
       url = "/api/landlords/register";
     }
