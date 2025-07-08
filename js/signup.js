@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(body),
       });
 
-      if (res.ok) {
-        const data = await res.json();
+      const data = await res.json(); // ✅ call once, at the top
 
+      if (res.ok) {
         if (data.redirect) {
           window.location.href = data.redirect;
         } else {
