@@ -95,14 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(body),
       });
 
-      const data = await res.json(); // ✅ call once, at the top
+      const data = await res.json();
 
       if (res.ok) {
-        if (data.redirect) {
-          window.location.href = data.redirect;
-        } else {
-          showSuccess("Registered. Please check your email to verify.");
-        }
+        const msg = encodeURIComponent(data.message || "Email verified.");
+        window.location.href = `/pages/login.html?message=${msg}`;
       } else {
         showError(data.message || data.error || "Signup failed.");
       }
