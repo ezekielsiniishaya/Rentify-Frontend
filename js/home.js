@@ -1,11 +1,14 @@
 import { fetchAndRenderLodges } from "./main.js";
 import { BASE_URL } from "./config.js";
-
+import { initFeedback } from "./feedback.js";
+// Wait for the DOM to be fully loaded before running the script
 document.addEventListener("DOMContentLoaded", async () => {
+  // Retrieve authentication and user type info from localStorage
   const token = localStorage.getItem("token");
   const userType = localStorage.getItem("userType");
   const isTenant = userType === "tenant";
 
+  // Get references to DOM elements
   const lodgeContainer = document.querySelector(".lodge-container");
   const favoriteLink = document.getElementById("favoriteLink");
   const searchInput = document.getElementById("searchInput");
@@ -21,15 +24,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   const suggestionList = document.getElementById("suggestionList");
   const searchForm = document.getElementById("searchForm");
 
-  // Hide irrelevant sections
+  // Hide or show sections based on user type
   if (isTenant) landlordHeading?.classList.add("hidden");
   else {
     searchInput?.classList.add("hidden");
     favoriteLink?.classList.add("hidden");
     tenantHeading?.classList.add("hidden");
   }
+  const hamburgerButton = document.getElementById("hamburgerButton");
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
 
-  // Render lodges with heart icon if tenant
+  hamburgerButton.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("hidden");
+  });
+  document.getElementById("feedback")?.addEventListener("click", initFeedback);
+  // Optional: Close menu when clicking outside
+  window.addEventListener("click", function (e) {
+    if (
+      !hamburgerButton.contains(e.target) &&
+      !hamburgerMenu.contains(e.target)
+    ) {
+      hamburgerMenu.classList.add("hidden");
+    }
+  });
+
+  // Add your logout logic here
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    // Example: Clear storage and redirect
+    localStorage.clear();
+    window.location.href = "login.html";
+  });
+  // Render lodges, showing heart icon if user is a tenant
+  const overlay = document.getElementById("loadingOverlay");
+
   fetchAndRenderLodges({
     endpoint: "/api/lodges/displayed",
     containerSelector: ".lodge-container",
@@ -37,9 +64,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     showRoomCount: true,
     isTenant,
     token,
+  }).finally(() => {
+    //Remove blur overlay after lodges are ready
+    if (overlay) overlay.style.display = "none";
   });
 
-  // Fetch areas once for dropdown
+  // Fetch available areas for filtering (used in dropdown)
   async function fetchAreas() {
     try {
       const res = await fetch(`${BASE_URL}/api/lodges/areas`, {
@@ -54,14 +84,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Update dropdown/input depending on filter selected
+  // Update filter input UI based on selected filter type
   async function updateFilterInput() {
     const selected = filterType.value;
 
     if (selected === "area_id") {
+      // Show area dropdown, hide value input
       filterValueLabel.classList.add("hidden");
       areaDropdownLabel.classList.remove("hidden");
 
+      // Populate area dropdown if not already done
       if (areaDropdown.children.length <= 1) {
         const areas = await fetchAreas();
         areas.forEach((area) => {
@@ -72,23 +104,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
     } else {
+      // Show value input, hide area dropdown
       filterValueLabel.classList.remove("hidden");
       areaDropdownLabel.classList.add("hidden");
     }
   }
 
+  // Initialize filter input UI
   await updateFilterInput();
   filterType.addEventListener("change", updateFilterInput);
 
-  // Handle search input toggle
+  // Show filter box when search input is focused
   searchInput?.addEventListener("focus", () => {
     searchFilterBox.classList.remove("hidden");
   });
 
+  // Hide filter box when typing in search input
   searchInput?.addEventListener("input", () => {
     searchFilterBox.classList.add("hidden");
   });
 
+  // Hide filter box when clicking outside of it or the search input
   document.addEventListener("click", (event) => {
     const isClickInsideInput = searchInput?.contains(event.target);
     const isClickInsideFilterBox = searchFilterBox.contains(event.target);
@@ -97,6 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  // Apply search filter when button is clicked
   applySearchFilter.addEventListener("click", () => {
     const type = filterType.value;
     const value =
@@ -106,7 +143,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchFilterBox.classList.add("hidden");
   });
 
+  // Debounce timer for autosuggest
   let debounceTimeout;
+  // Handle autosuggest for search input
   searchInput?.addEventListener("input", () => {
     const query = searchInput.value.trim();
     clearTimeout(debounceTimeout);
@@ -130,6 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
+        // Populate suggestion list with results
         suggestionList.innerHTML = "";
         data.lodges.forEach((lodge) => {
           const li = document.createElement("li");
@@ -146,15 +186,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       } catch (err) {
         console.error("Autosuggest error:", err);
       }
-    }, 300);
+    }, 300); // Debounce delay
   });
 
+  // Handle search form submission
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = searchInput.value.trim();
     if (name) fetchFilteredLodges({ name });
   });
 
+  // Fetch and render lodges based on filter/search query
   function fetchFilteredLodges(queryParams) {
     const query = new URLSearchParams(queryParams).toString();
 
@@ -168,6 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const message = data?.message;
 
         if (Array.isArray(lodges) && lodges.length > 0) {
+          // Render lodges if found
           fetchAndRenderLodges({
             endpoint: `/api/lodges/search?${query}`,
             containerSelector: ".lodge-container",
@@ -177,6 +220,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             token,
           });
         } else {
+          // Show error message if no lodges found
           showError(message || "No lodges found for your search.");
         }
       })

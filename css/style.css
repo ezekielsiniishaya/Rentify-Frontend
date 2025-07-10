@@ -583,3 +583,8 @@
   left: 0;
   top: 4px;
 }
+#hamburgerMenu {
+  font-size: 13px;
+  width: 132px;
+  padding: 5px;
+}

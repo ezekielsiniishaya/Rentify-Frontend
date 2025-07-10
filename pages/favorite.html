@@ -26,9 +26,45 @@
         window.location.href = "./login.html";
       }
     </script>
+    <style>
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
 
   <body class="font-chubbo">
+    <!-- Blur overlay -->
+    <div
+      id="loadingOverlay"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      "
+    >
+      <div
+        class="spinner"
+        style="
+          width: 40px;
+          height: 40px;
+          border: 4px solid #ccc;
+          border-top-color: #333;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+        "
+      ></div>
+    </div>
     <div
       class="content-wrapper max-w-[425px] mx-auto w-full md:my-[10px] md:rounded-xl bg-[#FAF9F6] min-h-screen"
     >

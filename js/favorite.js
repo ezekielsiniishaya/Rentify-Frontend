@@ -4,12 +4,18 @@ import { fetchAndRenderLodges } from "./main.js";
 import { showError, showSuccess } from "./alerts.js";
 // Function to fetch and render favorite lodges
 if (window.location.pathname.includes("favorite")) {
+  const overlay = document.getElementById("loadingOverlay");
+
   fetchAndRenderLodges({
     endpoint: "/api/lodges/tenant/favorite",
     onEmptyMessage: "No lodges added to favorites yet.",
     isTenant: true,
+  }).finally(() => {
+    // Remove the blur overlay when done
+    if (overlay) overlay.style.display = "none";
   });
 }
+
 // Function to Get favorite lodge Id
 export async function getFavoriteLodgeIds(
   token = localStorage.getItem("token")
