@@ -23,21 +23,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   const applySearchFilter = document.getElementById("applySearchFilter");
   const suggestionList = document.getElementById("suggestionList");
   const searchForm = document.getElementById("searchForm");
-
+  const hamburgerButton = document.getElementById("hamburgerButton");
+  const hamburgerMenu = document.getElementById("hamburgerMenu");
   // Hide or show sections based on user type
   if (isTenant) landlordHeading?.classList.add("hidden");
   else {
     searchInput?.classList.add("hidden");
     favoriteLink?.classList.add("hidden");
     tenantHeading?.classList.add("hidden");
+    hamburgerButton?.classList.add("hidden");
   }
-  const hamburgerButton = document.getElementById("hamburgerButton");
-  const hamburgerMenu = document.getElementById("hamburgerMenu");
 
   hamburgerButton.addEventListener("click", () => {
     hamburgerMenu.classList.toggle("hidden");
   });
-  document.getElementById("feedback")?.addEventListener("click", initFeedback);
+  initFeedback();
+
   // Optional: Close menu when clicking outside
   window.addEventListener("click", function (e) {
     if (

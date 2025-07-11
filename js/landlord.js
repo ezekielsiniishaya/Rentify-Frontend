@@ -1,4 +1,5 @@
 import { initFeedback } from "./feedback.js";
+
 const dpModal = document.getElementById("dpModal");
 const dpFileInput = document.getElementById("dpFileInput");
 const dpPreview = document.getElementById("dpPreview");
@@ -822,55 +823,62 @@ async function fetchLandlordViewOnly(landlordId) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const landlordId = localStorage.getItem("viewedLandlordId");
+  const overlay = document.getElementById("loadingOverlay");
 
-  if (landlordId) {
-    // Read-only view for visitor
-    await fetchLandlordViewOnly(landlordId);
-  } else {
-    // Authenticated landlord dashboard
-    await fetchLandlordData();
-    initFeedback();
-    attachTopNavListeners();
-    attachProfilePictureNav();
+  try {
+    if (landlordId) {
+      // Read-only view for visitors
+      await fetchLandlordViewOnly(landlordId);
+    } else {
+      // Authenticated landlord dashboard
+      await fetchLandlordData();
+      initFeedback();
+      attachTopNavListeners();
+      attachProfilePictureNav();
 
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        showConfirmation(
-          "Are you sure you want to logout?",
-          () => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("userType");
-            showSuccess("Logged out successfully");
-            window.location.href = "../index.html";
-          },
-          logoutBtn
-        );
-      });
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          showConfirmation(
+            "Are you sure you want to logout?",
+            () => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("userType");
+              showSuccess("Logged out successfully");
+              window.location.href = "../index.html";
+            },
+            logoutBtn
+          );
+        });
+      }
     }
-  }
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const dpImageEl = document.getElementById("profile-picture"); // or landlordDp
-  const modal = document.getElementById("imageModal");
-  const modalImg = document.getElementById("modalImage");
 
-  if (dpImageEl && modal && modalImg) {
-    dpImageEl.style.cursor = "pointer";
+    // Profile picture modal setup
+    const dpImageEl = document.getElementById("profile-picture");
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
 
-    dpImageEl.addEventListener("click", () => {
-      modalImg.src = dpImageEl.src;
-      modal.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-    });
+    if (dpImageEl && modal && modalImg) {
+      dpImageEl.style.cursor = "pointer";
 
-    // Close on click anywhere, even on the image
-    modal.addEventListener("click", () => {
-      modal.classList.add("hidden");
-      document.body.style.overflow = "";
-    });
-  } else {
-    console.error("Modal elements not found");
+      dpImageEl.addEventListener("click", () => {
+        modalImg.src = dpImageEl.src;
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      });
+
+      modal.addEventListener("click", () => {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+      });
+    } else {
+      console.error("Modal elements not found");
+    }
+  } catch (err) {
+    console.error("Error loading landlord data:", err);
+    showError("Failed to load profile");
+  } finally {
+    if (overlay) overlay.style.display = "none"; // Hide blur screen
   }
 });
