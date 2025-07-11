@@ -1,15 +1,18 @@
 /* === Tab Styles === */
+/* Styles for selected tabs */
 .selectedTab1,
 .selectedTab2 {
   color: #ec704a;
   font-weight: 700;
 }
 
+/* Underline style for first selected tab */
 .selectedTab1 {
   padding-bottom: 12px;
   border-bottom: 3px solid #ec704a;
 }
 
+/* Box style for second selected tab */
 .selectedTab2 {
   background-color: white;
   border: 3px solid #0e08540a;
@@ -17,11 +20,13 @@
 }
 
 /* === Font === */
+/* Supreme Variable font family */
 .font-supreme {
   font-family: "Supreme Variable", sans-serif;
 }
 
 /* === Profile Image === */
+/* Container for profile image */
 .profile-image-container {
   width: 100px;
   height: 100px;
@@ -33,6 +38,7 @@
   border-radius: 50%;
 }
 
+/* Profile image itself */
 .profile-image {
   width: 100%;
   height: 100%;
@@ -41,6 +47,7 @@
 }
 
 /* === Camera Button === */
+/* Camera button overlay on profile image */
 .camera-button {
   width: 18px;
   height: 18px;
@@ -58,6 +65,7 @@
 }
 
 /* === Top Nav Dots === */
+/* Common styles for navigation dots */
 .nav-dots,
 .img-dots {
   width: 45px;
@@ -69,9 +77,13 @@
   gap: 5px;
   position: absolute;
 }
+
+/* Section top margin */
 .section-top {
   margin-bottom: 35px;
 }
+
+/* Navigation dots in top nav */
 .nav-dots {
   position: absolute;
   top: 10px;
@@ -89,40 +101,47 @@
   z-index: 999;
 }
 
+/* Dot styles */
 .dot,
 .i-dot {
   background-color: black;
   border-radius: 50%;
 }
 
+/* Horizontal dot style */
 .dot {
   width: 25px;
   height: 1px;
 }
 
 /* === Email Text === */
+/* Email text under profile */
 .tp-email {
   margin-top: 7px;
   font-size: 11px;
 }
 
 /* === Section Styles === */
+/* Personal details section container */
 .personal-details-section {
   padding: 0 15px;
   margin-top: 20px;
 }
 
+/* Section title styles */
 .section-title {
   margin-top: 20px;
   font-size: 1rem;
   color: black;
 }
 
+/* Listing section title and heading */
 .section-title-listing,
 .listing-heading {
   margin-left: 39px;
 }
 
+/* Personal details and verification badge styles */
 .personal-details,
 .verify,
 .not-verify {
@@ -131,23 +150,29 @@
   padding: 18px;
 }
 
+/* Personal details background */
 .personal-details {
   background-color: #f6f6f6;
   margin-top: 10px;
 }
 
+/* Detail item grid layout */
 .detail-item {
   display: grid;
   grid-template-columns: 150px auto;
   margin-bottom: 5px;
 }
+
+/* Value text wrapping in detail item */
 .detail-item .value {
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
 }
+
 /* === Verification Badges === */
+/* Common badge styles */
 .verify,
 .not-verify {
   font-size: 9px;
@@ -161,35 +186,45 @@
   vertical-align: middle;
 }
 
+/* Verified badge */
 .verify {
   width: 50px;
   background-color: #22c55e;
 }
 
+/* Not verified badge */
 .not-verify {
   width: 70px;
   background-color: #ff1500;
 }
 
 /* === Lodge Listings === */
+/* Lodge item container */
 .lodge-item {
   margin: 20px auto;
   padding-left: 17px;
   padding-right: 17px;
 }
+
+/* Listing section margin */
 .listing-section {
   margin-top: 30px;
 }
+
+/* Listing heading grid layout */
 .listing-heading {
   display: grid;
   grid-template-columns: 1fr 50px;
   margin: 5px 16px;
   align-items: center;
 }
+
+/* Lodge container margin */
 .lodge-container {
   margin: 14px;
 }
 
+/* Lodge image container styles */
 .lodge-image-container {
   width: 100%;
   height: auto;
@@ -199,6 +234,8 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   object-fit: cover;
 }
+
+/* Image navigation dots */
 .img-dots {
   position: absolute;
   top: 20px;
@@ -209,6 +246,8 @@
   width: auto;
   height: auto;
 }
+
+/* Individual image dot */
 .i-dot {
   width: 6px;
   height: 6px;
@@ -216,6 +255,7 @@
   border-radius: 9999px; /* perfectly round */
 }
 
+/* Lodge image styles */
 .lodge-image {
   width: 100%;
   height: 100%;
@@ -224,6 +264,7 @@
   display: block;
 }
 
+/* Lodge details grid layout */
 .lodge-details {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -232,18 +273,21 @@
   align-items: center;
 }
 
+/* Lodge name style */
 .l-name {
   font-size: 13px;
   color: #000;
   margin-top: -2px;
 }
 
+/* Lodge room style */
 .l-room {
   font-size: 12px;
   color: #444343;
 }
 
 /* === Shared Nav Menu Styles === */
+/* Common nav menu styles */
 .topNavMenu,
 .dp_menu,
 .imgNavMenu {
@@ -255,6 +299,7 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Dropdown profile menu */
 .dp_menu {
   width: 150px;
   height: 80px;
@@ -262,6 +307,7 @@
   margin-bottom: 10px;
 }
 
+/* Top navigation menu */
 .topNavMenu {
   height: 214px;
   top: 9px;
@@ -271,6 +317,7 @@
   z-index: 3;
 }
 
+/* Image navigation menu */
 .imgNavMenu {
   height: 135px;
   top: 40px;
@@ -289,6 +336,7 @@
 }
 
 /* === Menu Lists === */
+/* Remove default list styles */
 .topNavMenu ul,
 .dp_menu ul,
 .imgNavMenu ul {
@@ -299,6 +347,7 @@
   text-align: center;
 }
 
+/* Menu list item styles */
 .topNavMenu li,
 .dp_menu li,
 .imgNavMenu li {
@@ -307,11 +356,15 @@
   transition: background 0.2s;
 }
 
+/* Remove border from last menu item */
 .topNavMenu li:last-child,
 .dp_menu li:last-child,
 .imgNavMenu li:last-child {
   border-bottom: none;
 }
+
+/* === Confirm Buttons === */
+/* Container for confirm buttons */
 .confirm-buttons {
   display: flex;
   justify-content: center;
@@ -321,6 +374,7 @@
   margin-left: 30px;
 }
 
+/* Confirm Yes/No button styles */
 .btn-confirm-yes,
 .btn-confirm-no {
   padding: 8px 16px;
@@ -352,15 +406,20 @@
 .btn-confirm-no:hover {
   background-color: #d1d5db; /* gray-300 */
 }
+
 /* === Hidden and Show Classes === */
+/* Hide element */
 .hidden {
   display: none;
 }
 
+/* Show element */
 .show {
   display: block;
 }
-/* Modal Overlay */
+
+/* === Modal Overlay === */
+/* Modal overlay background */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -371,7 +430,8 @@
   z-index: 999;
 }
 
-/* Modal Content */
+/* === Modal Content === */
+/* Modal content box */
 .modal-content {
   background-color: #fff;
   padding: 1.5rem;
@@ -382,7 +442,7 @@
   animation: fadeInScale 0.3s ease;
 }
 
-/* Modal Title */
+/* Modal title */
 .modal-content h2 {
   margin-bottom: 1rem;
   font-size: 1.25rem;
@@ -390,13 +450,13 @@
   text-align: center;
 }
 
-/* File Input */
+/* File input in modal */
 #dpFileInput {
   width: 100%;
   margin-bottom: 1rem;
 }
 
-/* Image Preview */
+/* Image preview in modal */
 #dpPreview {
   width: 96px;
   height: 96px;
@@ -406,14 +466,14 @@
   margin: 0 auto 1rem auto;
 }
 
-/* Button Group */
+/* Button group in modal */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
 }
 
-/* Buttons */
+/* Modal buttons */
 .btn {
   padding: 0.4rem 1rem;
   border: none;
@@ -423,22 +483,25 @@
   font-size: 0.95rem;
 }
 
+/* Cancel button style */
 .btn.cancel {
   background-color: #e2e8f0;
   color: #333;
 }
 
+/* Upload button style */
 .btn.upload {
   background-color: #2563eb;
   color: white;
 }
 
-/* Hidden class */
+/* Hidden class for modal */
 .hidden {
   display: none;
 }
 
-/* Fade and scale animation */
+/* === Fade and scale animation === */
+/* Animation for modal appearance */
 @keyframes fadeInScale {
   from {
     opacity: 0;
@@ -449,6 +512,9 @@
     transform: scale(1);
   }
 }
+
+/* === Heading Container === */
+/* Container for headings */
 .heading-container {
   display: flex;
   justify-content: space-between;
@@ -457,6 +523,7 @@
   font-size: 1.3rem;
 }
 
+/* Profile icon styles */
 .profile-icon {
   border: 1px solid #4b5563;
   background-color: white;
@@ -470,12 +537,16 @@
   justify-content: center;
   align-items: center;
 }
+
+/* Tenant heading styles */
 #tenant-heading {
   text-align: center;
   align-items: center;
   margin: 6px 22px;
   font-size: 1.7rem;
 }
+
+/* Search bar styles */
 .search-bar {
   display: flex;
   justify-content: space-between;
@@ -483,9 +554,14 @@
   font-size: 1.2rem;
   margin: 5px;
 }
+
+/* Host image styles */
 #hostImg {
   height: 60px;
 }
+
+/* === Image Modal === */
+/* Modal for image preview */
 #imageModal {
   position: fixed;
   inset: 0;
@@ -495,15 +571,21 @@
   justify-content: center;
   align-items: center;
 }
+
+/* Image inside modal */
 #imageModal img {
   max-width: 100%;
   max-height: 90vh;
-
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
+
+/* Hidden class override */
 .hidden {
   display: none !important;
 }
+
+/* === Search Filter Box === */
+/* Search filter box styles */
 #searchFilterBox {
   background-color: #fff;
   border: 1px solid #e5e7eb;
@@ -513,6 +595,7 @@
   z-index: 50;
 }
 
+/* Inputs and selects in filter box */
 #searchFilterBox select,
 #searchFilterBox input {
   width: 100%;
@@ -522,6 +605,7 @@
   font-size: 0.875rem;
 }
 
+/* Filter box button styles */
 #searchFilterBox button {
   background-color: #4f46e5;
   color: white;
@@ -535,14 +619,19 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+/* Filter box button hover */
 #searchFilterBox button:hover {
   background-color: #4338ca;
 }
+
+/* === Profile Section Padding === */
 .l-profile {
   padding-left: 10px;
   padding-right: 10px;
 }
 
+/* === Back Button Advanced === */
+/* Back button styles */
 .back-button-advanced {
   width: 41px;
   height: 41px;
@@ -558,12 +647,14 @@
   top: 6px;
 }
 
+/* Arrow container for back button */
 .arrow-container {
   position: relative;
   width: 13px;
   height: 16px;
 }
 
+/* Arrow line for back button */
 .arrow-line {
   position: absolute;
   width: 14px;
@@ -573,6 +664,7 @@
   left: 0;
 }
 
+/* Arrow head for back button */
 .arrow-head {
   position: absolute;
   width: 8px;
@@ -583,6 +675,9 @@
   left: 0;
   top: 4px;
 }
+
+/* === Hamburger Menu === */
+/* Hamburger menu styles */
 #hamburgerMenu {
   font-size: 13px;
   width: 132px;

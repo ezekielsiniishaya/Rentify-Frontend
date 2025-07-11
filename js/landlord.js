@@ -1,5 +1,6 @@
 import { initFeedback } from "./feedback.js";
 
+// DOM elements for profile picture modal
 const dpModal = document.getElementById("dpModal");
 const dpFileInput = document.getElementById("dpFileInput");
 const dpPreview = document.getElementById("dpPreview");
@@ -15,7 +16,7 @@ document.getElementById("changeDp").addEventListener("click", () => {
   dpModal.classList.remove("hidden");
 });
 
-// Preview when file is selected
+// Preview selected image before upload
 dpFileInput.addEventListener("change", () => {
   const file = dpFileInput.files[0];
   if (file) {
@@ -30,7 +31,7 @@ dpFileInput.addEventListener("change", () => {
   }
 });
 
-// Upload when "Upload" button is clicked
+// Upload profile picture when "Upload" button is clicked
 submitDpUpload.addEventListener("click", async () => {
   const file = dpFileInput.files[0];
   if (!file) return showError("Please select a file");
@@ -59,10 +60,12 @@ submitDpUpload.addEventListener("click", async () => {
   }
 });
 
-// Cancel modal
+// Cancel profile picture modal
 cancelDpUpload.addEventListener("click", () => {
   dpModal.classList.add("hidden");
 });
+
+// Remove profile picture with confirmation
 document.getElementById("removeDp").addEventListener("click", (e) => {
   const anchor = document.getElementById("removeDp");
 
@@ -93,6 +96,7 @@ document.getElementById("removeDp").addEventListener("click", (e) => {
   );
 });
 
+// Toggle navigation menu visibility
 function toggleNav(id) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -130,6 +134,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// Attach listeners for image navigation menus
 function attachImageNavListeners() {
   document.querySelectorAll("[data-menu-id^='imgNavMenu-']").forEach((el) => {
     const id = el.getAttribute("data-menu-id");
@@ -142,6 +147,8 @@ function attachImageNavListeners() {
     });
   });
 }
+
+// Attach listener for top navigation menu
 function attachTopNavListeners() {
   const topNavBtn = document.querySelector("[data-menu-id='topNavMenu']");
   if (!topNavBtn) return;
@@ -152,6 +159,8 @@ function attachTopNavListeners() {
     toggleNav("topNavMenu");
   });
 }
+
+// Attach listener for profile picture navigation menu
 function attachProfilePictureNav() {
   const dpBtn = document.querySelector("[data-menu-id='dp_menu']");
   if (!dpBtn) return;
@@ -162,10 +171,13 @@ function attachProfilePictureNav() {
     toggleNav("dp_menu");
   });
 }
+
+// Attach all navigation listeners
 function attachNavListeners() {
   attachImageNavListeners();
 }
 
+// Show confirmation dialog anchored to an element
 function showConfirmation(message, onConfirm, anchorElement) {
   const box = document.getElementById("confirmBox");
   const msg = document.getElementById("confirmMessage");
@@ -174,17 +186,18 @@ function showConfirmation(message, onConfirm, anchorElement) {
 
   msg.textContent = message;
 
+  // Position confirmation box near anchor element
   const rect = anchorElement.getBoundingClientRect();
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 
   box.style.position = "absolute";
-  //  Conditional position tweak if anchor is logoutBtn
+  // Conditional position tweak for different anchors
   if (anchorElement.id === "logoutBtn") {
     box.style.top = `${
       rect.top + scrollTop + anchorElement.offsetHeight - 40
     }px`;
-    box.style.left = `${rect.left + scrollLeft - 20}px`; // slightly left
+    box.style.left = `${rect.left + scrollLeft - 20}px`;
   } else if (anchorElement.classList.contains("toggle-visibility-btn")) {
     box.style.top = `${
       rect.top + scrollTop + anchorElement.offsetHeight - 100
@@ -194,9 +207,8 @@ function showConfirmation(message, onConfirm, anchorElement) {
     box.style.top = `${
       rect.top + scrollTop + anchorElement.offsetHeight - 90
     }px`;
-    box.style.left = `${rect.left + scrollLeft - 37}px`; // slightly left
+    box.style.left = `${rect.left + scrollLeft - 37}px`;
   } else {
-    // Default positioning
     box.style.top = `${rect.top + scrollTop - 25}px`;
     box.style.left = `${rect.left + scrollLeft - 90}px`;
   }
@@ -207,6 +219,7 @@ function showConfirmation(message, onConfirm, anchorElement) {
     .querySelectorAll(".imgNavMenu")
     .forEach((menu) => menu.classList.remove("show"));
 
+  // Cleanup confirmation box and listeners
   const cleanup = () => {
     box.classList.add("hidden");
     yesBtn.removeEventListener("click", handleYes);
@@ -221,6 +234,7 @@ function showConfirmation(message, onConfirm, anchorElement) {
 
   const handleNo = cleanup;
 
+  // Hide confirmation box if clicked outside
   const outsideClickHandler = (e) => {
     if (!box.contains(e.target) && e.target !== anchorElement) {
       cleanup();
@@ -232,6 +246,7 @@ function showConfirmation(message, onConfirm, anchorElement) {
   setTimeout(() => document.addEventListener("click", outsideClickHandler), 0);
 }
 
+// Show error message in UI
 function showError(message) {
   const container = document.getElementById("errorContainer");
   const text = document.getElementById("errorMessage");
@@ -249,6 +264,7 @@ function showError(message) {
   setTimeout(() => container.classList.add("hidden"), 5000);
 }
 
+// Show success message in UI
 function showSuccess(message) {
   const container = document.getElementById("errorContainer");
   const text = document.getElementById("errorMessage");
@@ -265,6 +281,8 @@ function showSuccess(message) {
 
   setTimeout(() => container.classList.add("hidden"), 5000);
 }
+
+// Delete a lodge by ID
 async function deleteLodge(lodgeId, token) {
   try {
     const response = await fetch(
@@ -294,6 +312,7 @@ async function deleteLodge(lodgeId, token) {
   }
 }
 
+// Fetch landlord profile and lodges for dashboard
 async function fetchLandlordData() {
   const nav = document.getElementById("nav");
   if (nav) nav.classList.add("hidden");
@@ -311,12 +330,14 @@ async function fetchLandlordData() {
     const landlord = data.landlord || {};
     const lodges = landlord.lodges || [];
 
+    // Populate profile info
     document.querySelector(".profile-image").src =
       landlord.profile_picture || "../assets/images/avatar.png";
     document.querySelector("h2.text-2xl").textContent =
       landlord.name || "Landlord";
     document.querySelector(".tp-email").textContent = landlord.email || "";
 
+    // Populate personal details
     document
       .querySelectorAll(".personal-details .detail-item")
       .forEach((item) => {
@@ -359,9 +380,11 @@ async function fetchLandlordData() {
         }
       });
 
+    // Edit profile button
     const editProfileBtn = document.getElementById("editProfile");
     editProfileBtn.addEventListener("click", () => showEditForm(landlord));
 
+    // Render lodges
     const lodgeDiv = document.getElementById("landlordLodges");
     lodgeDiv.innerHTML = "";
 
@@ -435,7 +458,7 @@ async function fetchLandlordData() {
 
     attachNavListeners();
 
-    // Delete lodge
+    // Delete lodge event
     document.querySelectorAll(".delete-lodge-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -457,6 +480,8 @@ async function fetchLandlordData() {
         );
       });
     });
+
+    // Edit lodge event
     document.querySelectorAll(".edit-lodge").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -472,7 +497,7 @@ async function fetchLandlordData() {
       });
     });
 
-    // Toggle visibility
+    // Toggle lodge visibility event
     document.querySelectorAll(".toggle-visibility-btn").forEach((button) => {
       button.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -520,6 +545,7 @@ async function fetchLandlordData() {
   }
 }
 
+// Show message in overlay (used for edit form)
 function showMessage(message, isSuccess = false) {
   const errorContainer = document.getElementById("errorContainer");
   const errorMessage = document.getElementById("errorMessage");
@@ -547,6 +573,7 @@ function showMessage(message, isSuccess = false) {
   );
 }
 
+// Show edit profile form overlay
 function showEditForm(landlord = {}) {
   const overlay = document.createElement("div");
   overlay.style.cssText = `
@@ -576,6 +603,7 @@ function showEditForm(landlord = {}) {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   `;
 
+  // Form HTML for editing landlord profile
   form.innerHTML = `
     <h2 style="text-align:center; margin-bottom:20px; color:#333;">Edit Profile</h2>
     <div id="errorContainer" style="display:none;">
@@ -643,6 +671,7 @@ function showEditForm(landlord = {}) {
     });
   }
 
+  // Remove overlay when clicking outside form
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) {
       overlay.remove();
@@ -650,6 +679,7 @@ function showEditForm(landlord = {}) {
     }
   });
 
+  // Handle form submission for profile update
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
@@ -661,6 +691,7 @@ function showEditForm(landlord = {}) {
     const btn = form.querySelector("button[type='submit']");
     const originalText = btn.textContent;
 
+    // Validate phone numbers
     if (phone1 && !/^(070|080|081|090|091)\d{8}$/.test(phone1)) {
       return showMessage("Please enter a valid phone number.");
     }
@@ -720,6 +751,7 @@ function showEditForm(landlord = {}) {
   });
 }
 
+// Fetch landlord profile for view-only mode (visitor)
 async function fetchLandlordViewOnly(landlordId) {
   // Hide profile picture and camera button (e.g., when not the owner)
   const profilePicture = document.getElementById("nav2");
@@ -754,6 +786,7 @@ async function fetchLandlordViewOnly(landlordId) {
       landlord.name || "Landlord";
     document.querySelector(".tp-email").textContent = landlord.email || "";
 
+    // Populate personal details
     document
       .querySelectorAll(".personal-details .detail-item")
       .forEach((item) => {
@@ -796,6 +829,7 @@ async function fetchLandlordViewOnly(landlordId) {
         }
       });
 
+    // Render lodges (view-only)
     const lodgeDiv = document.getElementById("landlordLodges");
     lodgeDiv.innerHTML = "";
 
@@ -821,6 +855,7 @@ async function fetchLandlordViewOnly(landlordId) {
   localStorage.removeItem("viewedLandlordId");
 }
 
+// Main entry point: setup dashboard or view-only mode
 document.addEventListener("DOMContentLoaded", async () => {
   const landlordId = localStorage.getItem("viewedLandlordId");
   const overlay = document.getElementById("loadingOverlay");
@@ -836,6 +871,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       attachTopNavListeners();
       attachProfilePictureNav();
 
+      // Logout button event
       const logoutBtn = document.getElementById("logoutBtn");
       if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
