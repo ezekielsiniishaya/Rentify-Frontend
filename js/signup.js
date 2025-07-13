@@ -45,10 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "onboarding.html";
     return;
   }
-
+  const signUpBtn = document.getElementById("signUpBtn");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
+    // Disable login button and show loading state
+    signUpBtn.disabled = true;
+    signUpBtn.textContent = "Signing up...";
     const phone_number = document.getElementById("phone_number").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirm_password").value;
