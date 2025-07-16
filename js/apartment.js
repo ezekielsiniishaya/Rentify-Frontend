@@ -1,36 +1,15 @@
-function showError(message) {
-  const container = document.getElementById("errorContainer");
-  const text = document.getElementById("errorMessage");
-  if (!container || !text) return;
+import { showError, showSuccess } from "./alerts.js";
 
-  text.textContent = message;
-  container.classList.remove(
-    "hidden",
-    "bg-green-100",
-    "border-green-500",
-    "text-green-700"
-  );
-  container.classList.add("bg-red-100", "border-red-500", "text-red-700");
-
-  setTimeout(() => container.classList.add("hidden"), 5000);
+// === Overlay Handlers ===
+const overlay = document.getElementById("loadingOverlay");
+function showOverlay() {
+  overlay.style.display = "flex";
+}
+function hideOverlay() {
+  if (overlay) overlay.style.display = "none";
 }
 
-function showSuccess(message) {
-  const container = document.getElementById("errorContainer");
-  const text = document.getElementById("errorMessage");
-  if (!container || !text) return;
-
-  text.textContent = message;
-  container.classList.remove(
-    "hidden",
-    "bg-red-100",
-    "border-red-500",
-    "text-red-700"
-  );
-  container.classList.add("bg-green-100", "border-green-500", "text-green-700");
-
-  setTimeout(() => container.classList.add("hidden"), 5000);
-}
+// === Carousel & Lodge Data Setup ===
 let currentImg = 0;
 let lodgeData = null;
 
@@ -70,12 +49,15 @@ nextBtn.onclick = () => {
   updateCarousel();
 };
 
+// === Main Fetch Function ===
 async function fetchLodge() {
   const lodgeId = localStorage.getItem("selectedLodgeId");
   if (!lodgeId) {
     console.error("No lodge ID in storage");
     return;
   }
+
+  showOverlay();
 
   try {
     const token = localStorage.getItem("token");
@@ -90,19 +72,24 @@ async function fetchLodge() {
     const response = await res.json();
     lodgeData = response.lodge;
 
-    // Wait for favorites
     const favoriteIds = await getFavoriteLodgeIds();
-
-    populateLodgeDetails(lodgeData, favoriteIds); // Pass favorites
+    populateLodgeDetails(lodgeData, favoriteIds);
   } catch (err) {
     console.error("Error loading lodge:", err);
+    showError("Could not load lodge data.");
+  } finally {
+    hideOverlay();
   }
-  localStorage.removeItem("selectedlodgeId");
 }
+
+// === Populate Lodge Details ===
 function populateLodgeDetails(lodge, favoriteIds = []) {
-  // Store landlord ID for later use
-  localStorage.setItem("viewedLandlordId", lodge.host?.id);
-  console.log("Viewed Landlord ID:", lodge.host?.id);
+  const user = localStorage.getItem("userType");
+  // Set viewed landlord ID for tenant viewing landlord profile
+  if (user === "tenant") {
+    localStorage.setItem("viewedLandlordId", lodge.host?.id);
+  }
+
   const isFavorite = favoriteIds.includes(lodge.id);
   const heartClass = isFavorite ? "fa-solid text-[#ec1818]" : "fa-regular";
 
@@ -133,7 +120,6 @@ function populateLodgeDetails(lodge, favoriteIds = []) {
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || "Favorite failed");
 
-      // Toggle icon
       heartIcon.classList.remove("fa-regular", "text-[#ec1818]");
       heartIcon.classList.add("fa-solid", "text-[#ec1818]");
 
@@ -142,6 +128,7 @@ function populateLodgeDetails(lodge, favoriteIds = []) {
       showError(err.message || "Could not add to favorites.");
     }
   });
+
   document.getElementById("lodgeTitle").textContent = lodge.name || "";
   document.getElementById("lodgeAddress").textContent = lodge.address || "";
   document.getElementById("lodgeDescription").textContent =
@@ -155,7 +142,6 @@ function populateLodgeDetails(lodge, favoriteIds = []) {
   document.getElementById("hostImg").src = lodge.host?.profile_picture || "";
   document.getElementById("price").textContent = "₦" + (lodge.price || "N/A");
 
-  // Reviews
   const reviewSection = document.getElementById("reviewSection");
   reviewSection.innerHTML = "";
 
@@ -178,8 +164,11 @@ function populateLodgeDetails(lodge, favoriteIds = []) {
       reviewSection.appendChild(div);
     });
   }
+
   updateCarousel();
 }
+
+// === Get Favorite Lodges ===
 async function getFavoriteLodgeIds() {
   const token = localStorage.getItem("token");
 
@@ -195,72 +184,21 @@ async function getFavoriteLodgeIds() {
     return data.lodges.map((lodge) => lodge.id);
   } catch (err) {
     console.error("Error fetching favorites:", err);
+    showError("Could not load favorite lodges.");
     return [];
   }
 }
-document.addEventListener("DOMContentLoaded", fetchLodge);
-document.addEventListener("DOMContentLoaded", () => {
-  const heartIcon = document.querySelector(".fa-heart");
 
-  if (heartIcon) {
-    heartIcon.addEventListener("click", async (e) => {
-      e.preventDefault();
-
-      const lodgeId = localStorage.getItem("selectedLodgeId");
-      const token = localStorage.getItem("token");
-      if (!token) return showError("Please login first.");
-
-      try {
-        const res = await fetch(
-          `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}/favorite`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const result = await res.json();
-        if (!res.ok) throw new Error(result.error || "Favorite failed");
-
-        // Update heart icon
-        heartIcon.classList.remove("fa-regular");
-        heartIcon.classList.add("fa-solid", "text-[#ec1818]");
-
-        showSuccess(result.message || "Added to favorites");
-      } catch (err) {
-        showError(err.message || "Could not add to favorites.");
-      }
-    });
-  }
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const profilePic = document.getElementById("hostImg");
-  const imageModal = document.getElementById("imageModal");
-  const enlargedImage = document.getElementById("enlargedImage");
-
-  profilePic.addEventListener("click", () => {
-    enlargedImage.src = profilePic.src;
-    imageModal.classList.remove("hidden");
-  });
-
-  imageModal.addEventListener("click", () => {
-    imageModal.classList.add("hidden");
-  });
-});
+// === Review Submit ===
 document.getElementById("submitReview").addEventListener("click", () => {
   const reviewText = document.getElementById("reviewText").value.trim();
+  if (!reviewText) return showError("Please enter a review.");
 
-  if (!reviewText) {
-    showError("Please enter a review.");
-    return;
-  }
-
-  // Example: Replace this with your actual lodge ID and API call
   const lodgeId = localStorage.getItem("selectedLodgeId");
   const token = localStorage.getItem("token");
+
+  showOverlay();
+
   fetch(
     `https://rentify-backend-production-f85a.up.railway.app/api/lodges/${lodgeId}/reviews`,
     {
@@ -271,44 +209,50 @@ document.getElementById("submitReview").addEventListener("click", () => {
       },
       body: JSON.stringify({
         review_text: reviewText,
-        rating: 5, // Optional: Add rating selection UI
+        rating: 5,
       }),
     }
   )
-    .then((res) => res.json())
-    .then((data) => {
+    .then(async (res) => {
+      const data = await res.json();
+      hideOverlay();
+      if (!res.ok) {
+        // Show backend error if present
+        showError(data.error || "Review submission failed.");
+        return;
+      }
+
       showSuccess("Review submitted successfully!");
       document.getElementById("reviewText").value = "";
-      // Option 1: Reload all lodge data (including reviews)
-      fetchLodge();
-
-      // Option 2 (alternative): If API returns the new review, you could append it directly:
-      // if (data.review) {
-      //   const reviewSection = document.getElementById("reviewSection");
-      //   const div = document.createElement("div");
-      //   div.className = "m-2 p-2 bg-[#F8F9FE] min-w-[200px]";
-      //   div.innerHTML = `
-      //     <span class="font-semibold pb-2">@${data.review.tenant_name}</span>
-      //     <p class="text-[12px]">${data.review.review_text}</p>
-      //   `;
-      //   reviewSection.appendChild(div);
-      // }
+      fetchLodge(); // Reload lodge to show the new review
     })
     .catch((err) => {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
+      console.error("Network or unexpected error:", err);
+      showError("Something went wrong. Please try again.");
     });
 });
+
+// === DOMContentLoaded Setup ===
 document.addEventListener("DOMContentLoaded", () => {
+  fetchLodge();
+
+  const profilePic = document.getElementById("hostImg");
+  const imageModal = document.getElementById("imageModal");
+  const enlargedImage = document.getElementById("enlargedImage");
+
+  profilePic?.addEventListener("click", () => {
+    enlargedImage.src = profilePic.src;
+    imageModal.classList.remove("hidden");
+  });
+
+  imageModal?.addEventListener("click", () => {
+    imageModal.classList.add("hidden");
+  });
+
   const contactBtn = document.getElementById("contactHostBtn");
-  contactBtn.addEventListener("click", () => {
+  contactBtn?.addEventListener("click", () => {
     const landlordId = localStorage.getItem("viewedLandlordId");
-
-    if (!landlordId) {
-      alert("Landlord information is missing.");
-      return;
-    }
-
+    if (!landlordId) return showError("Only tenants can contact hosts.");
     window.location.href = `/pages/landlord_profile.html`;
   });
 });

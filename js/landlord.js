@@ -847,12 +847,20 @@ async function fetchLandlordViewOnly(landlordId) {
         </div>
       `;
       lodgeDiv.insertAdjacentHTML("beforeend", html);
+
+      // Add redirect logic after appending to DOM
+      const cards = lodgeDiv.querySelectorAll(".lodge-item");
+      const latestCard = cards[cards.length - 1];
+
+      latestCard.addEventListener("click", () => {
+        localStorage.setItem("selectedLodgeId", lodge.id);
+        window.location.href = "/pages/apartment.html";
+      });
     });
   } catch (err) {
     console.error(err);
     showError("Could not load landlord profile.");
   }
-  localStorage.removeItem("viewedLandlordId");
 }
 
 // Main entry point: setup dashboard or view-only mode
@@ -863,6 +871,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     if (landlordId) {
       // Read-only view for visitors
+
       await fetchLandlordViewOnly(landlordId);
     } else {
       // Authenticated landlord dashboard
